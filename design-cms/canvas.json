@@ -1,0 +1,47 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "x": 0, "y": 0, "w": 1440, "h": 1000, "title": "Painel — lista de recursos", "is_interactive": true },
+    { "file": "Editor.dc.html", "x": 1560, "y": 0, "w": 1440, "h": 1040, "title": "Editar recurso", "is_interactive": true },
+    { "file": "Pagina.dc.html", "x": 0, "y": 1200, "w": 1200, "h": 940, "title": "Página inicial — topo, filtros e rodapé", "is_interactive": true },
+    { "file": "Login.dc.html", "x": 1320, "y": 1200, "w": 880, "h": 560, "title": "Entrada no painel" },
+    { "file": "Componentes.dc.html", "x": 0, "y": 2260, "w": 1200, "h": 900, "title": "Sistema — cores, estados e controles" }
+  ],
+  "annotations": [
+    {
+      "id": "nota-lista",
+      "x": 0,
+      "y": -210,
+      "w": 620,
+      "text": "A tela principal do CMS: os 7 agentes que hoje estão fixos no HTML viram linhas editáveis.\nFunciona de verdade — clique dentro do quadro: busque, filtre, use as setas para reordenar, ligue e desligue o interruptor Ativo, o olho (oculta sem apagar) e o chip do botão. O aviso de alterações não publicadas aparece sozinho e some ao publicar."
+    },
+    {
+      "id": "nota-editor",
+      "x": 1560,
+      "y": -210,
+      "w": 620,
+      "text": "Edição de um recurso com prévia ao lado: digite no título ou na descrição e o card à direita muda junto.\nOs três status e o interruptor do botão também são clicáveis — é onde se vê a diferença entre desativar o recurso e só apagar o botão de acesso."
+    },
+    {
+      "id": "nota-pagina",
+      "x": 0,
+      "y": 1055,
+      "w": 620,
+      "text": "O que hoje é texto solto no HTML — chamada do topo, frase de apoio, filtros e o aviso de acesso limitado — passa a ser campo de formulário. As categorias podem ser ligadas, desligadas e reordenadas."
+    },
+    {
+      "id": "nota-acesso",
+      "x": 1320,
+      "y": 1055,
+      "w": 520,
+      "text": "Entrada restrita à equipe autorizada. Cada publicação fica registrada com autor e horário."
+    },
+    {
+      "id": "nota-sistema",
+      "x": 0,
+      "y": 2130,
+      "w": 620,
+      "text": "Cores, tipografia e raios vieram do agentes-pro.html atual — nenhuma paleta nova. O painel só usa uma densidade maior que a do site público."
+    }
+  ],
+  "launch": { "view": "canvas" }
+}

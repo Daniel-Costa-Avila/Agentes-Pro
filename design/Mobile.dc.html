@@ -1,0 +1,484 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap">
+  <style>
+    body { margin: 0; background: #f5f7fa; }
+    *, *::before, *::after { box-sizing: border-box; }
+    a { color: #2a5298; text-decoration: none; }
+    a:hover { color: #0d1f3c; }
+
+    .mb-root {
+      font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+      color: #3d4a5c; line-height: 1.7; background: #f5f7fa;
+    }
+    .mb-pad { padding: 0 20px; }
+
+    .mb-topbar {
+      background: #ffffff; border-bottom: 1px solid rgba(0,0,0,0.07); height: 56px;
+      display: flex; align-items: center; justify-content: space-between; padding: 0 20px; gap: 12px;
+    }
+    .mb-wordmark { display: flex; align-items: center; gap: 9px; }
+    .mb-wordmark-txt { font-size: 14px; font-weight: 700; color: #0d1f3c; line-height: 1.25; }
+    .mb-wordmark-sub { font-size: 9.5px; font-weight: 500; color: #7a8899; letter-spacing: 0.13em; text-transform: uppercase; line-height: 1.25; }
+    .mb-iconbtn {
+      width: 44px; height: 44px; border-radius: 8px; border: 0; background: transparent;
+      display: flex; align-items: center; justify-content: center; color: #7a8899; cursor: pointer;
+      margin-right: -10px;
+    }
+    .mb-iconbtn:hover { background: #f0f3f7; color: #2a5298; }
+
+    .mb-hero {
+      position: relative; overflow: hidden; padding: 26px 0 24px;
+      background:
+        radial-gradient(420px 240px at 88% -14%, rgba(59,125,216,0.44), transparent 64%),
+        radial-gradient(320px 220px at 0% 116%, rgba(26,188,156,0.20), transparent 68%),
+        linear-gradient(150deg, #0d1f3c 0%, #1a3b6e 62%, #24497f 100%);
+    }
+    .mb-hero-mesh {
+      position: absolute; inset: 0; z-index: 0; opacity: 0.45;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 44px 44px;
+      -webkit-mask-image: radial-gradient(300px 200px at 40% 26%, #000 16%, transparent 80%);
+      mask-image: radial-gradient(300px 200px at 40% 26%, #000 16%, transparent 80%);
+    }
+    .mb-hero-in { position: relative; z-index: 1; }
+    .mb-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.56); margin: 0 0 8px; }
+    .mb-hero h1 { margin: 0 0 8px; font-size: 30px; font-weight: 700; color: #ffffff; line-height: 1.18; letter-spacing: 0.01em; }
+    .mb-lede { margin: 0 0 20px; font-size: 13.5px; font-weight: 300; line-height: 1.6; color: rgba(255,255,255,0.74); text-wrap: pretty; }
+
+    .mb-search {
+      display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 14px;
+      background: rgba(255,255,255,0.97); border: 1px solid rgba(255,255,255,0.6);
+      border-radius: 8px; box-shadow: 0 6px 20px rgba(5,18,40,0.3); margin-bottom: 14px;
+    }
+    .mb-search svg { color: #7a8899; flex-shrink: 0; }
+    .mb-search input {
+      border: 0; outline: 0; background: transparent; flex-grow: 1; min-width: 0;
+      font-family: inherit; font-size: 14.5px; color: #3d4a5c; line-height: 1.4;
+    }
+    .mb-search input::placeholder { color: #a4aebc; font-weight: 300; }
+    .mb-clear {
+      border: 0; background: #eef1f5; color: #7a8899; cursor: pointer; padding: 0;
+      width: 24px; height: 24px; border-radius: 20px; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+
+    .mb-chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; }
+    .mb-chip {
+      font-family: inherit; font-size: 12.5px; font-weight: 500; white-space: nowrap;
+      height: 44px; padding: 0 16px; border-radius: 22px; cursor: pointer; flex-shrink: 0;
+      display: flex; align-items: center; gap: 7px;
+      background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8);
+      border: 1px solid rgba(255,255,255,0.22);
+      transition: background 0.18s, color 0.18s, border-color 0.18s;
+    }
+    .mb-chip.is-on { background: #ffffff; color: #0d1f3c; font-weight: 600; border-color: #ffffff; }
+    .mb-chip-n { font-size: 11px; font-weight: 600; opacity: 0.6; }
+
+    .mb-main { padding: 22px 0 30px; }
+    .mb-count { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #7a8899; margin: 0 0 14px; }
+    .mb-count b { color: var(--mb-accent, #2a5298); font-weight: 700; }
+
+    .mb-list { display: flex; flex-direction: column; gap: 16px; }
+    .mb-card {
+      flex-direction: column; background: #ffffff; border: 1px solid rgba(0,0,0,0.07);
+      border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+    .mb-thumb { height: 104px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid rgba(0,0,0,0.06); overflow: hidden; }
+    .mb-thumb img { display: block; max-width: 72%; max-height: 72%; object-fit: contain; }
+    .mb-body { padding: 16px; display: flex; flex-direction: column; }
+    .mb-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; min-height: 18px; }
+    .mb-cat { display: flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; color: #7a8899; }
+    .mb-dot { width: 6px; height: 6px; border-radius: 20px; flex-shrink: 0; }
+    .mb-pill {
+      font-size: 10px; font-weight: 600; white-space: nowrap; background: #fff3cd; color: #856404;
+      border: 1px solid #ffc107; border-radius: 20px; padding: 2px 8px; line-height: 1.5;
+    }
+    .mb-card h3 { margin: 0 0 6px; font-size: 16px; font-weight: 600; color: #1a3b6e; line-height: 1.35; }
+    .mb-card p { margin: 0 0 14px; font-size: 13px; line-height: 1.6; color: #7a8899; text-wrap: pretty; }
+
+    .mb-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+      height: 48px; border-radius: 8px; border: 0; cursor: pointer;
+      background: var(--mb-accent, #2a5298); color: #ffffff;
+      font-family: inherit; font-size: 14px; font-weight: 600; letter-spacing: 0.02em;
+      box-shadow: 0 3px 10px rgba(42,82,152,0.25);
+    }
+    .mb-btn:hover { background: #0d1f3c; color: #ffffff; }
+    .mb-btn-off {
+      display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+      height: 48px; border-radius: 8px; background: #e9ecef; color: #adb5bd;
+      font-family: inherit; font-size: 14px; font-weight: 600; letter-spacing: 0.02em;
+    }
+
+    .mb-empty { text-align: center; padding: 44px 20px; background: #ffffff; border: 1px dashed rgba(0,0,0,0.12); border-radius: 10px; color: #7a8899; }
+    .mb-empty h4 { margin: 12px 0 5px; font-size: 15px; font-weight: 600; color: #3d4a5c; }
+    .mb-empty p { margin: 0; font-size: 13px; }
+
+    .mb-footnote { margin: 20px 0 0; font-size: 12px; line-height: 1.65; color: #7a8899; display: flex; align-items: flex-start; gap: 8px; }
+    .mb-footnote b { color: #856404; font-weight: 600; }
+
+    .mb-footer { background: #ffffff; border-top: 1px solid rgba(0,0,0,0.08); padding: 24px 20px 28px; text-align: center; }
+    .mb-footer p { margin: 0 0 16px; font-size: 12.5px; color: #7a8899; line-height: 1.6; }
+    .mb-brands { display: flex; align-items: center; justify-content: center; gap: 22px; }
+    .mb-probel { font-size: 18px; font-weight: 800; color: #0d1f3c; letter-spacing: -0.01em; }
+    .mb-prodormir { font-size: 16px; font-weight: 700; color: #b0b8c8; letter-spacing: -0.01em; }
+  </style>
+</helmet>
+
+<div class="mb-root" style="--mb-accent: {{accent}}; width: 390px">
+
+  <header class="mb-topbar">
+    <div class="mb-wordmark">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="{{accent}}"></rect>
+        <path d="M8 16.5V9a2 2 0 0 1 2-2h1.6a2.6 2.6 0 0 1 0 5.2H8" stroke="#ffffff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path>
+        <circle cx="16.4" cy="15.6" r="1.5" fill="#1abc9c"></circle>
+      </svg>
+      <div>
+        <div class="mb-wordmark-txt">Agentes Pro</div>
+        <div class="mb-wordmark-sub">Probel · Prodormir</div>
+      </div>
+    </div>
+    <a class="mb-iconbtn" href="mailto:daniel.avila@colchoes.ind.br" aria-label="Dúvidas e sugestões">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"></rect>
+        <path d="M3 7l9 6 9-6"></path>
+      </svg>
+    </a>
+  </header>
+
+  <section class="mb-hero">
+    <div class="mb-hero-mesh"></div>
+    <div class="mb-pad mb-hero-in">
+      <p class="mb-eyebrow">Central de agentes</p>
+      <h1>Agentes Pro</h1>
+      <p class="mb-lede">Todas as automações e assistentes da equipe em um só lugar.</p>
+
+      <div class="mb-search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="M16.5 16.5L21 21"></path>
+        </svg>
+        <input type="text" placeholder="Buscar agente..." value="{{q}}" onChange="{{onSearch}}">
+        <button class="mb-clear" style="display: {{show.clear}}" onClick="{{onClear}}" aria-label="Limpar busca">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="mb-chips">
+        <button class="mb-chip {{chip.todos}}" onClick="{{pick.todos}}">Todos <span class="mb-chip-n">7</span></button>
+        <button class="mb-chip {{chip.operacao}}" onClick="{{pick.operacao}}">Operação <span class="mb-chip-n">3</span></button>
+        <button class="mb-chip {{chip.assistentes}}" onClick="{{pick.assistentes}}">Assistentes IA <span class="mb-chip-n">3</span></button>
+        <button class="mb-chip {{chip.ferramentas}}" onClick="{{pick.ferramentas}}">Ferramentas <span class="mb-chip-n">1</span></button>
+      </div>
+    </div>
+  </section>
+
+  <main class="mb-pad mb-main">
+    <p class="mb-count"><b>{{count}}</b> {{countWord}}</p>
+
+    <div class="mb-list">
+
+      <article class="mb-card" style="display: {{show.preco}}">
+        <div class="mb-thumb" style="background: linear-gradient(135deg, #1a1a2e, #16213e)">
+          <img src="logo-preco.png" alt="Busca Preço">
+        </div>
+        <div class="mb-body">
+          <div class="mb-meta">
+            <span class="mb-cat"><span class="mb-dot" style="background: #3b7dd8"></span>Operação · Mais usado</span>
+          </div>
+          <h3>Busca Preço</h3>
+          <p>Coleta e compara preços de produtos automaticamente e entrega uma planilha pronta para análise.</p>
+          <a class="mb-btn" href="https://buscapreco.promarketing.ind.br/" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="4" y="8" width="16" height="12" rx="3"></rect>
+              <path d="M12 4.6V8M8.6 13.4h.01M15.4 13.4h.01M9.5 16.8h5"></path>
+              <circle cx="12" cy="3.4" r="1.2"></circle>
+            </svg>
+            Acesso Direto
+          </a>
+        </div>
+      </article>
+
+      <article class="mb-card" style="display: {{show.frete}}">
+        <div class="mb-thumb" style="background: #ffffff">
+          <img src="logo-frete.png" alt="Busca Frete">
+        </div>
+        <div class="mb-body">
+          <div class="mb-meta">
+            <span class="mb-cat"><span class="mb-dot" style="background: #3b7dd8"></span>Operação</span>
+          </div>
+          <h3>Busca Frete</h3>
+          <p>Automatiza testes de frete simulando produtos e CEPs, com valores e prazos em planilha.</p>
+          <a class="mb-btn" href="https://buscafrete.promarketing.ind.br/" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M2.5 7.5h10v9h-10z"></path>
+              <path d="M12.5 11h4l3 3v2.5h-7z"></path>
+              <circle cx="6.5" cy="17.5" r="1.8"></circle>
+              <circle cx="16.5" cy="17.5" r="1.8"></circle>
+            </svg>
+            Acesso Direto
+          </a>
+        </div>
+      </article>
+
+      <article class="mb-card" style="display: {{show.gerenciador}}">
+        <div class="mb-thumb" style="background: linear-gradient(135deg, #0f3460, #16213e)">
+          <svg width="176" height="80" viewBox="0 0 220 100" fill="none" aria-hidden="true">
+            <rect x="20" y="20" width="80" height="60" rx="6" fill="none" stroke="#4a7fd4" stroke-width="2"></rect>
+            <rect x="30" y="32" width="60" height="8" rx="3" fill="#4a7fd4" opacity=".7"></rect>
+            <rect x="30" y="46" width="40" height="6" rx="3" fill="#4a7fd4" opacity=".4"></rect>
+            <rect x="30" y="58" width="50" height="6" rx="3" fill="#4a7fd4" opacity=".4"></rect>
+            <rect x="115" y="15" width="28" height="28" rx="5" fill="#3b7dd8" opacity=".8"></rect>
+            <rect x="149" y="15" width="28" height="28" rx="5" fill="#1abc9c" opacity=".6"></rect>
+            <rect x="115" y="50" width="28" height="28" rx="5" fill="#f0a500" opacity=".6"></rect>
+            <rect x="149" y="50" width="28" height="28" rx="5" fill="#e74c3c" opacity=".5"></rect>
+          </svg>
+        </div>
+        <div class="mb-body">
+          <div class="mb-meta">
+            <span class="mb-cat"><span class="mb-dot" style="background: #3b7dd8"></span>Operação</span>
+          </div>
+          <h3>Gerenciador de Tarefas</h3>
+          <p>Kanban personalizado para gestão de tarefas, adaptado à rotina e aos processos da empresa.</p>
+          <a class="mb-btn" href="https://gerenciador.promarketing.ind.br/" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3.5" y="4" width="5.5" height="16" rx="1.6"></rect>
+              <rect x="11" y="4" width="5.5" height="10" rx="1.6"></rect>
+              <rect x="18.5" y="4" width="2" height="7" rx="1"></rect>
+            </svg>
+            Acesso Direto
+          </a>
+        </div>
+      </article>
+
+      <article class="mb-card" style="display: {{show.tamper}}">
+        <div class="mb-thumb" style="background: #ffffff">
+          <img src="logo-tamper.png" alt="Tampermonkey">
+        </div>
+        <div class="mb-body">
+          <div class="mb-meta">
+            <span class="mb-cat"><span class="mb-dot" style="background: #f0a500"></span>Ferramentas</span>
+          </div>
+          <h3>Tampermonkey</h3>
+          <p>Extensão de navegador para executar scripts personalizados que modificam sites.</p>
+          <a class="mb-btn" href="https://www.tampermonkey.net/" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3.5v10.5M8 10.5l4 4 4-4"></path>
+              <path d="M4.5 17.5v1.2a1.8 1.8 0 0 0 1.8 1.8h11.4a1.8 1.8 0 0 0 1.8-1.8v-1.2"></path>
+            </svg>
+            Acesso ao Instalador
+          </a>
+        </div>
+      </article>
+
+      <article class="mb-card" style="display: {{show.radar}}">
+        <div class="mb-thumb" style="background: linear-gradient(160deg, #060d24, #0a1940)">
+          <svg width="132" height="88" viewBox="0 0 160 130" fill="none" aria-hidden="true">
+            <circle cx="80" cy="65" r="50" fill="none" stroke="#4a7fd4" stroke-width="1.5" opacity=".4"></circle>
+            <circle cx="80" cy="65" r="35" fill="none" stroke="#4a7fd4" stroke-width="1.5" opacity=".5"></circle>
+            <circle cx="80" cy="65" r="20" fill="none" stroke="#4a7fd4" stroke-width="1.5" opacity=".7"></circle>
+            <ellipse cx="80" cy="65" rx="55" ry="22" fill="none" stroke="#3b7dd8" stroke-width="1" opacity=".3"></ellipse>
+            <path d="M80 65 L112 38" stroke="#4a7fd4" stroke-width="1.5" opacity=".5"></path>
+            <circle cx="80" cy="65" r="4" fill="#4a7fd4"></circle>
+            <circle cx="55" cy="45" r="3" fill="#f0a500" opacity=".8"></circle>
+            <circle cx="105" cy="55" r="2" fill="#1abc9c" opacity=".8"></circle>
+            <circle cx="70" cy="85" r="2.5" fill="#e74c3c" opacity=".7"></circle>
+          </svg>
+        </div>
+        <div class="mb-body">
+          <div class="mb-meta">
+            <span class="mb-cat"><span class="mb-dot" style="background: #1abc9c"></span>Assistentes IA</span>
+            <span class="mb-pill">Acesso limitado</span>
+          </div>
+          <h3>Radar Global de IA</h3>
+          <p>Resumo objetivo dos acontecimentos e tendências em Inteligência Artificial.</p>
+          <span class="mb-btn-off">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="4.5" y="10.5" width="15" height="9.5" rx="2.2"></rect>
+              <path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7"></path>
+            </svg>
+            Em liberação
+          </span>
+        </div>
+      </article>
+
+      <article class="mb-card" style="display: {{show.professor}}">
+        <div class="mb-thumb" style="background: linear-gradient(160deg, #0d1b2a, #1b2838)">
+          <svg width="132" height="88" viewBox="0 0 160 130" fill="none" aria-hidden="true">
+            <circle cx="80" cy="58" r="30" fill="#1e3a5f" stroke="#4a7fd4" stroke-width="1.5"></circle>
+            <circle cx="80" cy="49" r="12" fill="#4a7fd4" opacity=".7"></circle>
+            <path d="M55 77 Q80 98 105 77" fill="#1e3a5f" stroke="#4a7fd4" stroke-width="1.5"></path>
+            <circle cx="65" cy="56" r="3" fill="#f0a500"></circle>
+            <circle cx="95" cy="56" r="3" fill="#f0a500"></circle>
+            <path d="M72 66 Q80 72 88 66" stroke="#f0a500" stroke-width="1.5" fill="none" stroke-linecap="round"></path>
+            <circle cx="42" cy="36" r="5" fill="#f0a500" opacity=".4"></circle>
+            <circle cx="118" cy="40" r="4" fill="#1abc9c" opacity=".4"></circle>
+          </svg>
+        </div>
+        <div class="mb-body">
+          <div class="mb-meta">
+            <span class="mb-cat"><span class="mb-dot" style="background: #1abc9c"></span>Assistentes IA</span>
+            <span class="mb-pill">Acesso limitado</span>
+          </div>
+          <h3>Professor IA</h3>
+          <p>Ensina Inteligência Artificial de forma progressiva, com exemplos do dia a dia.</p>
+          <span class="mb-btn-off">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="4.5" y="10.5" width="15" height="9.5" rx="2.2"></rect>
+              <path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7"></path>
+            </svg>
+            Em liberação
+          </span>
+        </div>
+      </article>
+
+      <article class="mb-card" style="display: {{show.designer}}">
+        <div class="mb-thumb" style="background: linear-gradient(160deg, #1a0a00, #2d1500)">
+          <svg width="132" height="88" viewBox="0 0 160 130" fill="none" aria-hidden="true">
+            <circle cx="80" cy="62" r="40" fill="#1a0500" stroke="#c9a227" stroke-width="2"></circle>
+            <path d="M80 30 L80 94 M52 62 L108 62" stroke="#c9a227" stroke-width="1.5" opacity=".3"></path>
+            <path d="M60 40 L100 84 M100 40 L60 84" stroke="#c9a227" stroke-width="1" opacity=".2"></path>
+            <circle cx="80" cy="62" r="19" fill="#2d1000" stroke="#c9a227" stroke-width="1.5"></circle>
+            <path d="M73 53 L73 71 L88 62 Z" fill="#c9a227"></path>
+            <circle cx="80" cy="62" r="5" fill="#f0a500" opacity=".6"></circle>
+          </svg>
+        </div>
+        <div class="mb-body">
+          <div class="mb-meta">
+            <span class="mb-cat"><span class="mb-dot" style="background: #1abc9c"></span>Assistentes IA</span>
+            <span class="mb-pill">Acesso limitado</span>
+          </div>
+          <h3>Designer Visual Profissional</h3>
+          <p>Criação e edição de imagens com integração ao Photoshop e ao Canva.</p>
+          <span class="mb-btn-off">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="4.5" y="10.5" width="15" height="9.5" rx="2.2"></rect>
+              <path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7"></path>
+            </svg>
+            Em liberação
+          </span>
+        </div>
+      </article>
+
+    </div>
+
+    <sc-if value="{{empty}}" hint-placeholder-val="{{false}}">
+      <div class="mb-empty">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c3cbd6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="M16.5 16.5L21 21"></path>
+        </svg>
+        <h4>Nenhum agente encontrado</h4>
+        <p>Tente outro termo ou volte para o filtro Todos.</p>
+      </div>
+    </sc-if>
+
+    <p class="mb-footnote">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f0a500" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 3px" aria-hidden="true">
+        <circle cx="12" cy="12" r="9"></circle>
+        <path d="M12 8h.01M12 11.5v4.5"></path>
+      </svg>
+      <span>Agentes marcados como <b>Acesso limitado</b> dependem de restrições de compartilhamento definidas pela OpenAI.</span>
+    </p>
+  </main>
+
+  <footer class="mb-footer">
+    <p>Dúvidas ou sugestões:<br><a href="mailto:daniel.avila@colchoes.ind.br">daniel.avila@colchoes.ind.br</a></p>
+    <div class="mb-brands">
+      <span class="mb-probel">Probel</span>
+      <span class="mb-prodormir">Prodormir</span>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{
+  "accent": {"editor": "color", "default": "#2a5298", "options": ["#2a5298", "#1a3b6e", "#3b7dd8", "#1abc9c"], "section": "Tema"},
+  "$preview": {"width": 390, "height": 2860}
+}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { q: '', cat: 'todos' };
+  }
+
+  agents() {
+    return [
+      { id: 'preco',       cat: 'operacao',    kw: 'busca preco precos comparar comparacao planilha coleta produtos concorrencia valores' },
+      { id: 'frete',       cat: 'operacao',    kw: 'busca frete cep transporte prazo entrega simulacao planilha envio' },
+      { id: 'gerenciador', cat: 'operacao',    kw: 'gerenciador tarefas kanban jira trello gestao projetos quadro' },
+      { id: 'tamper',      cat: 'ferramentas', kw: 'tampermonkey extensao navegador script javascript userscript instalador' },
+      { id: 'radar',       cat: 'assistentes', kw: 'radar global ia inteligencia artificial noticias tendencias mercado lancamentos' },
+      { id: 'professor',   cat: 'assistentes', kw: 'professor ia inteligencia artificial ensino aula aprendizado curso treinamento' },
+      { id: 'designer',    cat: 'assistentes', kw: 'designer visual imagens photoshop canva criacao edicao arte material' },
+    ];
+  }
+
+  norm(s) {
+    const from = 'áàâãäéèêëíìîïóòôõöúùûüçñ';
+    const to   = 'aaaaaeeeeiiiiooooouuuucn';
+    const t = String(s == null ? '' : s).toLowerCase();
+    let out = '';
+    for (let i = 0; i < t.length; i++) {
+      const j = from.indexOf(t.charAt(i));
+      out += j === -1 ? t.charAt(i) : to.charAt(j);
+    }
+    return out;
+  }
+
+  renderVals() {
+    const q = this.norm(this.state.q).trim();
+    const cat = this.state.cat;
+
+    const show = {};
+    let count = 0;
+    this.agents().forEach((a) => {
+      const okCat = cat === 'todos' || a.cat === cat;
+      const okQ = q === '' || this.norm(a.id + ' ' + a.kw).indexOf(q) !== -1;
+      const on = okCat && okQ;
+      if (on) count++;
+      show[a.id] = on ? 'flex' : 'none';
+    });
+    show.clear = this.state.q ? 'flex' : 'none';
+
+    const chip = { todos: '', operacao: '', assistentes: '', ferramentas: '' };
+    chip[cat] = 'is-on';
+
+    const setCat = (c) => () => this.setState({ cat: c });
+
+    return {
+      accent: this.props.accent == null ? '#2a5298' : this.props.accent,
+      q: this.state.q,
+      show: show,
+      chip: chip,
+      count: count,
+      countWord: count === 1 ? 'agente disponível' : 'agentes disponíveis',
+      empty: count === 0,
+      onSearch: (e) => this.setState({ q: e.target.value }),
+      onClear: () => this.setState({ q: '' }),
+      pick: {
+        todos: setCat('todos'),
+        operacao: setCat('operacao'),
+        assistentes: setCat('assistentes'),
+        ferramentas: setCat('ferramentas'),
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>

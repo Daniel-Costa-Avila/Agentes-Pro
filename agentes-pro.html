@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentes Pro</title>
+<meta name="description" content="Central de agentes e automações internas da Probel e Prodormir.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --blue-dark:   #0d1f3c;
+    --blue-main:   #1a3b6e;
+    --blue-mid:    #2a5298;
+    --blue-accent: #3b7dd8;
+    --teal:        #1abc9c;
+    --gold:        #f0a500;
+    --text-body:   #3d4a5c;
+    --text-muted:  #7a8899;
+    --text-soft:   #a4aebc;
+    --bg-page:     #f5f7fa;
+    --white:       #ffffff;
+    --line:        rgba(0,0,0,0.07);
+    --card-pad:    22px;
+    --grid-gap:    24px;
+}
+
+body {
+    font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg-page);
+    color: var(--text-body);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--blue-mid); text-decoration: none; }
+a:hover { color: var(--blue-dark); }
+
+:focus-visible { outline: 2px solid var(--blue-accent); outline-offset: 3px; border-radius: 4px; }
+
+.container { max-width: 1000px; margin: 0 auto; padding: 0 2rem; }
+
+.sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+/* ─── TOPBAR ──────────────────────────────────────── */
+.topbar { background: var(--white); border-bottom: 1px solid var(--line); }
+.topbar-in {
+    max-width: 1000px; margin: 0 auto; padding: 0 2rem; height: 64px;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+}
+.wordmark { display: flex; align-items: center; gap: 10px; }
+.wordmark-txt { font-size: 15px; font-weight: 700; color: var(--blue-dark); letter-spacing: 0.01em; line-height: 1.25; }
+.wordmark-sub { font-size: 10.5px; font-weight: 500; color: var(--text-muted); letter-spacing: 0.14em; text-transform: uppercase; line-height: 1.25; }
+.top-link { font-size: 13px; font-weight: 500; color: var(--text-muted); display: flex; align-items: center; gap: 7px; }
+.top-link:hover { color: var(--blue-mid); }
+
+/* ─── HERO ────────────────────────────────────────── */
+.hero {
+    position: relative; overflow: hidden;
+    padding: clamp(30px, 5vw, 46px) 0 clamp(26px, 4vw, 40px);
+    background:
+        radial-gradient(900px 320px at 78% -10%, rgba(59,125,216,0.42), transparent 62%),
+        radial-gradient(520px 300px at 8% 118%, rgba(26,188,156,0.20), transparent 66%),
+        linear-gradient(135deg, #0d1f3c 0%, #1a3b6e 58%, #24497f 100%);
+}
+.hero-mesh {
+    position: absolute; inset: 0; z-index: 0; opacity: 0.5; pointer-events: none;
+    background-image:
+        linear-gradient(to right, rgba(255,255,255,0.055) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.055) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(680px 300px at 50% 30%, #000 20%, transparent 78%);
+    mask-image: radial-gradient(680px 300px at 50% 30%, #000 20%, transparent 78%);
+}
+.hero-in { position: relative; z-index: 1; }
+.eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.58); margin-bottom: 12px;
+}
+.hero h1 {
+    font-size: clamp(28px, 4.5vw, 44px); font-weight: 700; color: var(--white);
+    letter-spacing: 0.01em; line-height: 1.15; margin-bottom: 10px;
+}
+.lede {
+    font-size: clamp(13.5px, 1.6vw, 15px); font-weight: 300; line-height: 1.65;
+    color: rgba(255,255,255,0.74); max-width: 30em; margin-bottom: 28px; text-wrap: pretty;
+}
+
+/* busca */
+.search {
+    display: flex; align-items: center; gap: 10px; max-width: 460px;
+    background: rgba(255,255,255,0.97); border: 1px solid rgba(255,255,255,0.6);
+    border-radius: 8px; height: 48px; padding: 0 14px; margin-bottom: 18px;
+    box-shadow: 0 6px 20px rgba(5,18,40,0.28);
+}
+.search > svg { color: var(--text-muted); flex-shrink: 0; }
+.search input {
+    border: 0; outline: 0; background: transparent; flex: 1; min-width: 0;
+    font-family: inherit; font-size: 14px; color: var(--text-body); line-height: 1.4;
+}
+.search input::placeholder { color: var(--text-soft); font-weight: 300; }
+.btn-clear {
+    border: 0; background: #eef1f5; color: var(--text-muted); cursor: pointer; padding: 0;
+    width: 22px; height: 22px; border-radius: 20px; flex-shrink: 0;
+    display: none; align-items: center; justify-content: center;
+}
+.btn-clear.is-visible { display: flex; }
+.btn-clear:hover { background: #e2e7ee; color: var(--text-body); }
+
+/* chips */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+    font-family: inherit; font-size: 12.5px; font-weight: 500; letter-spacing: 0.01em;
+    height: 34px; padding: 0 15px; border-radius: 20px; cursor: pointer; white-space: nowrap;
+    display: flex; align-items: center; gap: 7px;
+    background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8);
+    border: 1px solid rgba(255,255,255,0.22);
+    transition: background 0.18s, color 0.18s, border-color 0.18s;
+}
+.chip:hover { background: rgba(255,255,255,0.16); color: var(--white); }
+.chip.is-on {
+    background: var(--white); color: var(--blue-dark); font-weight: 600;
+    border-color: var(--white); box-shadow: 0 3px 12px rgba(5,18,40,0.24);
+}
+.chip-n { font-size: 11px; font-weight: 600; opacity: 0.62; }
+
+/* ─── CONTEÚDO ────────────────────────────────────── */
+.main { padding: 34px 0 44px; }
+.resultbar { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+.count { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+.count b { color: var(--blue-mid); font-weight: 700; }
+.link-soft { font-size: 13px; font-weight: 500; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
+.link-soft:hover { color: var(--blue-mid); }
+
+/* destaque */
+.featured {
+    display: grid; grid-template-columns: 300px 1fr; gap: 32px; align-items: center;
+    background: var(--white); border: 1px solid var(--line); border-radius: 10px;
+    padding: var(--card-pad); margin-bottom: var(--grid-gap);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    position: relative; overflow: hidden;
+}
+.featured::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: linear-gradient(180deg, var(--blue-mid), var(--teal));
+}
+.feat-thumb {
+    aspect-ratio: 16 / 9; border-radius: 8px; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    border: 1px solid rgba(0,0,0,0.08);
+}
+.feat-thumb img { display: block; width: 84%; height: 78%; object-fit: contain; }
+.feat-body h3 { font-size: 22px; font-weight: 600; color: var(--blue-mid); line-height: 1.3; margin: 8px 0; }
+.feat-body p { font-size: 15px; line-height: 1.75; color: var(--text-body); max-width: 46em; margin-bottom: 18px; text-wrap: pretty; }
+.feat-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.feat-url { font-size: 13px; font-weight: 500; color: var(--text-muted); }
+
+/* grid + cards */
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--grid-gap); }
+.card {
+    display: flex; flex-direction: column;
+    background: var(--white); border: 1px solid var(--line); border-radius: 10px;
+    overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 24px rgba(42,82,152,0.15);
+    border-color: rgba(42,82,152,0.22);
+}
+.thumb {
+    aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center;
+    border-bottom: 1px solid rgba(0,0,0,0.06); overflow: hidden;
+}
+.thumb img { display: block; width: 78%; height: 74%; object-fit: contain; }
+.thumb svg { max-width: 82%; max-height: 82%; }
+.bg-preco  { background: linear-gradient(135deg, #1a1a2e, #16213e); }
+.bg-white  { background: var(--white); }
+.bg-trilha { background: linear-gradient(135deg, #0f3460, #16213e); }
+.bg-radar  { background: linear-gradient(160deg, #060d24, #0a1940); }
+.bg-prof   { background: linear-gradient(160deg, #0d1b2a, #1b2838); }
+.bg-design { background: linear-gradient(160deg, #1a0a00, #2d1500); }
+
+.cbody { padding: var(--card-pad); display: flex; flex-direction: column; flex: 1; }
+.cmeta { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; min-height: 20px; }
+.cat { display: flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; color: var(--text-muted); }
+.dot { width: 6px; height: 6px; border-radius: 20px; flex-shrink: 0; }
+.dot-op { background: var(--blue-accent); }
+.dot-ia { background: var(--teal); }
+.dot-fer { background: var(--gold); }
+.pill {
+    font-size: 10.5px; font-weight: 600; letter-spacing: 0.02em; white-space: nowrap;
+    background: #fff3cd; color: #856404; border: 1px solid #ffc107;
+    border-radius: 20px; padding: 2px 9px; line-height: 1.5;
+}
+.card h3 { font-size: 17px; font-weight: 600; color: var(--blue-main); line-height: 1.35; margin-bottom: 8px; }
+.card p { font-size: 13.5px; line-height: 1.65; color: var(--text-muted); flex: 1; margin-bottom: 18px; text-wrap: pretty; }
+
+/* botões */
+.btn {
+    display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+    height: 42px; border-radius: 8px; border: 0; cursor: pointer;
+    background: var(--blue-mid); color: var(--white);
+    font-family: inherit; font-size: 14px; font-weight: 600; letter-spacing: 0.02em;
+    box-shadow: 0 3px 10px rgba(42,82,152,0.25);
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+.btn:hover {
+    background: var(--blue-dark); color: var(--white);
+    transform: translateY(-2px); box-shadow: 0 6px 18px rgba(42,82,152,0.35);
+}
+.btn-wide { width: auto; padding: 0 26px; }
+.btn-off {
+    display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+    height: 42px; border-radius: 8px; background: #e9ecef; color: #adb5bd;
+    font-family: inherit; font-size: 14px; font-weight: 600; letter-spacing: 0.02em; cursor: not-allowed;
+}
+
+/* vazio + nota */
+.empty {
+    display: none; text-align: center; padding: 56px 24px; background: var(--white);
+    border: 1px dashed rgba(0,0,0,0.12); border-radius: 10px; color: var(--text-muted);
+}
+.empty.is-visible { display: block; }
+.empty h4 { font-size: 16px; font-weight: 600; color: var(--text-body); margin: 14px 0 6px; }
+.empty p { font-size: 13.5px; }
+
+.footnote { margin-top: 26px; font-size: 12.5px; line-height: 1.7; color: var(--text-muted); display: flex; align-items: flex-start; gap: 9px; }
+.footnote b { color: #856404; font-weight: 600; }
+.footnote svg { flex-shrink: 0; margin-top: 3px; }
+
+/* ─── FOOTER ──────────────────────────────────────── */
+footer { background: var(--white); border-top: 1px solid rgba(0,0,0,0.08); padding: 34px 0; }
+.footer-in {
+    max-width: 1000px; margin: 0 auto; padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 32px;
+}
+.footer-in p { font-size: 13px; color: var(--text-muted); }
+.brands { display: flex; align-items: center; gap: 28px; }
+.brand-probel { font-size: 22px; font-weight: 800; color: var(--blue-dark); letter-spacing: -0.01em; }
+.brand-prodormir { font-size: 19px; font-weight: 700; color: #b0b8c8; letter-spacing: -0.01em; }
+
+/* ─── ESTADO ──────────────────────────────────────── */
+.is-hidden { display: none !important; }
+
+/* ─── RESPONSIVO ──────────────────────────────────── */
+@media (max-width: 1023px) {
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 860px) {
+    .featured { grid-template-columns: 1fr; gap: 20px; }
+    .feat-thumb { max-width: 340px; }
+}
+@media (max-width: 720px) {
+    .container, .topbar-in, .footer-in { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .grid { grid-template-columns: 1fr; }
+    .search { max-width: none; height: 52px; }
+    .search input { font-size: 14.5px; }
+    .btn, .btn-off { height: 48px; }
+    .btn-wide { width: 100%; }
+    .chips { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+    .chip { height: 44px; padding: 0 16px; border-radius: 22px; flex-shrink: 0; }
+    .resultbar { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .footer-in { flex-direction: column; text-align: center; gap: 20px; }
+    .top-link span { display: none; }
+    .feat-body p { font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+    .card:hover, .btn:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── TOPBAR ─── -->
+<header class="topbar">
+    <div class="topbar-in">
+        <div class="wordmark">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="#2a5298"/>
+                <path d="M8 16.5V9a2 2 0 0 1 2-2h1.6a2.6 2.6 0 0 1 0 5.2H8" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="16.4" cy="15.6" r="1.5" fill="#1abc9c"/>
+            </svg>
+            <div>
+                <div class="wordmark-txt">Agentes Pro</div>
+                <div class="wordmark-sub">Probel &middot; Prodormir</div>
+            </div>
+        </div>
+        <a class="top-link" href="mailto:daniel.avila@colchoes.ind.br">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/>
+                <path d="M3 7l9 6 9-6"/>
+            </svg>
+            <span>Dúvidas e sugestões</span>
+        </a>
+    </div>
+</header>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+    <div class="hero-mesh"></div>
+    <div class="container hero-in">
+        <p class="eyebrow">Central de agentes internos</p>
+        <h1>Agentes Pro</h1>
+        <p class="lede">Todas as automações e assistentes da equipe em um só lugar. Busque pelo nome ou filtre por tipo para chegar direto na ferramenta.</p>
+
+        <div class="search">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="7"/>
+                <path d="M16.5 16.5L21 21"/>
+            </svg>
+            <label class="sr-only" for="busca">Buscar agente</label>
+            <input type="text" id="busca" placeholder="Buscar agente: frete, preço, tarefas..." autocomplete="off">
+            <button class="btn-clear" id="limpar" type="button" aria-label="Limpar busca">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
+                    <path d="M6 6l12 12M18 6L6 18"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="chips" role="group" aria-label="Filtrar por tipo">
+            <button class="chip is-on" type="button" data-filtro="todos" aria-pressed="true">Todos <span class="chip-n">7</span></button>
+            <button class="chip" type="button" data-filtro="operacao" aria-pressed="false">Operação <span class="chip-n">3</span></button>
+            <button class="chip" type="button" data-filtro="assistentes" aria-pressed="false">Assistentes IA <span class="chip-n">3</span></button>
+            <button class="chip" type="button" data-filtro="ferramentas" aria-pressed="false">Ferramentas <span class="chip-n">1</span></button>
+        </div>
+    </div>
+</section>
+
+<!-- ─── CONTEÚDO ─── -->
+<main class="container main">
+
+    <div class="resultbar">
+        <p class="count" aria-live="polite"><b id="contador">7</b> <span id="contador-txt">agentes disponíveis</span></p>
+        <a class="link-soft" href="mailto:daniel.avila@colchoes.ind.br?subject=Sugest%C3%A3o%20de%20agente">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 5v14M5 12h14"/>
+            </svg>
+            Sugerir um agente
+        </a>
+    </div>
+
+    <!-- DESTAQUE -->
+    <article class="featured" data-agente data-cat="operacao" data-kw="coleta comparacao concorrencia valores planilha">
+        <div class="feat-thumb">
+            <img src="logo-busca-preco.png" alt="Logo Busca Preço">
+        </div>
+        <div class="feat-body">
+            <span class="cat"><span class="dot dot-op"></span>Operação &middot; Mais usado</span>
+            <h3>Busca Preço</h3>
+            <p>Coleta e compara preços de produtos automaticamente em diferentes fontes e entrega uma planilha pronta de resultados para análise e tomada de decisão.</p>
+            <div class="feat-actions">
+                <a class="btn btn-wide" href="https://buscapreco.promarketing.ind.br/" target="_blank" rel="noopener">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="4" y="8" width="16" height="12" rx="3"/>
+                        <path d="M12 4.6V8M8.6 13.4h.01M15.4 13.4h.01M9.5 16.8h5"/>
+                        <circle cx="12" cy="3.4" r="1.2"/>
+                    </svg>
+                    Acesso Direto
+                </a>
+                <span class="feat-url">buscapreco.promarketing.ind.br</span>
+            </div>
+        </div>
+    </article>
+
+    <!-- GRID -->
+    <div class="grid" id="grid">
+
+        <!-- Busca Frete -->
+        <article class="card" data-agente data-cat="operacao" data-kw="cep transporte prazo entrega simulacao envio planilha">
+            <div class="thumb bg-white">
+                <img src="logo-busca-frete.png" alt="Logo Busca Frete" loading="lazy">
+            </div>
+            <div class="cbody">
+                <div class="cmeta">
+                    <span class="cat"><span class="dot dot-op"></span>Operação</span>
+                </div>
+                <h3>Busca Frete</h3>
+                <p>Automatiza testes de frete no site, simulando produtos e CEPs, e gera uma planilha com valores e prazos para análise.</p>
+                <a class="btn" href="https://buscafrete.promarketing.ind.br/" target="_blank" rel="noopener">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M2.5 7.5h10v9h-10z"/>
+                        <path d="M12.5 11h4l3 3v2.5h-7z"/>
+                        <circle cx="6.5" cy="17.5" r="1.8"/>
+                        <circle cx="16.5" cy="17.5" r="1.8"/>
+                    </svg>
+                    Acesso Direto
+                </a>
+            </div>
+        </article>
+
+        <!-- Gerenciador de Tarefas -->
+        <article class="card" data-agente data-cat="operacao" data-kw="kanban jira trello gestao projetos quadro">
+            <div class="thumb bg-trilha">
+                <svg width="200" height="112" viewBox="0 0 220 100" fill="none" aria-hidden="true">
+                    <rect x="20" y="20" width="80" height="60" rx="6" fill="none" stroke="#4a7fd4" stroke-width="2"/>
+                    <rect x="30" y="32" width="60" height="8" rx="3" fill="#4a7fd4" opacity=".7"/>
+                    <rect x="30" y="46" width="40" height="6" rx="3" fill="#4a7fd4" opacity=".4"/>
+                    <rect x="30" y="58" width="50" height="6" rx="3" fill="#4a7fd4" opacity=".4"/>
+                    <rect x="115" y="15" width="28" height="28" rx="5" fill="#3b7dd8" opacity=".8"/>
+                    <rect x="149" y="15" width="28" height="28" rx="5" fill="#1abc9c" opacity=".6"/>
+                    <rect x="115" y="50" width="28" height="28" rx="5" fill="#f0a500" opacity=".6"/>
+                    <rect x="149" y="50" width="28" height="28" rx="5" fill="#e74c3c" opacity=".5"/>
+                </svg>
+            </div>
+            <div class="cbody">
+                <div class="cmeta">
+                    <span class="cat"><span class="dot dot-op"></span>Operação</span>
+                </div>
+                <h3>Gerenciador de Tarefas</h3>
+                <p>Kanban personalizado para gestão de tarefas, no espírito do Jira e do Trello, adaptado à rotina e aos processos da empresa.</p>
+                <a class="btn" href="https://gerenciador.promarketing.ind.br/" target="_blank" rel="noopener">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="3.5" y="4" width="5.5" height="16" rx="1.6"/>
+                        <rect x="11" y="4" width="5.5" height="10" rx="1.6"/>
+                        <rect x="18.5" y="4" width="2" height="7" rx="1"/>
+                    </svg>
+                    Acesso Direto
+                </a>
+            </div>
+        </article>
+
+        <!-- Tampermonkey -->
+        <article class="card" data-agente data-cat="ferramentas" data-kw="extensao navegador script javascript userscript instalador">
+            <div class="thumb bg-white">
+                <img src="logo-tampermonkey.png" alt="Logo Tampermonkey" loading="lazy">
+            </div>
+            <div class="cbody">
+                <div class="cmeta">
+                    <span class="cat"><span class="dot dot-fer"></span>Ferramentas</span>
+                </div>
+                <h3>Tampermonkey</h3>
+                <p>Extensão de navegador para adicionar e executar scripts personalizados que modificam o funcionamento de sites.</p>
+                <a class="btn" href="https://www.tampermonkey.net/" target="_blank" rel="noopener">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 3.5v10.5M8 10.5l4 4 4-4"/>
+                        <path d="M4.5 17.5v1.2a1.8 1.8 0 0 0 1.8 1.8h11.4a1.8 1.8 0 0 0 1.8-1.8v-1.2"/>
+                    </svg>
+                    Acesso ao Instalador
+                </a>
+            </div>
+        </article>
+
+        <!-- Radar Global de IA -->
+        <article class="card" data-agente data-cat="assistentes" data-kw="inteligencia artificial noticias tendencias mercado lancamentos">
+            <div class="thumb bg-radar">
+                <svg width="168" height="112" viewBox="0 0 160 130" fill="none" aria-hidden="true">
+                    <circle cx="80" cy="65" r="50" fill="none" stroke="#4a7fd4" stroke-width="1.5" opacity=".4"/>
+                    <circle cx="80" cy="65" r="35" fill="none" stroke="#4a7fd4" stroke-width="1.5" opacity=".5"/>
+                    <circle cx="80" cy="65" r="20" fill="none" stroke="#4a7fd4" stroke-width="1.5" opacity=".7"/>
+                    <ellipse cx="80" cy="65" rx="55" ry="22" fill="none" stroke="#3b7dd8" stroke-width="1" opacity=".3"/>
+                    <path d="M80 65 L112 38" stroke="#4a7fd4" stroke-width="1.5" opacity=".5"/>
+                    <circle cx="80" cy="65" r="4" fill="#4a7fd4"/>
+                    <circle cx="55" cy="45" r="3" fill="#f0a500" opacity=".8"/>
+                    <circle cx="105" cy="55" r="2" fill="#1abc9c" opacity=".8"/>
+                    <circle cx="70" cy="85" r="2.5" fill="#e74c3c" opacity=".7"/>
+                </svg>
+            </div>
+            <div class="cbody">
+                <div class="cmeta">
+                    <span class="cat"><span class="dot dot-ia"></span>Assistentes IA</span>
+                    <span class="pill">Acesso limitado</span>
+                </div>
+                <h3>Radar Global de IA</h3>
+                <p>Resumo objetivo dos principais acontecimentos e tendências em Inteligência Artificial, com lançamentos e impactos no mercado.</p>
+                <span class="btn-off">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="4.5" y="10.5" width="15" height="9.5" rx="2.2"/>
+                        <path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7"/>
+                    </svg>
+                    Em liberação
+                </span>
+            </div>
+        </article>
+
+        <!-- Professor IA -->
+        <article class="card" data-agente data-cat="assistentes" data-kw="inteligencia artificial ensino aula aprendizado curso treinamento">
+            <div class="thumb bg-prof">
+                <svg width="168" height="112" viewBox="0 0 160 130" fill="none" aria-hidden="true">
+                    <circle cx="80" cy="58" r="30" fill="#1e3a5f" stroke="#4a7fd4" stroke-width="1.5"/>
+                    <circle cx="80" cy="49" r="12" fill="#4a7fd4" opacity=".7"/>
+                    <path d="M55 77 Q80 98 105 77" fill="#1e3a5f" stroke="#4a7fd4" stroke-width="1.5"/>
+                    <circle cx="65" cy="56" r="3" fill="#f0a500"/>
+                    <circle cx="95" cy="56" r="3" fill="#f0a500"/>
+                    <path d="M72 66 Q80 72 88 66" stroke="#f0a500" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    <circle cx="42" cy="36" r="5" fill="#f0a500" opacity=".4"/>
+                    <circle cx="118" cy="40" r="4" fill="#1abc9c" opacity=".4"/>
+                </svg>
+            </div>
+            <div class="cbody">
+                <div class="cmeta">
+                    <span class="cat"><span class="dot dot-ia"></span>Assistentes IA</span>
+                    <span class="pill">Acesso limitado</span>
+                </div>
+                <h3>Professor IA</h3>
+                <p>Ensina Inteligência Artificial de forma progressiva, com linguagem acessível, exemplos do dia a dia e aplicações práticas.</p>
+                <span class="btn-off">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="4.5" y="10.5" width="15" height="9.5" rx="2.2"/>
+                        <path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7"/>
+                    </svg>
+                    Em liberação
+                </span>
+            </div>
+        </article>
+
+        <!-- Designer Visual Profissional -->
+        <article class="card" data-agente data-cat="assistentes" data-kw="imagens photoshop canva criacao edicao arte material">
+            <div class="thumb bg-design">
+                <svg width="168" height="112" viewBox="0 0 160 130" fill="none" aria-hidden="true">
+                    <circle cx="80" cy="62" r="40" fill="#1a0500" stroke="#c9a227" stroke-width="2"/>
+                    <path d="M80 30 L80 94 M52 62 L108 62" stroke="#c9a227" stroke-width="1.5" opacity=".3"/>
+                    <path d="M60 40 L100 84 M100 40 L60 84" stroke="#c9a227" stroke-width="1" opacity=".2"/>
+                    <circle cx="80" cy="62" r="19" fill="#2d1000" stroke="#c9a227" stroke-width="1.5"/>
+                    <path d="M73 53 L73 71 L88 62 Z" fill="#c9a227"/>
+                    <circle cx="80" cy="62" r="5" fill="#f0a500" opacity=".6"/>
+                </svg>
+            </div>
+            <div class="cbody">
+                <div class="cmeta">
+                    <span class="cat"><span class="dot dot-ia"></span>Assistentes IA</span>
+                    <span class="pill">Acesso limitado</span>
+                </div>
+                <h3>Designer Visual Profissional</h3>
+                <p>Criação e edição de imagens com integração ao Photoshop e ao Canva, para materiais visuais com qualidade profissional.</p>
+                <span class="btn-off">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="4.5" y="10.5" width="15" height="9.5" rx="2.2"/>
+                        <path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7"/>
+                    </svg>
+                    Em liberação
+                </span>
+            </div>
+        </article>
+
+    </div>
+
+    <!-- VAZIO -->
+    <div class="empty" id="vazio">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#c3cbd6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"/>
+            <path d="M16.5 16.5L21 21"/>
+        </svg>
+        <h4>Nenhum agente encontrado</h4>
+        <p>Tente outro termo ou volte para o filtro Todos.</p>
+    </div>
+
+    <p class="footnote">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f0a500" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 8h.01M12 11.5v4.5"/>
+        </svg>
+        <span>Os agentes marcados como <b>Acesso limitado</b> ainda dependem de restrições de compartilhamento definidas pela OpenAI. A liberação será avisada por e-mail.</span>
+    </p>
+
+</main>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+    <div class="footer-in">
+        <p>Dúvidas ou sugestões: <a href="mailto:daniel.avila@colchoes.ind.br">daniel.avila@colchoes.ind.br</a></p>
+        <div class="brands">
+            <span class="brand-probel">Probel</span>
+            <span class="brand-prodormir">Prodormir</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+(function () {
+    'use strict';
+
+    var busca      = document.getElementById('busca');
+    var limpar     = document.getElementById('limpar');
+    var vazio      = document.getElementById('vazio');
+    var contador   = document.getElementById('contador');
+    var contadorTx = document.getElementById('contador-txt');
+    var chips      = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+    var agentes    = Array.prototype.slice.call(document.querySelectorAll('[data-agente]'));
+
+    var filtro = 'todos';
+
+    // remove acentos para a busca casar com ou sem eles
+    var DE = 'áàâãäéèêëíìîïóòôõöúùûüçñ';
+    var PARA = 'aaaaaeeeeiiiiooooouuuucn';
+    function norm(txt) {
+        txt = String(txt == null ? '' : txt).toLowerCase();
+        var out = '';
+        for (var i = 0; i < txt.length; i++) {
+            var j = DE.indexOf(txt.charAt(i));
+            out += j === -1 ? txt.charAt(i) : PARA.charAt(j);
+        }
+        return out;
+    }
+
+    // índice montado a partir do próprio conteúdo do card
+    agentes.forEach(function (el) {
+        var titulo = el.querySelector('h3');
+        var desc   = el.querySelector('p:not(.cat)');
+        el.dataset.busca = norm(
+            (titulo ? titulo.textContent : '') + ' ' +
+            (desc ? desc.textContent : '') + ' ' +
+            (el.dataset.kw || '')
+        );
+    });
+
+    function aplicar() {
+        var termo = norm(busca.value).trim();
+        var visiveis = 0;
+
+        agentes.forEach(function (el) {
+            var okCat = filtro === 'todos' || el.dataset.cat === filtro;
+            var okTermo = termo === '' || el.dataset.busca.indexOf(termo) !== -1;
+            var mostrar = okCat && okTermo;
+            el.classList.toggle('is-hidden', !mostrar);
+            if (mostrar) visiveis++;
+        });
+
+        contador.textContent = visiveis;
+        contadorTx.textContent = visiveis === 1 ? 'agente disponível' : 'agentes disponíveis';
+        vazio.classList.toggle('is-visible', visiveis === 0);
+        limpar.classList.toggle('is-visible', busca.value !== '');
+    }
+
+    busca.addEventListener('input', aplicar);
+
+    limpar.addEventListener('click', function () {
+        busca.value = '';
+        busca.focus();
+        aplicar();
+    });
+
+    busca.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && busca.value !== '') {
+            busca.value = '';
+            aplicar();
+        }
+    });
+
+    chips.forEach(function (chip) {
+        chip.addEventListener('click', function () {
+            filtro = chip.dataset.filtro;
+            chips.forEach(function (c) {
+                var ativo = c === chip;
+                c.classList.toggle('is-on', ativo);
+                c.setAttribute('aria-pressed', ativo ? 'true' : 'false');
+            });
+            aplicar();
+        });
+    });
+
+    aplicar();
+})();
+</script>
+
+</body>
+</html>

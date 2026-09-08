@@ -1,0 +1,31 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "x": 0, "y": 0, "w": 1440, "h": 2120, "title": "Portal — desktop 1440", "is_interactive": true },
+    { "file": "Mobile.dc.html", "x": 1560, "y": 0, "w": 390, "h": 2900, "title": "Portal — mobile 390", "is_interactive": true },
+    { "file": "Componentes.dc.html", "x": 0, "y": 2400, "w": 1200, "h": 1500, "title": "Sistema — tokens e componentes" }
+  ],
+  "annotations": [
+    {
+      "id": "nota-portal",
+      "x": 0,
+      "y": -170,
+      "w": 520,
+      "text": "Portal reorganizado: um único padrão de card para os 7 agentes, com busca e filtro por tipo no topo, e o Busca Preço em destaque.\nA busca e os filtros funcionam de verdade — clique dentro do quadro e teste."
+    },
+    {
+      "id": "nota-mobile",
+      "x": 1560,
+      "y": -170,
+      "w": 390,
+      "text": "Mesma lógica em 390px: coluna única, chips com rolagem horizontal, alvos de toque de 44px ou mais."
+    },
+    {
+      "id": "nota-sistema",
+      "x": 0,
+      "y": 2200,
+      "w": 520,
+      "text": "Cores, tipografia e raios saíram do agentes-pro.html atual — nenhuma paleta nova foi inventada."
+    }
+  ],
+  "launch": { "view": "canvas" }
+}

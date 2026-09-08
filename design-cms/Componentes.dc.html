@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+  <style>
+    body { margin: 0; font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif; background: #f5f7fa; color: #3d4a5c; -webkit-font-smoothing: antialiased; }
+    a { color: #2a5298; text-decoration: none; }
+    a:hover { color: #0d1f3c; }
+    button, input { font-family: inherit; }
+  </style>
+</helmet>
+
+<div style="display: flex; flex-direction: column; gap: 22px; width: 1200px; padding: 30px 32px 36px; background: #f5f7fa">
+
+  <div>
+    <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #a4aebc; margin-bottom: 6px">Sistema do painel</div>
+    <div style="font-size: 22px; font-weight: 600; color: #0d1f3c; line-height: 1.3">Peças reutilizadas nas telas</div>
+    <div style="font-size: 13px; line-height: 1.65; color: #7a8899; max-width: 62em; margin-top: 6px">Cores, tipografia e raios saíram do <b style="font-weight: 600; color: #3d4a5c">agentes-pro.html</b> atual — nenhuma paleta nova foi inventada. O painel só aperta a densidade: controles de 38px a 40px no lugar dos 42px a 48px do site público.</div>
+  </div>
+
+  <!-- CORES -->
+  <section style="background: #ffffff; border: 1px solid rgba(0,0,0,0.07); border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 22px">
+    <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #a4aebc; margin-bottom: 16px">Cores herdadas do site</div>
+    <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px">
+      <sc-for list="{{cores}}" as="c" hint-placeholder-count="6">
+        <div>
+          <div style="height: 56px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.08); background: {{c.hex}}"></div>
+          <div style="font-size: 12px; font-weight: 600; color: #3d4a5c; margin-top: 8px; line-height: 1.4">{{c.nome}}</div>
+          <div style="font-size: 11px; color: #a4aebc; line-height: 1.4">{{c.hex}}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px">
+
+    <!-- STATUS -->
+    <section style="background: #ffffff; border: 1px solid rgba(0,0,0,0.07); border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 22px">
+      <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #a4aebc; margin-bottom: 16px">Os três estados de um recurso</div>
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <sc-for list="{{estados}}" as="e" hint-placeholder-count="3">
+          <div style="display: flex; align-items: flex-start; gap: 12px">
+            <span style="display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; width: 96px; font-size: 11px; font-weight: 600; border-radius: 20px; padding: 3px 11px; background: {{e.fundo}}; color: {{e.cor}}; border: 1px solid {{e.borda}}">
+              <span style="width: 6px; height: 6px; border-radius: 20px; background: {{e.ponto}}"></span>{{e.rotulo}}
+            </span>
+            <div style="font-size: 12.5px; line-height: 1.6; color: #7a8899; flex-grow: 1; min-width: 0; text-wrap: pretty">{{e.texto}}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- CONTROLES -->
+    <section style="background: #ffffff; border: 1px solid rgba(0,0,0,0.07); border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 22px">
+      <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #a4aebc; margin-bottom: 16px">Botões e interruptores</div>
+
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 16px">
+        <span style="display: flex; align-items: center; justify-content: center; gap: 8px; height: 38px; padding: 0 18px; border-radius: 8px; background: #2a5298; color: #ffffff; font-size: 13.5px; font-weight: 600; box-shadow: 0 3px 10px rgba(42,82,152,0.25)">Publicar alterações</span>
+        <span style="display: flex; align-items: center; justify-content: center; gap: 8px; height: 38px; padding: 0 18px; border-radius: 8px; background: #1abc9c; color: #06301f; font-size: 13.5px; font-weight: 600; box-shadow: 0 3px 10px rgba(26,188,156,0.28)">Novo recurso</span>
+        <span style="display: flex; align-items: center; justify-content: center; height: 38px; padding: 0 16px; border-radius: 8px; background: #ffffff; border: 1px solid rgba(0,0,0,0.12); color: #3d4a5c; font-size: 13px; font-weight: 500">Secundário</span>
+        <span style="display: flex; align-items: center; justify-content: center; height: 38px; padding: 0 16px; border-radius: 8px; background: #e9ecef; color: #adb5bd; font-size: 13px; font-weight: 600">Desabilitado</span>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 22px; margin-bottom: 16px">
+        <div style="display: flex; align-items: center; gap: 9px">
+          <span style="display: flex; align-items: center; justify-content: flex-end; width: 40px; height: 22px; padding: 0 3px; border-radius: 20px; background: #1abc9c">
+            <span style="width: 16px; height: 16px; border-radius: 20px; background: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.3)"></span>
+          </span>
+          <span style="font-size: 12.5px; color: #7a8899">Ligado</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 9px">
+          <span style="display: flex; align-items: center; justify-content: flex-start; width: 40px; height: 22px; padding: 0 3px; border-radius: 20px; background: #c3cbd6">
+            <span style="width: 16px; height: 16px; border-radius: 20px; background: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.3)"></span>
+          </span>
+          <span style="font-size: 12.5px; color: #7a8899">Desligado</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 7px">
+          <span style="display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 7px; border: 1px solid rgba(0,0,0,0.1); background: #ffffff; color: #7a8899">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15.5 4.5 19.5 8.5 8.5 19.5 4 20.5l1-4.5z"></path></svg>
+          </span>
+          <span style="display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 7px; border: 1px solid #ffc107; background: #fff3cd; color: #856404">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M9.9 5.1A9 9 0 0 1 12 4.9c5 0 9 5.1 9 7.1a11 11 0 0 1-2.3 3.4M6.3 7.9C4.4 9.3 3 11.3 3 12c0 2 4 7.1 9 7.1 1.4 0 2.7-.4 3.8-1"></path></svg>
+          </span>
+          <span style="display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 7px; border: 1px solid rgba(0,0,0,0.1); background: #ffffff; color: #7a8899">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6.5h15M9.5 6.5V4.8a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v1.7M6.5 6.5 7.4 20a1 1 0 0 0 1 .9h7.2a1 1 0 0 0 1-.9l.9-13.5"></path></svg>
+          </span>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 12.5px; font-weight: 600; color: #3d4a5c">Campo em repouso</span>
+          <span style="display: flex; align-items: center; height: 40px; padding: 0 13px; border: 1px solid rgba(0,0,0,0.12); border-radius: 8px; background: #ffffff; font-size: 13.5px; color: #3d4a5c">Busca Frete</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 12.5px; font-weight: 600; color: #3d4a5c">Campo em foco</span>
+          <span style="display: flex; align-items: center; height: 40px; padding: 0 13px; border: 1px solid #3b7dd8; border-radius: 8px; background: #ffffff; font-size: 13.5px; color: #3d4a5c; box-shadow: 0 0 0 3px rgba(59,125,216,0.12)">Busca Frete</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ANATOMIA DA LINHA -->
+  <section style="background: #ffffff; border: 1px solid rgba(0,0,0,0.07); border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 22px">
+    <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #a4aebc; margin-bottom: 16px">Anatomia da linha da tabela</div>
+
+    <div style="display: flex; align-items: center; gap: 14px; min-height: 68px; padding: 10px 18px; border: 1px solid rgba(0,0,0,0.08); border-radius: 8px; background: #ffffff">
+      <div style="display: flex; align-items: center; gap: 6px; width: 66px; flex-shrink: 0">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c3cbd6" stroke-width="1.9" stroke-linecap="round"><path d="M9 6h.01M9 12h.01M9 18h.01M15 6h.01M15 12h.01M15 18h.01"></path></svg>
+        <span style="font-size: 13px; font-weight: 600; color: #7a8899">2</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; flex-grow: 1; min-width: 0">
+        <div style="display: flex; align-items: center; justify-content: center; width: 46px; height: 46px; flex-shrink: 0; border-radius: 8px; border: 1px solid rgba(0,0,0,0.08); background: linear-gradient(135deg, #2a5298, #1a3b6e); color: #ffffff; font-size: 14px; font-weight: 700">BF</div>
+        <div style="min-width: 0">
+          <div style="font-size: 14px; font-weight: 600; color: #1a3b6e; line-height: 1.35">Busca Frete</div>
+          <div style="font-size: 11.5px; color: #a4aebc; line-height: 1.4">buscafrete.promarketing.ind.br</div>
+        </div>
+      </div>
+      <span style="display: inline-flex; align-items: center; gap: 6px; width: 142px; flex-shrink: 0; font-size: 10.5px; font-weight: 600; letter-spacing: 0.11em; text-transform: uppercase; color: #7a8899">
+        <span style="width: 6px; height: 6px; border-radius: 20px; background: #3b7dd8"></span>Operação
+      </span>
+      <span style="display: flex; align-items: center; gap: 7px; width: 138px; flex-shrink: 0; height: 28px; padding: 0 11px; border-radius: 8px; font-size: 11.5px; font-weight: 600; background: #eef4fc; color: #2a5298; border: 1px solid #cfe0f7; box-sizing: border-box">Acesso Direto</span>
+      <span style="display: inline-flex; align-items: center; gap: 6px; width: 108px; flex-shrink: 0; font-size: 11px; font-weight: 600; border-radius: 20px; padding: 3px 11px; background: #e6f7f2; color: #0e7c62; border: 1px solid #a9e3d4; box-sizing: border-box">
+        <span style="width: 6px; height: 6px; border-radius: 20px; background: #1abc9c"></span>Ativo
+      </span>
+      <span style="display: flex; align-items: center; justify-content: flex-end; width: 66px; flex-shrink: 0">
+        <span style="display: flex; align-items: center; justify-content: flex-end; width: 40px; height: 22px; padding: 0 3px; border-radius: 20px; background: #1abc9c">
+          <span style="width: 16px; height: 16px; border-radius: 20px; background: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.3)"></span>
+        </span>
+      </span>
+    </div>
+
+    <div style="display: flex; gap: 14px; margin-top: 12px">
+      <sc-for list="{{notas}}" as="n" hint-placeholder-count="4">
+        <div style="flex-grow: 1; min-width: 0; padding-top: 10px; border-top: 2px solid {{n.cor}}">
+          <div style="font-size: 11.5px; font-weight: 600; color: #3d4a5c; line-height: 1.4">{{n.titulo}}</div>
+          <div style="font-size: 11.5px; color: #7a8899; line-height: 1.55">{{n.texto}}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"$preview": {"width": 1200, "height": 900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      cores: [
+        { nome: 'Azul escuro', hex: '#0d1f3c' },
+        { nome: 'Azul principal', hex: '#1a3b6e' },
+        { nome: 'Azul médio', hex: '#2a5298' },
+        { nome: 'Azul de apoio', hex: '#3b7dd8' },
+        { nome: 'Verde', hex: '#1abc9c' },
+        { nome: 'Âmbar', hex: '#f0a500' }
+      ],
+      estados: [
+        { rotulo: 'Ativo', fundo: '#e6f7f2', cor: '#0e7c62', borda: '#a9e3d4', ponto: '#1abc9c', texto: 'No ar. O card é montado na página, entra na contagem do filtro e responde à busca.' },
+        { rotulo: 'Oculto', fundo: '#fff3cd', cor: '#856404', borda: '#ffc107', ponto: '#f0a500', texto: 'Fora do ar por enquanto. O cadastro continua completo no painel e volta com um clique — usado enquanto um acesso não é liberado.' },
+        { rotulo: 'Inativo', fundo: '#eef1f5', cor: '#7a8899', borda: '#dde3ea', ponto: '#c3cbd6', texto: 'Desligado. Sai da página e do índice de busca, mas não é apagado: o histórico e os textos ficam guardados.' }
+      ],
+      notas: [
+        { cor: '#3b7dd8', titulo: 'Ordem', texto: 'Alça de arraste e setas definem a posição na grade.' },
+        { cor: '#1abc9c', titulo: 'Identidade', texto: 'Imagem, título e link de destino do card.' },
+        { cor: '#f0a500', titulo: 'Botão', texto: 'Liga e desliga o botão de acesso sem tirar o card do ar.' },
+        { cor: '#c3cbd6', titulo: 'Publicação', texto: 'Status derivado e o interruptor que ativa o recurso.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

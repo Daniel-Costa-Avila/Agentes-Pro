@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentes Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --blue-dark:   #0d1f3c;
+            --blue-main:   #1a3b6e;
+            --blue-mid:    #2a5298;
+            --blue-accent: #3b7dd8;
+            --teal:        #1abc9c;
+            --gold:        #f0a500;
+            --text-body:   #3d4a5c;
+            --text-muted:  #7a8899;
+            --bg-page:     #f5f7fa;
+            --white:       #ffffff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-page);
+            color: var(--text-body);
+            line-height: 1.7;
+        }
+
+        /* ─── HERO ────────────────────────────────────────── */
+        .hero {
+            width: 100%;
+            aspect-ratio: 129 / 32;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
+            background-color: #e8edf2;
+            background-image: url("banner_busca_pro_final.jpeg");
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        /* overlay escuro leve para o título aparecer bem */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(10, 25, 55, 0.45);
+            z-index: 0;
+        }
+
+        .hero-inner {
+            text-align: center;
+            padding: clamp(0.5rem, 3vw, 3rem) 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: clamp(1.15rem, 3vw, 3.2rem);
+            font-weight: 700; color: white; letter-spacing: 0.02em;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+        }
+
+        /* ─── CONTAINER ───────────────────────────────────── */
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 2rem; }
+
+        /* ─── AGENT CARDS (lateral) ──────────────────────── */
+        .agents-main { background: white; padding: 3rem 0; }
+
+        .agent-card {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 2.5rem;
+            align-items: start;
+            padding: 2.5rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.07);
+        }
+        .agent-card:last-child { border-bottom: none; }
+
+        .agent-img {
+            width: 100%; aspect-ratio: 16/9;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3rem;
+            background: var(--bg-page);
+            border: 1px solid rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        /* logos ilustrativos por agente */
+        .img-buscapreco { background: linear-gradient(135deg, #1a1a2e, #16213e); }
+        .img-buscafrete { background: #ffffff; }
+        .img-trilha     { background: linear-gradient(135deg, #0f3460, #16213e); }
+        .img-tamper     { background: #ffffff; }
+
+        .agent-logo {
+            display: block;
+            width: 88%;
+            height: 82%;
+            object-fit: contain;
+        }
+
+        .agent-info h3 {
+            font-size: 1.4rem; font-weight: 600;
+            color: var(--blue-mid); margin-bottom: 0.6rem;
+            display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;
+        }
+
+        .badge-soon {
+            font-size: 0.72rem; font-weight: 600;
+            background: #fff3cd; color: #856404;
+            border: 1px solid #ffc107; border-radius: 20px;
+            padding: 0.2rem 0.7rem; white-space: nowrap;
+        }
+
+        .agent-info p {
+            font-size: 0.93rem; color: var(--text-body);
+            line-height: 1.75; margin-bottom: 1.25rem;
+            text-align: justify;
+        }
+
+        .btn-access {
+            display: flex; align-items: center; justify-content: center;
+            gap: 8px; width: 100%;
+            background: var(--blue-mid); color: white;
+            text-align: center; text-decoration: none;
+            padding: 0.7rem 1rem; border-radius: 8px;
+            font-size: 0.88rem; font-weight: 600;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+            border: none; cursor: pointer; font-family: 'Poppins', sans-serif;
+            letter-spacing: 0.02em;
+            box-shadow: 0 3px 10px rgba(42,82,152,0.25);
+        }
+        .btn-access:hover {
+            background: var(--blue-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(42,82,152,0.35);
+        }
+        .btn-access i { font-size: 0.85rem; }
+        .btn-access-soon {
+            display: flex; align-items: center; justify-content: center;
+            gap: 8px; width: 100%;
+            background: #e9ecef; color: #adb5bd;
+            padding: 0.7rem 1rem; border-radius: 8px;
+            font-size: 0.88rem; font-weight: 600;
+            letter-spacing: 0.02em; cursor: not-allowed;
+            font-family: 'Poppins', sans-serif;
+        }
+        .btn-access-soon i { font-size: 0.85rem; }
+
+        /* ─── AVISO ──────────────────────────────────────── */
+        .notice-bar {
+            background: white;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(0,0,0,0.06);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .notice-bar p {
+            text-align: center;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--text-body);
+        }
+
+        /* ─── GRID AGENTES MENORES ────────────────────────── */
+        .agents-grid-section { padding: 3rem 0; }
+
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .agent-mini-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.07);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            transition: transform 0.25s, box-shadow 0.25s;
+            display: flex; flex-direction: column;
+        }
+
+        .agent-mini-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 24px rgba(42,82,152,0.15);
+        }
+
+        .mini-thumb {
+            width: 100%; aspect-ratio: 4/3;
+            object-fit: cover;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 4rem;
+        }
+
+        .img-radar    { background: linear-gradient(160deg, #060d24, #0a1940); }
+        .img-professor{ background: linear-gradient(160deg, #0d1b2a, #1b2838); }
+        .img-designer { background: linear-gradient(160deg, #1a0a00, #2d1500); }
+
+        .mini-body { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; }
+
+        .mini-body h4 {
+            font-size: 1rem; font-weight: 600;
+            color: var(--text-body); margin-bottom: 0.6rem;
+            text-align: center;
+        }
+
+        .mini-body p {
+            font-size: 0.84rem; color: var(--text-muted);
+            line-height: 1.65; flex: 1; text-align: justify;
+            margin-bottom: 1rem;
+        }
+
+        /* ─── FOOTER ──────────────────────────────────────── */
+        footer {
+            background: white;
+            border-top: 1px solid rgba(0,0,0,0.08);
+            padding: 2.5rem 0;
+            text-align: center;
+        }
+
+        .footer-contact { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+        .footer-contact a { color: var(--blue-mid); text-decoration: none; font-weight: 500; }
+        .footer-contact a:hover { text-decoration: underline; }
+
+        .footer-brands { display: flex; align-items: center; justify-content: center; gap: 3rem; }
+        .brand-probel   { font-size: 1.6rem; font-weight: 800; color: var(--blue-dark); }
+        .brand-prodormir{ font-size: 1.4rem; font-weight: 700; color: #b0b8c8; }
+
+        /* ─── RESPONSIVE ──────────────────────────────────── */
+        @media (max-width: 768px) {
+            .agent-card { grid-template-columns: 1fr; gap: 1.25rem; }
+            .agents-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 540px) {
+            .agents-grid { grid-template-columns: repeat(2,1fr); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-inner">
+        <h1>Agentes Pro</h1>
+    </div>
+</section>
+
+<!-- AGENT CARDS LATERAIS -->
+<section class="agents-main">
+    <div class="container">
+
+        <!-- Busca Preço -->
+        <div class="agent-card">
+            <div class="agent-img img-buscapreco">
+                <img class="agent-logo" src="logo-busca-preco.png" alt="Logo Busca Preço">
+            </div>
+            <div class="agent-info">
+                <h3>Busca Preço</h3>
+                <p>Busca Preço é um sistema que coleta e compara preços de produtos automaticamente, gerando uma planilha de resultados para análise e tomada de decisão.</p>
+                <a href="https://buscapreco.promarketing.ind.br/" target="_blank" class="btn-access"><i class="fas fa-robot"></i> Acesso Direto</a>
+            </div>
+        </div>
+
+        <!-- Busca Frete -->
+        <div class="agent-card">
+            <div class="agent-img img-buscafrete">
+                <img class="agent-logo" src="logo-busca-frete.png" alt="Logo Busca Frete">
+            </div>
+            <div class="agent-info">
+                <h3>Busca Frete</h3>
+                <p>Agente que automatiza testes de frete no site, simulando diferentes produtos e CEPs, e gera uma planilha com valores e prazos para análise.</p>
+                <a href="https://buscafrete.promarketing.ind.br/" target="_blank" class="btn-access"><i class="fas fa-truck"></i> Acesso Direto</a>
+            </div>
+        </div>
+
+        <!-- Gerenciador de Tarefas -->
+        <div class="agent-card">
+            <div class="agent-img img-trilha">
+                <svg width="220" height="100" viewBox="0 0 220 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="20" y="20" width="80" height="60" rx="6" fill="none" stroke="#4a7fd4" stroke-width="2"/>
+                    <rect x="30" y="32" width="60" height="8" rx="3" fill="#4a7fd4" opacity=".7"/>
+                    <rect x="30" y="46" width="40" height="6" rx="3" fill="#4a7fd4" opacity=".4"/>
+                    <rect x="30" y="58" width="50" height="6" rx="3" fill="#4a7fd4" opacity=".4"/>
+                    <rect x="115" y="15" width="28" height="28" rx="5" fill="#3b7dd8" opacity=".8"/>
+                    <rect x="149" y="15" width="28" height="28" rx="5" fill="#1abc9c" opacity=".6"/>
+                    <rect x="115" y="50" width="28" height="28" rx="5" fill="#f0a500" opacity=".6"/>
+                    <rect x="149" y="50" width="28" height="28" rx="5" fill="#e74c3c" opacity=".5"/>
+                    <text x="129" y="33" text-anchor="middle" font-family="Arial" font-size="10" fill="white" font-weight="700">A</text>
+                    <text x="163" y="33" text-anchor="middle" font-family="Arial" font-size="10" fill="white" font-weight="700">B</text>
+                    <text x="129" y="68" text-anchor="middle" font-family="Arial" font-size="10" fill="white" font-weight="700">C</text>
+                    <text x="163" y="68" text-anchor="middle" font-family="Arial" font-size="10" fill="white" font-weight="700">D</text>
+                </svg>
+            </div>
+            <div class="agent-info">
+                <h3>
+                    Gerenciador de Tarefas
+                    
+                </h3>
+                <p>Sistema Kanban personalizado para gestão de tarefas, semelhante ao Jira e Trello, focado em flexibilidade, evolução contínua e adaptação às necessidades da empresa.</p>
+                <a href="https://gerenciador.promarketing.ind.br/" target="_blank" class="btn-access"><i class="fas fa-tasks"></i> Acesso Direto</a>
+            </div>
+        </div>
+
+        <!-- Tampermonkey -->
+        <div class="agent-card">
+            <div class="agent-img img-tamper">
+                <img class="agent-logo" src="logo-tampermonkey.png" alt="Logo Tampermonkey">
+            </div>
+            <div class="agent-info">
+                <h3>Tampermonkey</h3>
+                <p>O Tampermonkey é uma extensão de navegador que permite aos usuários adicionar e executar <em>scripts</em> personalizados (trechos de código em JavaScript) para modificar o funcionamento de sites na internet.</p>
+                <a href="https://www.tampermonkey.net/" target="_blank" class="btn-access"><i class="fas fa-download"></i> Acesso ao Instalador</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- AVISO OPENAI -->
+<div class="notice-bar">
+    <div class="container">
+        <p>Os agentes listados abaixo ainda possuem algumas limitações de compartilhamento definidas pela OpenIA. 🌐</p>
+    </div>
+</div>
+
+<!-- GRID AGENTES MENORES -->
+<section class="agents-grid-section">
+    <div class="container">
+        <div class="agents-grid">
+
+            <!-- Radar Global de IA -->
+            <div class="agent-mini-card">
+                <div class="mini-thumb img-radar">
+                    <svg width="160" height="130" viewBox="0 0 160 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="80" cy="65" r="50" fill="none" stroke="#4a7fd4" stroke-width="1.5" opacity=".4"/>
+                        <circle cx="80" cy="65" r="35" fill="none" stroke="#4a7fd4" stroke-width="1.5" opacity=".5"/>
+                        <circle cx="80" cy="65" r="20" fill="none" stroke="#4a7fd4" stroke-width="1.5" opacity=".7"/>
+                        <ellipse cx="80" cy="65" rx="55" ry="22" fill="none" stroke="#3b7dd8" stroke-width="1" opacity=".3"/>
+                        <path d="M80 65 L112 38" stroke="#4a7fd4" stroke-width="1.5" opacity=".5"/>
+                        <circle cx="80" cy="65" r="4" fill="#4a7fd4"/>
+                        <circle cx="55" cy="45" r="3" fill="#f0a500" opacity=".8"/>
+                        <circle cx="105" cy="55" r="2" fill="#1abc9c" opacity=".8"/>
+                        <circle cx="70" cy="85" r="2.5" fill="#e74c3c" opacity=".7"/>
+                        <text x="80" y="108" text-anchor="middle" font-family="Arial" font-weight="800" font-size="9" fill="#4a7fd4" letter-spacing="2">RADAR</text>
+                        <text x="80" y="119" text-anchor="middle" font-family="Arial" font-weight="600" font-size="7" fill="#7a8899" letter-spacing="1">GLOBAL DE IA</text>
+                    </svg>
+                </div>
+                <div class="mini-body">
+                    <h4>Radar Global de IA</h4>
+                    <p>Fornece um resumo claro e objetivo dos principais acontecimentos e tendências em Inteligência Artificial, destacando novidades, avanços tecnológicos, lançamentos relevantes e impactos no mercado de forma profissional e acessível.</p>
+                    <a href="#" class="btn-access"><i class="fas fa-arrow-up-right-from-square"></i> Acesso Direto</a>
+                </div>
+            </div>
+
+            <!-- Professor IA -->
+            <div class="agent-mini-card">
+                <div class="mini-thumb img-professor">
+                    <svg width="160" height="130" viewBox="0 0 160 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="80" cy="52" r="28" fill="#1e3a5f" stroke="#4a7fd4" stroke-width="1.5"/>
+                        <circle cx="80" cy="44" r="12" fill="#4a7fd4" opacity=".7"/>
+                        <path d="M56 70 Q80 90 104 70" fill="#1e3a5f" stroke="#4a7fd4" stroke-width="1.5"/>
+                        <circle cx="65" cy="50" r="3" fill="#f0a500"/>
+                        <circle cx="95" cy="50" r="3" fill="#f0a500"/>
+                        <path d="M72 60 Q80 66 88 60" stroke="#f0a500" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                        <rect x="28" y="82" width="104" height="30" rx="6" fill="#0d1f3c"/>
+                        <text x="80" y="100" text-anchor="middle" font-family="Arial" font-weight="700" font-size="10" fill="#4a7fd4">Professor IA</text>
+                        <circle cx="42" cy="34" r="5" fill="#f0a500" opacity=".4"/>
+                        <circle cx="118" cy="38" r="4" fill="#1abc9c" opacity=".4"/>
+                    </svg>
+                </div>
+                <div class="mini-body">
+                    <h4>Professor IA</h4>
+                    <p>Este agente vai ensinar Inteligência Artificial de forma progressiva, com linguagem acessível, exemplos do dia a dia e aplicações práticas para a rotina profissional e pessoal. Ele permite adaptar explicações ao ritmo de aprendizado do aluno e conectar teoria a usos reais de IA.</p>
+                    <a href="#" class="btn-access"><i class="fas fa-arrow-up-right-from-square"></i> Acesso Direto</a>
+                </div>
+            </div>
+
+            <!-- Designer Visual Profissional -->
+            <div class="agent-mini-card">
+                <div class="mini-thumb img-designer">
+                    <svg width="160" height="130" viewBox="0 0 160 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="80" cy="55" r="38" fill="#1a0500" stroke="#c9a227" stroke-width="2"/>
+                        <path d="M80 25 L80 85 M55 55 L105 55" stroke="#c9a227" stroke-width="1.5" opacity=".3"/>
+                        <path d="M62 32 L98 78 M98 32 L62 78" stroke="#c9a227" stroke-width="1" opacity=".2"/>
+                        <circle cx="80" cy="55" r="18" fill="#2d1000" stroke="#c9a227" stroke-width="1.5"/>
+                        <path d="M73 47 L73 63 L87 55 Z" fill="#c9a227"/>
+                        <circle cx="80" cy="55" r="5" fill="#f0a500" opacity=".6"/>
+                        <text x="80" y="108" text-anchor="middle" font-family="Arial" font-weight="700" font-size="8" fill="#c9a227" letter-spacing="1">DESIGNER VISUAL</text>
+                    </svg>
+                </div>
+                <div class="mini-body">
+                    <h4>Designer Visual Profissional</h4>
+                    <p>Realiza a criação e edição de imagens, com integração ao Photoshop e ao Canva, permitindo acesso completo aos recursos e ferramentas das plataformas para desenvolvimento de materiais visuais com qualidade profissional.</p>
+                    <a href="#" class="btn-access"><i class="fas fa-arrow-up-right-from-square"></i> Acesso Direto</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <p class="footer-contact">
+            Em caso de dúvidas ou sugestões, entre em contato pelo e-mail:
+            <a href="mailto:daniel.avila@colchoes.ind.br">daniel.avila@colchoes.ind.br</a>
+        </p>
+        <div class="footer-brands">
+            <span class="brand-probel">Probel</span>
+            <span class="brand-prodormir">Prodormir</span>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

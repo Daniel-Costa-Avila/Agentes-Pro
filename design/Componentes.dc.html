@@ -1,0 +1,307 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap">
+  <style>
+    body { margin: 0; background: #ffffff; }
+    *, *::before, *::after { box-sizing: border-box; }
+    a { color: #2a5298; text-decoration: none; }
+    a:hover { color: #0d1f3c; }
+
+    .ds-root { font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif; color: #3d4a5c; line-height: 1.7; background: #ffffff; padding: 40px; }
+
+    .ds-head { margin-bottom: 34px; padding-bottom: 22px; border-bottom: 1px solid rgba(0,0,0,0.09); }
+    .ds-kicker { font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #7a8899; margin: 0 0 6px; }
+    .ds-head h2 { margin: 0 0 6px; font-size: 26px; font-weight: 700; color: #0d1f3c; line-height: 1.2; }
+    .ds-head p { margin: 0; font-size: 13.5px; color: #7a8899; max-width: 62em; }
+
+    .ds-section { margin-bottom: 36px; }
+    .ds-label { font-size: 10.5px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #a4aebc; margin: 0 0 16px; }
+
+    /* cores */
+    .ds-swatches { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; }
+    .ds-sw-chip { height: 62px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.09); margin-bottom: 9px; }
+    .ds-sw-name { font-size: 12px; font-weight: 600; color: #3d4a5c; line-height: 1.4; }
+    .ds-sw-hex { font-size: 11px; font-weight: 400; color: #a4aebc; font-family: 'Consolas', monospace; letter-spacing: 0.02em; }
+    .ds-sw-use { font-size: 10.5px; color: #7a8899; line-height: 1.5; margin-top: 2px; }
+
+    /* tipografia */
+    .ds-type-row { display: grid; grid-template-columns: 190px 1fr; gap: 28px; align-items: baseline; padding: 13px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+    .ds-type-spec { font-size: 11px; color: #a4aebc; font-family: 'Consolas', monospace; line-height: 1.6; }
+
+    /* componentes */
+    .ds-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; }
+    .ds-state { font-size: 10.5px; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; color: #a4aebc; margin: 0 0 10px; }
+
+    .ds-card { display: flex; flex-direction: column; background: #ffffff; border: 1px solid rgba(0,0,0,0.07); border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+    .ds-card-hover { transform: translateY(-6px); box-shadow: 0 8px 24px rgba(42,82,152,0.15); border-color: rgba(42,82,152,0.22); }
+    .ds-thumb { aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .ds-cbody { padding: 22px; display: flex; flex-direction: column; flex-grow: 1; }
+    .ds-cmeta { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; min-height: 20px; }
+    .ds-cat { display: flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; color: #7a8899; }
+    .ds-dot { width: 6px; height: 6px; border-radius: 20px; flex-shrink: 0; }
+    .ds-pill { font-size: 10.5px; font-weight: 600; white-space: nowrap; background: #fff3cd; color: #856404; border: 1px solid #ffc107; border-radius: 20px; padding: 2px 9px; line-height: 1.5; }
+    .ds-card h3 { margin: 0 0 8px; font-size: 17px; font-weight: 600; color: #1a3b6e; line-height: 1.35; }
+    .ds-card p { margin: 0 0 18px; font-size: 13.5px; line-height: 1.65; color: #7a8899; flex-grow: 1; }
+
+    .ds-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 42px; border-radius: 8px; border: 0; background: #2a5298; color: #ffffff; font-family: inherit; font-size: 14px; font-weight: 600; letter-spacing: 0.02em; box-shadow: 0 3px 10px rgba(42,82,152,0.25); }
+    .ds-btn-hover { background: #0d1f3c; box-shadow: 0 6px 18px rgba(42,82,152,0.35); }
+    .ds-btn-off { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 42px; border-radius: 8px; background: #e9ecef; color: #adb5bd; font-family: inherit; font-size: 14px; font-weight: 600; letter-spacing: 0.02em; }
+
+    .ds-stack { display: flex; flex-direction: column; gap: 12px; }
+    .ds-note { font-size: 11.5px; color: #a4aebc; line-height: 1.6; margin: 8px 0 0; }
+
+    .ds-darkbox { background: linear-gradient(135deg, #0d1f3c, #1a3b6e); border-radius: 10px; padding: 22px; }
+    .ds-chiprow { display: flex; flex-wrap: wrap; gap: 8px; }
+    .ds-chip { font-family: inherit; font-size: 12.5px; font-weight: 500; height: 34px; padding: 0 15px; border-radius: 20px; display: flex; align-items: center; gap: 7px; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.22); }
+    .ds-chip-on { background: #ffffff; color: #0d1f3c; font-weight: 600; border-color: #ffffff; box-shadow: 0 3px 12px rgba(5,18,40,0.24); }
+    .ds-chip-n { font-size: 11px; font-weight: 600; opacity: 0.62; }
+    .ds-search { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.97); border: 1px solid rgba(255,255,255,0.6); border-radius: 8px; height: 48px; padding: 0 14px; box-shadow: 0 6px 20px rgba(5,18,40,0.28); margin-bottom: 14px; }
+    .ds-search span { font-size: 14px; font-weight: 300; color: #a4aebc; }
+  </style>
+</helmet>
+
+<div class="ds-root" style="width: 1200px">
+
+  <div class="ds-head">
+    <p class="ds-kicker">Sistema visual</p>
+    <h2>Agentes Pro — tokens e componentes</h2>
+    <p>Valores lidos diretamente da página atual (agentes-pro.html). O layout novo não inventa nada: reusa esta paleta, esta escala tipográfica e estes raios, e só unifica os dois padrões de card que hoje convivem na mesma página.</p>
+  </div>
+
+  <div class="ds-section">
+    <p class="ds-label">Cores</p>
+    <div class="ds-swatches">
+      <div>
+        <div class="ds-sw-chip" style="background: #0d1f3c"></div>
+        <div class="ds-sw-name">blue-dark</div>
+        <div class="ds-sw-hex">#0d1f3c</div>
+        <div class="ds-sw-use">Títulos, hover de botão</div>
+      </div>
+      <div>
+        <div class="ds-sw-chip" style="background: #1a3b6e"></div>
+        <div class="ds-sw-name">blue-main</div>
+        <div class="ds-sw-hex">#1a3b6e</div>
+        <div class="ds-sw-use">Título de card</div>
+      </div>
+      <div>
+        <div class="ds-sw-chip" style="background: #2a5298"></div>
+        <div class="ds-sw-name">blue-mid</div>
+        <div class="ds-sw-hex">#2a5298</div>
+        <div class="ds-sw-use">Ação primária</div>
+      </div>
+      <div>
+        <div class="ds-sw-chip" style="background: #3b7dd8"></div>
+        <div class="ds-sw-name">blue-accent</div>
+        <div class="ds-sw-hex">#3b7dd8</div>
+        <div class="ds-sw-use">Categoria Operação</div>
+      </div>
+      <div>
+        <div class="ds-sw-chip" style="background: #1abc9c"></div>
+        <div class="ds-sw-name">teal</div>
+        <div class="ds-sw-hex">#1abc9c</div>
+        <div class="ds-sw-use">Categoria Assistentes IA</div>
+      </div>
+      <div>
+        <div class="ds-sw-chip" style="background: #f0a500"></div>
+        <div class="ds-sw-name">gold</div>
+        <div class="ds-sw-hex">#f0a500</div>
+        <div class="ds-sw-use">Categoria Ferramentas</div>
+      </div>
+      <div>
+        <div class="ds-sw-chip" style="background: #3d4a5c"></div>
+        <div class="ds-sw-name">text-body</div>
+        <div class="ds-sw-hex">#3d4a5c</div>
+        <div class="ds-sw-use">Corpo de texto</div>
+      </div>
+      <div>
+        <div class="ds-sw-chip" style="background: #7a8899"></div>
+        <div class="ds-sw-name">text-muted</div>
+        <div class="ds-sw-hex">#7a8899</div>
+        <div class="ds-sw-use">Descrições, rótulos</div>
+      </div>
+      <div>
+        <div class="ds-sw-chip" style="background: #f5f7fa"></div>
+        <div class="ds-sw-name">bg-page</div>
+        <div class="ds-sw-hex">#f5f7fa</div>
+        <div class="ds-sw-use">Fundo da página</div>
+      </div>
+      <div>
+        <div class="ds-sw-chip" style="background: #ffffff"></div>
+        <div class="ds-sw-name">white</div>
+        <div class="ds-sw-hex">#ffffff</div>
+        <div class="ds-sw-use">Superfície de card</div>
+      </div>
+      <div>
+        <div class="ds-sw-chip" style="background: #fff3cd; border-color: #ffc107"></div>
+        <div class="ds-sw-name">alert-bg</div>
+        <div class="ds-sw-hex">#fff3cd</div>
+        <div class="ds-sw-use">Selo Acesso limitado</div>
+      </div>
+      <div>
+        <div class="ds-sw-chip" style="background: #856404"></div>
+        <div class="ds-sw-name">alert-fg</div>
+        <div class="ds-sw-hex">#856404</div>
+        <div class="ds-sw-use">Texto do selo</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-section">
+    <p class="ds-label">Tipografia — Poppins</p>
+    <div class="ds-type-row">
+      <div class="ds-type-spec">44 / 700 / 1.15</div>
+      <div style="font-size: 44px; font-weight: 700; color: #0d1f3c; line-height: 1.15">Agentes Pro</div>
+    </div>
+    <div class="ds-type-row">
+      <div class="ds-type-spec">22 / 600 / 1.3</div>
+      <div style="font-size: 22px; font-weight: 600; color: #2a5298; line-height: 1.3">Título do destaque</div>
+    </div>
+    <div class="ds-type-row">
+      <div class="ds-type-spec">17 / 600 / 1.35</div>
+      <div style="font-size: 17px; font-weight: 600; color: #1a3b6e; line-height: 1.35">Título de card</div>
+    </div>
+    <div class="ds-type-row">
+      <div class="ds-type-spec">15 / 400 / 1.75</div>
+      <div style="font-size: 15px; font-weight: 400; color: #3d4a5c; line-height: 1.75">Corpo do destaque — texto corrido para a descrição mais longa.</div>
+    </div>
+    <div class="ds-type-row">
+      <div class="ds-type-spec">13.5 / 400 / 1.65</div>
+      <div style="font-size: 13.5px; font-weight: 400; color: #7a8899; line-height: 1.65">Descrição de card — duas a três linhas, tom neutro.</div>
+    </div>
+    <div class="ds-type-row">
+      <div class="ds-type-spec">14 / 600 / 0.02em</div>
+      <div style="font-size: 14px; font-weight: 600; color: #2a5298; letter-spacing: 0.02em">Rótulo de botão</div>
+    </div>
+    <div class="ds-type-row">
+      <div class="ds-type-spec">10.5 / 600 / 0.13em</div>
+      <div style="font-size: 10.5px; font-weight: 600; color: #7a8899; letter-spacing: 0.13em; text-transform: uppercase">Categoria / rótulo</div>
+    </div>
+  </div>
+
+  <div class="ds-section">
+    <p class="ds-label">Card de agente — um único padrão para os sete</p>
+    <div class="ds-cols">
+
+      <div>
+        <p class="ds-state">Padrão</p>
+        <div class="ds-card">
+          <div class="ds-thumb" style="background: linear-gradient(135deg, #0f3460, #16213e)">
+            <svg width="180" height="100" viewBox="0 0 220 100" fill="none" aria-hidden="true">
+              <rect x="20" y="20" width="80" height="60" rx="6" fill="none" stroke="#4a7fd4" stroke-width="2"></rect>
+              <rect x="30" y="32" width="60" height="8" rx="3" fill="#4a7fd4" opacity=".7"></rect>
+              <rect x="30" y="46" width="40" height="6" rx="3" fill="#4a7fd4" opacity=".4"></rect>
+              <rect x="30" y="58" width="50" height="6" rx="3" fill="#4a7fd4" opacity=".4"></rect>
+              <rect x="115" y="15" width="28" height="28" rx="5" fill="#3b7dd8" opacity=".8"></rect>
+              <rect x="149" y="15" width="28" height="28" rx="5" fill="#1abc9c" opacity=".6"></rect>
+              <rect x="115" y="50" width="28" height="28" rx="5" fill="#f0a500" opacity=".6"></rect>
+              <rect x="149" y="50" width="28" height="28" rx="5" fill="#e74c3c" opacity=".5"></rect>
+            </svg>
+          </div>
+          <div class="ds-cbody">
+            <div class="ds-cmeta">
+              <span class="ds-cat"><span class="ds-dot" style="background: #3b7dd8"></span>Operação</span>
+            </div>
+            <h3>Gerenciador de Tarefas</h3>
+            <p>Kanban personalizado para gestão de tarefas, adaptado à rotina da empresa.</p>
+            <span class="ds-btn">Acesso Direto</span>
+          </div>
+        </div>
+        <p class="ds-note">Raio 10px · borda rgba(0,0,0,0.07) · sombra 0 2px 10px rgba(0,0,0,0.06)</p>
+      </div>
+
+      <div>
+        <p class="ds-state">Hover</p>
+        <div class="ds-card ds-card-hover">
+          <div class="ds-thumb" style="background: linear-gradient(160deg, #060d24, #0a1940)">
+            <svg width="150" height="100" viewBox="0 0 160 130" fill="none" aria-hidden="true">
+              <circle cx="80" cy="65" r="50" fill="none" stroke="#4a7fd4" stroke-width="1.5" opacity=".4"></circle>
+              <circle cx="80" cy="65" r="35" fill="none" stroke="#4a7fd4" stroke-width="1.5" opacity=".5"></circle>
+              <circle cx="80" cy="65" r="20" fill="none" stroke="#4a7fd4" stroke-width="1.5" opacity=".7"></circle>
+              <path d="M80 65 L112 38" stroke="#4a7fd4" stroke-width="1.5" opacity=".5"></path>
+              <circle cx="80" cy="65" r="4" fill="#4a7fd4"></circle>
+              <circle cx="55" cy="45" r="3" fill="#f0a500" opacity=".8"></circle>
+              <circle cx="105" cy="55" r="2" fill="#1abc9c" opacity=".8"></circle>
+            </svg>
+          </div>
+          <div class="ds-cbody">
+            <div class="ds-cmeta">
+              <span class="ds-cat"><span class="ds-dot" style="background: #3b7dd8"></span>Operação</span>
+            </div>
+            <h3>Card em foco</h3>
+            <p>Sobe 6px, a sombra abre e a borda ganha um toque de azul.</p>
+            <span class="ds-btn ds-btn-hover">Acesso Direto</span>
+          </div>
+        </div>
+        <p class="ds-note">translateY(-6px) · sombra 0 8px 24px rgba(42,82,152,0.15)</p>
+      </div>
+
+      <div>
+        <p class="ds-state">Acesso limitado</p>
+        <div class="ds-card">
+          <div class="ds-thumb" style="background: linear-gradient(160deg, #1a0a00, #2d1500)">
+            <svg width="132" height="100" viewBox="0 0 160 130" fill="none" aria-hidden="true">
+              <circle cx="80" cy="62" r="40" fill="#1a0500" stroke="#c9a227" stroke-width="2"></circle>
+              <path d="M80 30 L80 94 M52 62 L108 62" stroke="#c9a227" stroke-width="1.5" opacity=".3"></path>
+              <circle cx="80" cy="62" r="19" fill="#2d1000" stroke="#c9a227" stroke-width="1.5"></circle>
+              <path d="M73 53 L73 71 L88 62 Z" fill="#c9a227"></path>
+              <circle cx="80" cy="62" r="5" fill="#f0a500" opacity=".6"></circle>
+            </svg>
+          </div>
+          <div class="ds-cbody">
+            <div class="ds-cmeta">
+              <span class="ds-cat"><span class="ds-dot" style="background: #1abc9c"></span>Assistentes IA</span>
+              <span class="ds-pill">Acesso limitado</span>
+            </div>
+            <h3>Designer Visual</h3>
+            <p>O selo substitui o aviso solto que hoje fica acima do grid.</p>
+            <span class="ds-btn-off">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="4.5" y="10.5" width="15" height="9.5" rx="2.2"></rect>
+                <path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7"></path>
+              </svg>
+              Em liberação
+            </span>
+          </div>
+        </div>
+        <p class="ds-note">Selo #fff3cd / #856404 · botão inativo #e9ecef</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="ds-section" style="margin-bottom: 0">
+    <p class="ds-label">Controles do topo (sobre o hero escuro)</p>
+    <div class="ds-darkbox">
+      <div class="ds-search" style="max-width: 460px">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#7a8899" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="M16.5 16.5L21 21"></path>
+        </svg>
+        <span>Buscar agente: frete, preço, tarefas...</span>
+      </div>
+      <div class="ds-chiprow">
+        <span class="ds-chip ds-chip-on">Todos <span class="ds-chip-n">7</span></span>
+        <span class="ds-chip">Operação <span class="ds-chip-n">3</span></span>
+        <span class="ds-chip">Assistentes IA <span class="ds-chip-n">3</span></span>
+        <span class="ds-chip">Ferramentas <span class="ds-chip-n">1</span></span>
+      </div>
+    </div>
+    <p class="ds-note">Campo 48px · chips 34px no desktop e 44px no mobile (alvo de toque)</p>
+  </div>
+
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"$preview": {"width": 1200, "height": 1500}}'>
+class Component extends DCLogic {}
+</script>
+</body>
+</html>

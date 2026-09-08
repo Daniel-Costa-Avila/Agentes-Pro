@@ -1,0 +1,451 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+  <style>
+    body { margin: 0; font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif; background: #f5f7fa; color: #3d4a5c; -webkit-font-smoothing: antialiased; }
+    a { color: #2a5298; text-decoration: none; }
+    a:hover { color: #0d1f3c; }
+    button { font-family: inherit; }
+    input { font-family: inherit; }
+    ::placeholder { color: #a4aebc; font-weight: 300; }
+  </style>
+</helmet>
+
+<div style="display: flex; width: 1440px; height: 1000px; overflow: hidden; background: #f5f7fa">
+
+  <aside style="display: flex; flex-direction: column; width: 236px; flex-shrink: 0; background: #0d1f3c; padding: 20px 0">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 0 20px 22px">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+        <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="#2a5298"></rect>
+        <path d="M8 16.5V9a2 2 0 0 1 2-2h1.6a2.6 2.6 0 0 1 0 5.2H8" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path>
+        <circle cx="16.4" cy="15.6" r="1.5" fill="#1abc9c"></circle>
+      </svg>
+      <div>
+        <div style="font-size: 14px; font-weight: 700; color: #ffffff; line-height: 1.25">Agentes Pro</div>
+        <div style="font-size: 9.5px; font-weight: 500; color: rgba(255,255,255,0.44); letter-spacing: 0.16em; text-transform: uppercase; line-height: 1.3">Painel de conteúdo</div>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 2px; padding: 0 12px">
+      <div style="font-size: 9.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.34); padding: 10px 8px 8px">Conteúdo</div>
+
+      <div style="display: flex; align-items: center; gap: 11px; height: 38px; padding: 0 10px; border-radius: 8px; background: {{accent}}; color: #ffffff; font-size: 13.5px; font-weight: 600">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7.5" height="7.5" rx="2"></rect><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"></rect>
+          <rect x="3" y="13.5" width="7.5" height="7.5" rx="2"></rect><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"></rect>
+        </svg>
+        <span style="flex-grow: 1">Recursos</span>
+        <span style="font-size: 11px; font-weight: 600; background: rgba(255,255,255,0.22); border-radius: 20px; padding: 1px 8px">{{total}}</span>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 11px; height: 38px; padding: 0 10px; border-radius: 8px; color: rgba(255,255,255,0.62); font-size: 13.5px; font-weight: 500">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3.5 9.5 12 3.5l8.5 6V20a1 1 0 0 1-1 1h-15a1 1 0 0 1-1-1z"></path><path d="M9.5 21v-6.5h5V21"></path>
+        </svg>
+        <span>Página inicial</span>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 11px; height: 38px; padding: 0 10px; border-radius: 8px; color: rgba(255,255,255,0.62); font-size: 13.5px; font-weight: 500">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 7.5h16M4 12h16M4 16.5h9"></path>
+        </svg>
+        <span>Categorias e filtros</span>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 11px; height: 38px; padding: 0 10px; border-radius: 8px; color: rgba(255,255,255,0.62); font-size: 13.5px; font-weight: 500">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4.5" width="18" height="15" rx="2.5"></rect><circle cx="8.5" cy="10" r="1.7"></circle><path d="m4 17 5-4.5 4 3.5 3-2.5 4 3.5"></path>
+        </svg>
+        <span>Imagens</span>
+      </div>
+
+      <div style="font-size: 9.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.34); padding: 18px 8px 8px">Administração</div>
+
+      <div style="display: flex; align-items: center; gap: 11px; height: 38px; padding: 0 10px; border-radius: 8px; color: rgba(255,255,255,0.62); font-size: 13.5px; font-weight: 500">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="8" r="3.4"></circle><path d="M3 20c0-3.3 2.7-5.4 6-5.4s6 2.1 6 5.4"></path><path d="M16.5 7.5h5M19 5v5"></path>
+        </svg>
+        <span>Usuários e acessos</span>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 11px; height: 38px; padding: 0 10px; border-radius: 8px; color: rgba(255,255,255,0.62); font-size: 13.5px; font-weight: 500">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 1.8"></path>
+        </svg>
+        <span>Registro de alterações</span>
+      </div>
+    </div>
+
+    <div style="flex-grow: 1"></div>
+
+    <div style="display: flex; align-items: center; gap: 10px; margin: 0 12px; padding: 11px 10px; border-top: 1px solid rgba(255,255,255,0.09)">
+      <div style="display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 20px; background: #1abc9c; color: #06301f; font-size: 12px; font-weight: 700; flex-shrink: 0">DA</div>
+      <div style="flex-grow: 1; min-width: 0">
+        <div style="font-size: 12.5px; font-weight: 600; color: #ffffff; line-height: 1.3">Daniel Ávila</div>
+        <div style="font-size: 10.5px; font-weight: 400; color: rgba(255,255,255,0.45); line-height: 1.3">Administrador</div>
+      </div>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 4.5h3.5a1.5 1.5 0 0 1 1.5 1.5v12a1.5 1.5 0 0 1-1.5 1.5H15"></path><path d="M10 16.5 5.5 12 10 7.5M5.5 12H15"></path>
+      </svg>
+    </div>
+  </aside>
+
+  <div style="display: flex; flex-direction: column; flex-grow: 1; min-width: 0">
+
+    <header style="display: flex; align-items: center; gap: 20px; height: 66px; flex-shrink: 0; padding: 0 28px; background: #ffffff; border-bottom: 1px solid rgba(0,0,0,0.07)">
+      <div style="flex-grow: 1; min-width: 0">
+        <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #a4aebc; line-height: 1.4">Conteúdo</div>
+        <div style="font-size: 17px; font-weight: 600; color: #0d1f3c; line-height: 1.3">Recursos da página</div>
+      </div>
+
+      <a href="#" style="display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 500; color: #7a8899">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 4.5h5.5V10"></path><path d="M19.5 4.5 11 13"></path><path d="M18 14v4.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 4 18.5v-11A1.5 1.5 0 0 1 5.5 6H10"></path>
+        </svg>
+        Ver a página
+      </a>
+
+      <sc-if value="{{pendentes.tem}}" hint-placeholder-val="{{ true }}">
+        <span style="display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 500; color: #856404; background: #fff3cd; border: 1px solid #ffc107; border-radius: 20px; padding: 4px 12px">
+          <span style="width: 6px; height: 6px; border-radius: 20px; background: #f0a500"></span>
+          {{pendentes.texto}}
+        </span>
+      </sc-if>
+
+      <button onClick="{{publicar}}" style="display: flex; align-items: center; justify-content: center; gap: 8px; height: 38px; padding: 0 18px; border: 0; border-radius: 8px; background: {{accent}}; color: #ffffff; font-size: 13.5px; font-weight: 600; letter-spacing: 0.02em; cursor: pointer; box-shadow: 0 3px 10px rgba(42,82,152,0.25)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 19V5"></path><path d="m5.5 11.5 6.5-6.5 6.5 6.5"></path>
+        </svg>
+        Publicar alterações
+      </button>
+    </header>
+
+    <div style="display: flex; flex-direction: column; gap: 16px; flex-grow: 1; min-height: 0; padding: 22px 28px 26px; overflow: hidden">
+
+      <div style="display: flex; align-items: center; gap: 12px; flex-shrink: 0">
+        <div style="display: flex; align-items: center; gap: 9px; width: 300px; height: 38px; padding: 0 13px; background: #ffffff; border: 1px solid rgba(0,0,0,0.1); border-radius: 8px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a4aebc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5 21 21"></path>
+          </svg>
+          <input type="text" value="{{busca}}" onChange="{{aoBuscar}}" placeholder="Buscar por título ou link" style="flex-grow: 1; min-width: 0; border: 0; outline: 0; background: transparent; font-size: 13px; color: #3d4a5c">
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 7px">
+          <sc-for list="{{filtros}}" as="f" hint-placeholder-count="4">
+            <button onClick="{{f.escolher}}" style="height: 32px; padding: 0 14px; border-radius: 20px; cursor: pointer; white-space: nowrap; font-size: 12.5px; font-weight: {{f.peso}}; background: {{f.fundo}}; color: {{f.cor}}; border: 1px solid {{f.borda}}">
+              {{f.rotulo}} <span style="font-size: 11px; font-weight: 600; opacity: 0.6">{{f.n}}</span>
+            </button>
+          </sc-for>
+        </div>
+
+        <div style="flex-grow: 1"></div>
+
+        <button style="display: flex; align-items: center; justify-content: center; gap: 8px; height: 38px; padding: 0 16px; border-radius: 8px; background: #ffffff; border: 1px solid rgba(0,0,0,0.12); color: #3d4a5c; font-size: 13px; font-weight: 500; cursor: pointer">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 6h12M8 12h12M8 18h12"></path><path d="M4 6h.01M4 12h.01M4 18h.01"></path>
+          </svg>
+          Reordenar
+        </button>
+
+        <button style="display: flex; align-items: center; justify-content: center; gap: 8px; height: 38px; padding: 0 18px; border: 0; border-radius: 8px; background: #1abc9c; color: #06301f; font-size: 13.5px; font-weight: 600; cursor: pointer; box-shadow: 0 3px 10px rgba(26,188,156,0.28)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5.5v13M5.5 12h13"></path>
+          </svg>
+          Novo recurso
+        </button>
+      </div>
+
+      <div style="display: flex; align-items: baseline; gap: 18px; flex-shrink: 0">
+        <span style="font-size: 11.5px; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; color: #7a8899">
+          <b style="color: #2a5298; font-weight: 700">{{visiveis}}</b> {{rotuloContagem}}
+        </span>
+        <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: #7a8899"><span style="width: 6px; height: 6px; border-radius: 20px; background: #1abc9c"></span>{{cAtivos}} ativos</span>
+        <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: #7a8899"><span style="width: 6px; height: 6px; border-radius: 20px; background: #f0a500"></span>{{cOcultos}} ocultos</span>
+        <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: #7a8899"><span style="width: 6px; height: 6px; border-radius: 20px; background: #c3cbd6"></span>{{cInativos}} inativos</span>
+      </div>
+
+      <div style="display: flex; flex-direction: column; flex-grow: 1; min-height: 0; background: #ffffff; border: 1px solid rgba(0,0,0,0.07); border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); overflow: hidden">
+
+        <div style="display: flex; align-items: center; gap: 14px; height: 42px; flex-shrink: 0; padding: 0 18px; background: #f8fafc; border-bottom: 1px solid rgba(0,0,0,0.07); font-size: 10.5px; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; color: #a4aebc">
+          <span style="width: 66px; flex-shrink: 0">Ordem</span>
+          <span style="flex-grow: 1; min-width: 0">Recurso</span>
+          <span style="width: 142px; flex-shrink: 0">Categoria</span>
+          <span style="width: 138px; flex-shrink: 0">Botão</span>
+          <span style="width: 108px; flex-shrink: 0">Status</span>
+          <span style="width: 66px; flex-shrink: 0">Ativo</span>
+          <span style="width: 104px; flex-shrink: 0; text-align: right">Ações</span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; flex-grow: 1; min-height: 0; overflow-y: auto">
+          <sc-for list="{{linhas}}" as="row" hint-placeholder-count="7">
+            <div style="display: flex; align-items: center; gap: 14px; min-height: 68px; padding: 10px 18px; border-bottom: 1px solid rgba(0,0,0,0.05); background: {{row.fundoLinha}}">
+
+              <div style="display: flex; align-items: center; gap: 6px; width: 66px; flex-shrink: 0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c3cbd6" stroke-width="1.9" stroke-linecap="round">
+                  <path d="M9 6h.01M9 12h.01M9 18h.01M15 6h.01M15 12h.01M15 18h.01"></path>
+                </svg>
+                <span style="font-size: 13px; font-weight: 600; color: #7a8899; width: 16px">{{row.pos}}</span>
+                <div style="display: flex; flex-direction: column; gap: 1px">
+                  <button onClick="{{row.subir}}" style="display: flex; align-items: center; justify-content: center; width: 17px; height: 14px; padding: 0; border: 0; border-radius: 3px; background: #eef1f5; color: #7a8899; cursor: pointer">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"></path></svg>
+                  </button>
+                  <button onClick="{{row.descer}}" style="display: flex; align-items: center; justify-content: center; width: 17px; height: 14px; padding: 0; border: 0; border-radius: 3px; background: #eef1f5; color: #7a8899; cursor: pointer">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>
+                  </button>
+                </div>
+              </div>
+
+              <div style="display: flex; align-items: center; gap: 12px; flex-grow: 1; min-width: 0; opacity: {{row.opacidade}}">
+                <div style="display: flex; align-items: center; justify-content: center; width: 46px; height: 46px; flex-shrink: 0; border-radius: 8px; border: 1px solid rgba(0,0,0,0.08); background: {{row.thumb}}; color: #ffffff; font-size: 14px; font-weight: 700; letter-spacing: 0.02em">{{row.sigla}}</div>
+                <div style="min-width: 0">
+                  <div style="display: flex; align-items: center; gap: 8px">
+                    <span style="font-size: 14px; font-weight: 600; color: #1a3b6e; line-height: 1.35">{{row.nome}}</span>
+                    <sc-if value="{{row.destaque}}" hint-placeholder-val="{{ true }}">
+                      <span style="display: flex; align-items: center; gap: 4px; font-size: 9.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #856404; background: #fff3cd; border: 1px solid #ffc107; border-radius: 20px; padding: 1px 8px">
+                        <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3.5 2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.9l6.1-.8z"></path></svg>
+                        Destaque
+                      </span>
+                    </sc-if>
+                  </div>
+                  <div style="font-size: 11.5px; font-weight: 400; color: #a4aebc; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{row.link}}</div>
+                </div>
+              </div>
+
+              <div style="width: 142px; flex-shrink: 0">
+                <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 600; letter-spacing: 0.11em; text-transform: uppercase; color: #7a8899">
+                  <span style="width: 6px; height: 6px; border-radius: 20px; background: {{row.corCat}}"></span>{{row.categoria}}
+                </span>
+              </div>
+
+              <div style="width: 138px; flex-shrink: 0">
+                <button onClick="{{row.alternarBotao}}" style="display: flex; align-items: center; gap: 7px; height: 28px; padding: 0 11px; border-radius: 8px; cursor: pointer; font-size: 11.5px; font-weight: 600; background: {{row.botaoFundo}}; color: {{row.botaoCor}}; border: 1px solid {{row.botaoBorda}}">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{row.botaoIcone}}"></path></svg>
+                  {{row.botaoRotulo}}
+                </button>
+              </div>
+
+              <div style="width: 108px; flex-shrink: 0">
+                <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; letter-spacing: 0.02em; border-radius: 20px; padding: 3px 11px; background: {{row.statusFundo}}; color: {{row.statusCor}}; border: 1px solid {{row.statusBorda}}">
+                  <span style="width: 6px; height: 6px; border-radius: 20px; background: {{row.statusPonto}}"></span>{{row.status}}
+                </span>
+              </div>
+
+              <div style="width: 66px; flex-shrink: 0">
+                <button onClick="{{row.alternarAtivo}}" style="display: flex; align-items: center; width: 40px; height: 22px; padding: 0 3px; border: 0; border-radius: 20px; cursor: pointer; background: {{row.trilho}}; justify-content: {{row.knobPos}}">
+                  <span style="width: 16px; height: 16px; border-radius: 20px; background: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.3)"></span>
+                </button>
+              </div>
+
+              <div style="display: flex; align-items: center; justify-content: flex-end; gap: 5px; width: 104px; flex-shrink: 0">
+                <button style="display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; padding: 0; border-radius: 7px; border: 1px solid rgba(0,0,0,0.1); background: #ffffff; color: #7a8899; cursor: pointer">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15.5 4.5 19.5 8.5 8.5 19.5 4 20.5l1-4.5z"></path></svg>
+                </button>
+                <button onClick="{{row.alternarOculto}}" style="display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; padding: 0; border-radius: 7px; cursor: pointer; background: {{row.olhoFundo}}; border: 1px solid {{row.olhoBorda}}; color: {{row.olhoCor}}">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{row.olhoIcone}}"></path></svg>
+                </button>
+                <button style="display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; padding: 0; border-radius: 7px; border: 1px solid rgba(0,0,0,0.1); background: #ffffff; color: #7a8899; cursor: pointer">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6.5h15M9.5 6.5V4.8a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v1.7M6.5 6.5 7.4 20a1 1 0 0 0 1 .9h7.2a1 1 0 0 0 1-.9l.9-13.5"></path></svg>
+                </button>
+              </div>
+            </div>
+          </sc-for>
+
+          <sc-if value="{{vazio}}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 64px 24px; color: #7a8899">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#c3cbd6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5 21 21"></path>
+              </svg>
+              <div style="font-size: 15px; font-weight: 600; color: #3d4a5c">Nenhum recurso encontrado</div>
+              <div style="font-size: 13px">Ajuste a busca ou volte para o filtro Todos.</div>
+            </div>
+          </sc-if>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 8px; flex-shrink: 0; padding: 12px 18px; background: #f8fafc; border-top: 1px solid rgba(0,0,0,0.07); font-size: 12px; color: #7a8899">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a4aebc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="8.5"></circle><path d="M12 8h.01M12 11.5v4.5"></path>
+          </svg>
+          <span>Arraste pela alça ou use as setas para definir a ordem em que os cards aparecem na página. <b style="color: #856404; font-weight: 600">Oculto</b> tira o card do ar sem apagar o cadastro.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{
+  "accent": {"editor": "color", "default": "#2a5298", "options": ["#2a5298", "#1a3b6e", "#3b7dd8", "#1abc9c"], "section": "Tema"},
+  "$preview": {"width": 1440, "height": 1000}
+}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      busca: '',
+      filtro: 'todos',
+      pendentes: 0,
+      itens: [
+        { id: 'preco',   nome: 'Busca Preço',                  link: 'buscapreco.promarketing.ind.br',  cat: 'operacao',    sigla: 'BP', thumb: 'linear-gradient(135deg, #1a1a2e, #16213e)', ativo: true,  oculto: false, botao: true,  destaque: true  },
+        { id: 'frete',   nome: 'Busca Frete',                  link: 'buscafrete.promarketing.ind.br',  cat: 'operacao',    sigla: 'BF', thumb: 'linear-gradient(135deg, #2a5298, #1a3b6e)', ativo: true,  oculto: false, botao: true,  destaque: false },
+        { id: 'tarefas', nome: 'Gerenciador de Tarefas',       link: 'gerenciador.promarketing.ind.br', cat: 'operacao',    sigla: 'GT', thumb: 'linear-gradient(135deg, #0f3460, #16213e)', ativo: true,  oculto: false, botao: true,  destaque: false },
+        { id: 'tamper',  nome: 'Tampermonkey',                 link: 'tampermonkey.net',                cat: 'ferramentas', sigla: 'TM', thumb: 'linear-gradient(135deg, #3d4a5c, #23303f)', ativo: true,  oculto: false, botao: true,  destaque: false },
+        { id: 'radar',   nome: 'Radar Global de IA',           link: 'chatgpt.com/g/radar-global-ia',   cat: 'assistentes', sigla: 'RG', thumb: 'linear-gradient(160deg, #060d24, #0a1940)', ativo: true,  oculto: false, botao: false, destaque: false },
+        { id: 'prof',    nome: 'Professor IA',                 link: 'chatgpt.com/g/professor-ia',      cat: 'assistentes', sigla: 'PI', thumb: 'linear-gradient(160deg, #0d1b2a, #1b2838)', ativo: true,  oculto: true,  botao: false, destaque: false },
+        { id: 'design',  nome: 'Designer Visual Profissional', link: 'chatgpt.com/g/designer-visual',   cat: 'assistentes', sigla: 'DV', thumb: 'linear-gradient(160deg, #1a0a00, #2d1500)', ativo: false, oculto: false, botao: false, destaque: false }
+      ]
+    };
+  }
+
+  semAcento(txt) {
+    var de = 'áàâãäéèêëíìîïóòôõöúùûüçñ';
+    var para = 'aaaaaeeeeiiiiooooouuuucn';
+    var s = String(txt == null ? '' : txt).toLowerCase();
+    var out = '';
+    for (var i = 0; i < s.length; i++) {
+      var j = de.indexOf(s.charAt(i));
+      out += j === -1 ? s.charAt(i) : para.charAt(j);
+    }
+    return out;
+  }
+
+  marcar(itens) {
+    this.setState({ itens: itens, pendentes: this.state.pendentes + 1 });
+  }
+
+  mover(id, passo) {
+    var itens = this.state.itens.slice();
+    var i = -1;
+    for (var k = 0; k < itens.length; k++) { if (itens[k].id === id) { i = k; break; } }
+    var alvo = i + passo;
+    if (i === -1 || alvo < 0 || alvo >= itens.length) return;
+    var tmp = itens[i];
+    itens[i] = itens[alvo];
+    itens[alvo] = tmp;
+    this.marcar(itens);
+  }
+
+  virar(id, campo) {
+    var itens = this.state.itens.map(function (x) {
+      if (x.id !== id) return x;
+      var novo = Object.assign({}, x);
+      novo[campo] = !novo[campo];
+      return novo;
+    });
+    this.marcar(itens);
+  }
+
+  renderVals() {
+    var self = this;
+    var accent = this.props.accent || '#2a5298';
+    var itens = this.state.itens;
+    var termo = this.semAcento(this.state.busca).trim();
+
+    var cats = {
+      operacao:    { rotulo: 'Operação',       cor: '#3b7dd8' },
+      assistentes: { rotulo: 'Assistentes IA', cor: '#1abc9c' },
+      ferramentas: { rotulo: 'Ferramentas',    cor: '#f0a500' }
+    };
+
+    var conta = function (c) {
+      return itens.filter(function (x) { return c === 'todos' || x.cat === c; }).length;
+    };
+
+    var filtros = ['todos', 'operacao', 'assistentes', 'ferramentas'].map(function (c) {
+      var ativo = self.state.filtro === c;
+      return {
+        rotulo: c === 'todos' ? 'Todos' : cats[c].rotulo,
+        n: conta(c),
+        peso: ativo ? 600 : 500,
+        fundo: ativo ? '#0d1f3c' : '#ffffff',
+        cor: ativo ? '#ffffff' : '#7a8899',
+        borda: ativo ? '#0d1f3c' : 'rgba(0,0,0,0.12)',
+        escolher: function () { self.setState({ filtro: c }); }
+      };
+    });
+
+    var visiveisArr = itens.filter(function (x) {
+      var okCat = self.state.filtro === 'todos' || x.cat === self.state.filtro;
+      var alvo = self.semAcento(x.nome + ' ' + x.link);
+      return okCat && (termo === '' || alvo.indexOf(termo) !== -1);
+    });
+
+    var paletas = {
+      Ativo:   { fundo: '#e6f7f2', cor: '#0e7c62', borda: '#a9e3d4', ponto: '#1abc9c' },
+      Oculto:  { fundo: '#fff3cd', cor: '#856404', borda: '#ffc107', ponto: '#f0a500' },
+      Inativo: { fundo: '#eef1f5', cor: '#7a8899', borda: '#dde3ea', ponto: '#c3cbd6' }
+    };
+
+    var linhas = visiveisArr.map(function (x, idx) {
+      var status = !x.ativo ? 'Inativo' : (x.oculto ? 'Oculto' : 'Ativo');
+      var paleta = paletas[status];
+
+      return {
+        pos: idx + 1,
+        nome: x.nome,
+        link: x.link,
+        sigla: x.sigla,
+        thumb: x.thumb,
+        destaque: x.destaque,
+        categoria: cats[x.cat].rotulo,
+        corCat: cats[x.cat].cor,
+        status: status,
+        statusFundo: paleta.fundo,
+        statusCor: paleta.cor,
+        statusBorda: paleta.borda,
+        statusPonto: paleta.ponto,
+        opacidade: x.ativo ? 1 : 0.55,
+        fundoLinha: x.oculto ? '#fffdf5' : '#ffffff',
+        trilho: x.ativo ? '#1abc9c' : '#c3cbd6',
+        knobPos: x.ativo ? 'flex-end' : 'flex-start',
+        botaoRotulo: x.botao ? 'Acesso Direto' : 'Desativado',
+        botaoFundo: x.botao ? '#eef4fc' : '#f2f4f7',
+        botaoCor: x.botao ? '#2a5298' : '#a4aebc',
+        botaoBorda: x.botao ? '#cfe0f7' : '#e4e8ee',
+        botaoIcone: x.botao ? 'M5 12.5 10 17.5 19 7' : 'M6 6l12 12M18 6L6 18',
+        olhoFundo: x.oculto ? '#fff3cd' : '#ffffff',
+        olhoBorda: x.oculto ? '#ffc107' : 'rgba(0,0,0,0.1)',
+        olhoCor: x.oculto ? '#856404' : '#7a8899',
+        olhoIcone: x.oculto
+          ? 'M4 4l16 16M9.9 5.1A9 9 0 0 1 12 4.9c5 0 9 5.1 9 7.1a11 11 0 0 1-2.3 3.4M6.3 7.9C4.4 9.3 3 11.3 3 12c0 2 4 7.1 9 7.1 1.4 0 2.7-.4 3.8-1'
+          : 'M3 12c0-2 4-7.1 9-7.1S21 10 21 12c0 2-4 7.1-9 7.1S3 14 3 12z',
+        subir: function () { self.mover(x.id, -1); },
+        descer: function () { self.mover(x.id, 1); },
+        alternarAtivo: function () { self.virar(x.id, 'ativo'); },
+        alternarOculto: function () { self.virar(x.id, 'oculto'); },
+        alternarBotao: function () { self.virar(x.id, 'botao'); }
+      };
+    });
+
+    var n = this.state.pendentes;
+
+    return {
+      accent: accent,
+      total: itens.length,
+      linhas: linhas,
+      filtros: filtros,
+      vazio: linhas.length === 0,
+      visiveis: linhas.length,
+      rotuloContagem: linhas.length === 1 ? 'recurso listado' : 'recursos listados',
+      cAtivos: itens.filter(function (x) { return x.ativo && !x.oculto; }).length,
+      cOcultos: itens.filter(function (x) { return x.ativo && x.oculto; }).length,
+      cInativos: itens.filter(function (x) { return !x.ativo; }).length,
+      busca: this.state.busca,
+      aoBuscar: function (e) { self.setState({ busca: e.target.value }); },
+      publicar: function () { self.setState({ pendentes: 0 }); },
+      pendentes: {
+        tem: n > 0,
+        texto: n === 1 ? '1 alteração não publicada' : n + ' alterações não publicadas'
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

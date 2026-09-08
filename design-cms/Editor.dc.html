@@ -1,0 +1,367 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+  <style>
+    body { margin: 0; font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif; background: #f5f7fa; color: #3d4a5c; -webkit-font-smoothing: antialiased; }
+    a { color: #2a5298; text-decoration: none; }
+    a:hover { color: #0d1f3c; }
+    button, input, textarea, select { font-family: inherit; }
+    ::placeholder { color: #a4aebc; font-weight: 300; }
+  </style>
+</helmet>
+
+<div style="display: flex; flex-direction: column; width: 1440px; height: 1040px; overflow: hidden; background: #f5f7fa">
+
+  <header style="display: flex; align-items: center; gap: 16px; height: 66px; flex-shrink: 0; padding: 0 28px; background: #ffffff; border-bottom: 1px solid rgba(0,0,0,0.07)">
+    <button style="display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; padding: 0; border-radius: 8px; border: 1px solid rgba(0,0,0,0.12); background: #ffffff; color: #3d4a5c; cursor: pointer">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5 8 12l6.5 6.5"></path></svg>
+    </button>
+    <div style="flex-grow: 1; min-width: 0">
+      <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #a4aebc; line-height: 1.4">Recursos · Editando</div>
+      <div style="font-size: 17px; font-weight: 600; color: #0d1f3c; line-height: 1.3">{{titulo}}</div>
+    </div>
+
+    <span style="display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 500; color: #856404; background: #fff3cd; border: 1px solid #ffc107; border-radius: 20px; padding: 4px 12px">
+      <span style="width: 6px; height: 6px; border-radius: 20px; background: #f0a500"></span>
+      Rascunho não publicado
+    </span>
+
+    <button style="display: flex; align-items: center; justify-content: center; height: 38px; padding: 0 16px; border-radius: 8px; background: #ffffff; border: 1px solid rgba(0,0,0,0.12); color: #7a8899; font-size: 13px; font-weight: 500; cursor: pointer">Descartar</button>
+
+    <button style="display: flex; align-items: center; justify-content: center; gap: 8px; height: 38px; padding: 0 18px; border: 0; border-radius: 8px; background: {{accent}}; color: #ffffff; font-size: 13.5px; font-weight: 600; cursor: pointer; box-shadow: 0 3px 10px rgba(42,82,152,0.25)">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17.5 19 7"></path></svg>
+      Salvar e publicar
+    </button>
+  </header>
+
+  <div style="display: flex; gap: 24px; flex-grow: 1; min-height: 0; padding: 24px 28px 28px; overflow: hidden">
+
+    <!-- FORMULÁRIO -->
+    <div style="display: flex; flex-direction: column; gap: 18px; flex-grow: 1; min-width: 0; overflow-y: auto; padding-right: 4px">
+
+      <section style="background: #ffffff; border: 1px solid rgba(0,0,0,0.07); border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 20px 22px">
+        <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #a4aebc; margin-bottom: 16px">Identificação</div>
+
+        <div style="display: flex; flex-direction: column; gap: 14px">
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <label style="font-size: 12.5px; font-weight: 600; color: #3d4a5c">Título do card</label>
+            <input type="text" value="{{titulo}}" onChange="{{aoTitulo}}" style="height: 40px; padding: 0 13px; border: 1px solid rgba(0,0,0,0.12); border-radius: 8px; background: #ffffff; font-size: 13.5px; color: #3d4a5c; outline: 0">
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <label style="font-size: 12.5px; font-weight: 600; color: #3d4a5c">Descrição</label>
+            <textarea onChange="{{aoDescricao}}" value="{{descricao}}" style="height: 84px; padding: 11px 13px; border: 1px solid rgba(0,0,0,0.12); border-radius: 8px; background: #ffffff; font-size: 13.5px; line-height: 1.6; color: #3d4a5c; outline: 0; resize: none"></textarea>
+            <div style="font-size: 11.5px; color: #a4aebc">{{contagemDesc}} caracteres · o card fica mais equilibrado entre 120 e 200.</div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px">
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <label style="font-size: 12.5px; font-weight: 600; color: #3d4a5c">Categoria</label>
+              <div style="display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 13px; border: 1px solid rgba(0,0,0,0.12); border-radius: 8px; background: #ffffff">
+                <span style="width: 7px; height: 7px; border-radius: 20px; background: {{corCat}}"></span>
+                <span style="flex-grow: 1; font-size: 13.5px; color: #3d4a5c">{{rotuloCat}}</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a4aebc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <label style="font-size: 12.5px; font-weight: 600; color: #3d4a5c">Etiqueta (opcional)</label>
+              <input type="text" value="{{selo}}" onChange="{{aoSelo}}" placeholder="Ex.: Acesso limitado" style="height: 40px; padding: 0 13px; border: 1px solid rgba(0,0,0,0.12); border-radius: 8px; background: #ffffff; font-size: 13.5px; color: #3d4a5c; outline: 0">
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <label style="font-size: 12.5px; font-weight: 600; color: #3d4a5c">Palavras-chave da busca</label>
+            <div style="display: flex; flex-wrap: wrap; gap: 7px; min-height: 40px; align-items: center; padding: 7px 10px; border: 1px solid rgba(0,0,0,0.12); border-radius: 8px; background: #ffffff">
+              <sc-for list="{{tags}}" as="t" hint-placeholder-count="5">
+                <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: #2a5298; background: #eef4fc; border: 1px solid #cfe0f7; border-radius: 20px; padding: 3px 10px">
+                  {{t.texto}}
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+                </span>
+              </sc-for>
+              <span style="font-size: 12.5px; color: #a4aebc">Digite e pressione Enter…</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section style="background: #ffffff; border: 1px solid rgba(0,0,0,0.07); border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 20px 22px">
+        <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #a4aebc; margin-bottom: 16px">Link e botão de acesso</div>
+
+        <div style="display: flex; flex-direction: column; gap: 14px">
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px">
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <label style="font-size: 12.5px; font-weight: 600; color: #3d4a5c">Endereço de destino</label>
+              <input type="text" value="{{url}}" onChange="{{aoUrl}}" style="height: 40px; padding: 0 13px; border: 1px solid rgba(0,0,0,0.12); border-radius: 8px; background: #ffffff; font-size: 13.5px; color: #3d4a5c; outline: 0">
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <label style="font-size: 12.5px; font-weight: 600; color: #3d4a5c">Texto do botão</label>
+              <input type="text" value="{{rotuloBotao}}" onChange="{{aoRotulo}}" style="height: 40px; padding: 0 13px; border: 1px solid rgba(0,0,0,0.12); border-radius: 8px; background: #ffffff; font-size: 13.5px; color: #3d4a5c; outline: 0">
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: #f8fafc; border: 1px solid rgba(0,0,0,0.06); border-radius: 8px">
+            <div style="flex-grow: 1; min-width: 0">
+              <div style="font-size: 13px; font-weight: 600; color: #3d4a5c">Botão habilitado</div>
+              <div style="font-size: 11.5px; color: #7a8899; line-height: 1.5">Desligado, o card continua na página com o botão cinza e sem link — usado enquanto o acesso não é liberado.</div>
+            </div>
+            <button onClick="{{virarBotao}}" style="display: flex; align-items: center; width: 44px; height: 24px; flex-shrink: 0; padding: 0 3px; border: 0; border-radius: 20px; cursor: pointer; background: {{botaoTrilho}}; justify-content: {{botaoKnob}}">
+              <span style="width: 18px; height: 18px; border-radius: 20px; background: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.3)"></span>
+            </button>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: #f8fafc; border: 1px solid rgba(0,0,0,0.06); border-radius: 8px">
+            <div style="flex-grow: 1; min-width: 0">
+              <div style="font-size: 13px; font-weight: 600; color: #3d4a5c">Abrir em nova aba</div>
+              <div style="font-size: 11.5px; color: #7a8899; line-height: 1.5">Mantém a página do portal aberta ao acessar o agente.</div>
+            </div>
+            <button onClick="{{virarAba}}" style="display: flex; align-items: center; width: 44px; height: 24px; flex-shrink: 0; padding: 0 3px; border: 0; border-radius: 20px; cursor: pointer; background: {{abaTrilho}}; justify-content: {{abaKnob}}">
+              <span style="width: 18px; height: 18px; border-radius: 20px; background: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.3)"></span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section style="background: #ffffff; border: 1px solid rgba(0,0,0,0.07); border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 20px 22px">
+        <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #a4aebc; margin-bottom: 16px">Imagem do card</div>
+
+        <div style="display: flex; align-items: center; gap: 16px">
+          <div style="display: flex; align-items: center; justify-content: center; width: 132px; height: 76px; flex-shrink: 0; border-radius: 8px; border: 1px solid rgba(0,0,0,0.08); background: linear-gradient(135deg, #2a5298, #1a3b6e); color: #ffffff; font-size: 16px; font-weight: 700">BF</div>
+          <div style="display: flex; flex-direction: column; gap: 9px; flex-grow: 1; min-width: 0">
+            <div style="font-size: 13px; font-weight: 600; color: #3d4a5c">logo-busca-frete.png</div>
+            <div style="font-size: 11.5px; color: #7a8899; line-height: 1.5">PNG · 1024 × 1024 · Recomendado 16:9 ou logo com fundo transparente, até 400 KB.</div>
+            <div style="display: flex; gap: 8px">
+              <button style="display: flex; align-items: center; gap: 7px; height: 32px; padding: 0 13px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.12); background: #ffffff; color: #3d4a5c; font-size: 12.5px; font-weight: 500; cursor: pointer">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16.5V5.5"></path><path d="m7.5 10 4.5-4.5 4.5 4.5"></path><path d="M4.5 15.5v3a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-3"></path></svg>
+                Substituir imagem
+              </button>
+              <button style="display: flex; align-items: center; gap: 7px; height: 32px; padding: 0 13px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.12); background: #ffffff; color: #7a8899; font-size: 12.5px; font-weight: 500; cursor: pointer">Remover</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section style="background: #ffffff; border: 1px solid rgba(0,0,0,0.07); border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 20px 22px">
+        <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #a4aebc; margin-bottom: 16px">Exibição na página</div>
+
+        <div style="display: flex; flex-direction: column; gap: 14px">
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <label style="font-size: 12.5px; font-weight: 600; color: #3d4a5c">Status</label>
+            <div style="display: flex; gap: 8px">
+              <sc-for list="{{estados}}" as="s" hint-placeholder-count="3">
+                <button onClick="{{s.escolher}}" style="display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: {{s.peso}}; background: {{s.fundo}}; color: {{s.cor}}; border: 1px solid {{s.borda}}">
+                  <span style="width: 7px; height: 7px; border-radius: 20px; background: {{s.ponto}}"></span>
+                  {{s.rotulo}}
+                </button>
+              </sc-for>
+            </div>
+            <div style="font-size: 11.5px; color: #7a8899; line-height: 1.55">{{textoStatus}}</div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px">
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <label style="font-size: 12.5px; font-weight: 600; color: #3d4a5c">Posição na grade</label>
+              <div style="display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 13px; border: 1px solid rgba(0,0,0,0.12); border-radius: 8px; background: #ffffff">
+                <span style="flex-grow: 1; font-size: 13.5px; color: #3d4a5c">2 de 7</span>
+                <div style="display: flex; flex-direction: column; gap: 2px">
+                  <span style="display: flex; align-items: center; justify-content: center; width: 18px; height: 13px; border-radius: 3px; background: #eef1f5; color: #7a8899">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"></path></svg>
+                  </span>
+                  <span style="display: flex; align-items: center; justify-content: center; width: 18px; height: 13px; border-radius: 3px; background: #eef1f5; color: #7a8899">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <label style="font-size: 12.5px; font-weight: 600; color: #3d4a5c">Quem enxerga</label>
+              <div style="display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 13px; border: 1px solid rgba(0,0,0,0.12); border-radius: 8px; background: #ffffff">
+                <span style="flex-grow: 1; font-size: 13.5px; color: #3d4a5c">Todos os colaboradores</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a4aebc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: #f8fafc; border: 1px solid rgba(0,0,0,0.06); border-radius: 8px">
+            <div style="flex-grow: 1; min-width: 0">
+              <div style="font-size: 13px; font-weight: 600; color: #3d4a5c">Card em destaque</div>
+              <div style="font-size: 11.5px; color: #7a8899; line-height: 1.5">Ocupa a faixa larga acima da grade. Só um recurso pode estar em destaque por vez.</div>
+            </div>
+            <button onClick="{{virarDestaque}}" style="display: flex; align-items: center; width: 44px; height: 24px; flex-shrink: 0; padding: 0 3px; border: 0; border-radius: 20px; cursor: pointer; background: {{destTrilho}}; justify-content: {{destKnob}}">
+              <span style="width: 18px; height: 18px; border-radius: 20px; background: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.3)"></span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- PRÉ-VISUALIZAÇÃO -->
+    <aside style="display: flex; flex-direction: column; gap: 14px; width: 384px; flex-shrink: 0">
+      <div style="display: flex; align-items: center; gap: 8px">
+        <span style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #a4aebc">Como vai aparecer</span>
+        <div style="flex-grow: 1"></div>
+        <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; border-radius: 20px; padding: 3px 11px; background: {{statusFundo}}; color: {{statusCor}}; border: 1px solid {{statusBorda}}">
+          <span style="width: 6px; height: 6px; border-radius: 20px; background: {{statusPonto}}"></span>{{statusRotulo}}
+        </span>
+      </div>
+
+      <div style="padding: 22px; background: #eef1f5; border: 1px solid rgba(0,0,0,0.07); border-radius: 10px">
+        <div style="display: flex; flex-direction: column; background: #ffffff; border: 1px solid rgba(0,0,0,0.07); border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.06); opacity: {{previewOpacidade}}">
+          <div style="display: flex; align-items: center; justify-content: center; height: 182px; border-bottom: 1px solid rgba(0,0,0,0.06); background: linear-gradient(135deg, #2a5298, #1a3b6e); color: #ffffff; font-size: 34px; font-weight: 700; letter-spacing: 0.04em">BF</div>
+          <div style="display: flex; flex-direction: column; padding: 22px">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 20px; margin-bottom: 10px">
+              <span style="display: flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; color: #7a8899">
+                <span style="width: 6px; height: 6px; border-radius: 20px; background: {{corCat}}"></span>{{rotuloCat}}
+              </span>
+              <sc-if value="{{temSelo}}" hint-placeholder-val="{{ true }}">
+                <span style="font-size: 10.5px; font-weight: 600; background: #fff3cd; color: #856404; border: 1px solid #ffc107; border-radius: 20px; padding: 2px 9px; line-height: 1.5">{{selo}}</span>
+              </sc-if>
+            </div>
+            <div style="font-size: 17px; font-weight: 600; color: #1a3b6e; line-height: 1.35; margin-bottom: 8px">{{titulo}}</div>
+            <div style="font-size: 13.5px; line-height: 1.65; color: #7a8899; margin-bottom: 18px; text-wrap: pretty">{{descricao}}</div>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 8px; height: 42px; border-radius: 8px; font-size: 14px; font-weight: 600; letter-spacing: 0.02em; background: {{ctaFundo}}; color: {{ctaCor}}; box-shadow: {{ctaSombra}}">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2.5 7.5h10v9h-10z"></path><path d="M12.5 11h4l3 3v2.5h-7z"></path><circle cx="6.5" cy="17.5" r="1.8"></circle><circle cx="16.5" cy="17.5" r="1.8"></circle>
+              </svg>
+              {{ctaRotulo}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: flex-start; gap: 9px; padding: 14px 16px; background: #ffffff; border: 1px solid rgba(0,0,0,0.07); border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.06)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#a4aebc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px">
+          <circle cx="12" cy="12" r="8.5"></circle><path d="M12 8h.01M12 11.5v4.5"></path>
+        </svg>
+        <div style="font-size: 12px; line-height: 1.6; color: #7a8899">{{textoStatus}}</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px; padding: 16px; background: #ffffff; border: 1px solid rgba(0,0,0,0.07); border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.06)">
+        <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #a4aebc">Últimas alterações</div>
+        <sc-for list="{{historico}}" as="h" hint-placeholder-count="3">
+          <div style="display: flex; align-items: baseline; gap: 9px">
+            <span style="width: 5px; height: 5px; border-radius: 20px; background: #c3cbd6; flex-shrink: 0; position: relative; top: -2px"></span>
+            <div style="flex-grow: 1; min-width: 0">
+              <div style="font-size: 12.5px; color: #3d4a5c; line-height: 1.5">{{h.texto}}</div>
+              <div style="font-size: 11px; color: #a4aebc; line-height: 1.5">{{h.quando}}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </aside>
+  </div>
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{
+  "accent": {"editor": "color", "default": "#2a5298", "options": ["#2a5298", "#1a3b6e", "#3b7dd8", "#1abc9c"], "section": "Tema"},
+  "$preview": {"width": 1440, "height": 1040}
+}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      titulo: 'Busca Frete',
+      descricao: 'Automatiza testes de frete no site, simulando produtos e CEPs, e gera uma planilha com valores e prazos para análise.',
+      url: 'https://buscafrete.promarketing.ind.br/',
+      rotuloBotao: 'Acesso Direto',
+      selo: '',
+      status: 'ativo',
+      botaoAtivo: true,
+      novaAba: true,
+      destaque: false
+    };
+  }
+
+  renderVals() {
+    var self = this;
+    var accent = this.props.accent || '#2a5298';
+    var s = this.state;
+
+    var paletas = {
+      ativo:   { rotulo: 'Ativo',   fundo: '#e6f7f2', cor: '#0e7c62', borda: '#a9e3d4', ponto: '#1abc9c' },
+      oculto:  { rotulo: 'Oculto',  fundo: '#fff3cd', cor: '#856404', borda: '#ffc107', ponto: '#f0a500' },
+      inativo: { rotulo: 'Inativo', fundo: '#eef1f5', cor: '#7a8899', borda: '#dde3ea', ponto: '#c3cbd6' }
+    };
+
+    var textos = {
+      ativo: 'Publicado: o card aparece na página e conta nos filtros do topo.',
+      oculto: 'Fora do ar temporariamente: o cadastro fica salvo, mas o card não é montado na página nem aparece na busca.',
+      inativo: 'Desativado: sai da página e do índice de busca. Continua no painel para ser reativado quando quiser.'
+    };
+
+    var estados = ['ativo', 'oculto', 'inativo'].map(function (k) {
+      var sel = s.status === k;
+      var p = paletas[k];
+      return {
+        rotulo: p.rotulo,
+        ponto: p.ponto,
+        peso: sel ? 600 : 500,
+        fundo: sel ? p.fundo : '#ffffff',
+        cor: sel ? p.cor : '#7a8899',
+        borda: sel ? p.borda : 'rgba(0,0,0,0.12)',
+        escolher: function () { self.setState({ status: k }); }
+      };
+    });
+
+    var p = paletas[s.status];
+
+    return {
+      accent: accent,
+      titulo: s.titulo,
+      descricao: s.descricao,
+      url: s.url,
+      rotuloBotao: s.rotuloBotao,
+      selo: s.selo,
+      temSelo: s.selo !== '',
+      contagemDesc: s.descricao.length,
+      rotuloCat: 'Operação',
+      corCat: '#3b7dd8',
+      tags: [
+        { texto: 'cep' }, { texto: 'transporte' }, { texto: 'prazo' }, { texto: 'entrega' }, { texto: 'planilha' }
+      ],
+      estados: estados,
+      textoStatus: textos[s.status],
+      statusRotulo: p.rotulo,
+      statusFundo: p.fundo,
+      statusCor: p.cor,
+      statusBorda: p.borda,
+      statusPonto: p.ponto,
+      previewOpacidade: s.status === 'ativo' ? 1 : 0.5,
+      ctaRotulo: s.botaoAtivo ? s.rotuloBotao : 'Em breve',
+      ctaFundo: s.botaoAtivo ? '#2a5298' : '#e9ecef',
+      ctaCor: s.botaoAtivo ? '#ffffff' : '#adb5bd',
+      ctaSombra: s.botaoAtivo ? '0 3px 10px rgba(42,82,152,0.25)' : 'none',
+      botaoTrilho: s.botaoAtivo ? '#1abc9c' : '#c3cbd6',
+      botaoKnob: s.botaoAtivo ? 'flex-end' : 'flex-start',
+      abaTrilho: s.novaAba ? '#1abc9c' : '#c3cbd6',
+      abaKnob: s.novaAba ? 'flex-end' : 'flex-start',
+      destTrilho: s.destaque ? '#1abc9c' : '#c3cbd6',
+      destKnob: s.destaque ? 'flex-end' : 'flex-start',
+      historico: [
+        { texto: 'Descrição ajustada por Daniel Ávila', quando: 'Hoje, 09:12' },
+        { texto: 'Botão reativado após liberação do acesso', quando: 'Ontem, 16:40' },
+        { texto: 'Card movido para a posição 2', quando: '3 de setembro' }
+      ],
+      aoTitulo: function (e) { self.setState({ titulo: e.target.value }); },
+      aoDescricao: function (e) { self.setState({ descricao: e.target.value }); },
+      aoUrl: function (e) { self.setState({ url: e.target.value }); },
+      aoRotulo: function (e) { self.setState({ rotuloBotao: e.target.value }); },
+      aoSelo: function (e) { self.setState({ selo: e.target.value }); },
+      virarBotao: function () { self.setState({ botaoAtivo: !s.botaoAtivo }); },
+      virarAba: function () { self.setState({ novaAba: !s.novaAba }); },
+      virarDestaque: function () { self.setState({ destaque: !s.destaque }); }
+    };
+  }
+}
+</script>
+</body>
+</html>
