@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artigos e Reportagens – Universo IA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --blue-dark:   #0d1f3c;
+            --blue-main:   #1a3b6e;
+            --blue-mid:    #2a5298;
+            --blue-accent: #3b7dd8;
+            --teal:        #1abc9c;
+            --gold:        #f0a500;
+            --text-body:   #3d4a5c;
+            --text-muted:  #7a8899;
+            --bg-page:     #f5f7fa;
+            --white:       #ffffff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-page);
+            color: var(--text-body);
+            line-height: 1.7;
+        }
+
+        /* ─── HEADER ─────────────────────────────────────── */
+        header {
+            background: var(--blue-dark);
+            padding: 0 3rem;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+        }
+
+        .logo-wrap { display: flex; align-items: center; gap: 10px; }
+        .logo-badge {
+            width: 30px; height: 30px;
+            background: linear-gradient(135deg, var(--blue-accent), var(--teal));
+            border-radius: 7px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; color: white;
+        }
+        .logo-text { color: white; font-size: 1rem; font-weight: 600; }
+
+        nav { display: flex; align-items: center; gap: 2.5rem; }
+        nav a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+        nav a:hover { color: white; }
+        nav a.active { color: var(--gold); }
+
+        .nav-dropdown { position: relative; }
+        .nav-dropdown-toggle {
+            color: rgba(255,255,255,0.85); font-size: 0.9rem; font-weight: 500;
+            display: flex; align-items: center; gap: 5px;
+            cursor: pointer; background: none; border: none; font-family: inherit; padding: 0;
+            transition: color 0.2s;
+        }
+        .nav-dropdown-toggle:hover { color: white; }
+        .nav-dropdown-toggle i { font-size: 0.65rem; transition: transform 0.25s; }
+        .nav-dropdown.open .nav-dropdown-toggle i { transform: rotate(180deg); }
+
+        .dropdown-menu {
+            display: none; position: absolute; top: calc(100% + 18px); right: 0;
+            background: #1a1f2e; border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 6px; min-width: 210px;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.4); z-index: 300; overflow: hidden;
+            animation: dropIn 0.18s ease-out;
+        }
+        @keyframes dropIn { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:translateY(0); } }
+        .nav-dropdown.open .dropdown-menu { display: block; }
+        .dropdown-menu a {
+            display: block; padding: 0.85rem 1.4rem;
+            color: rgba(255,255,255,0.82); text-decoration: none;
+            font-size: 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: background 0.15s, color 0.15s;
+        }
+        .dropdown-menu a:last-child { border-bottom: none; }
+        .dropdown-menu a:hover { background: rgba(255,255,255,0.06); color: white; }
+        .dropdown-menu a.active { color: var(--gold); }
+
+        .nav-search { color: rgba(255,255,255,0.7); cursor: pointer; font-size: 1rem; transition: color 0.2s; }
+        .nav-search:hover { color: white; }
+
+        /* ─── HERO ────────────────────────────────────────── */
+        .hero {
+            min-height: 280px;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
+            background:
+                linear-gradient(160deg, rgba(13,31,60,0.85) 0%, rgba(26,59,110,0.80) 100%),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='400'%3E%3Crect width='1200' height='400' fill='%23162640'/%3E%3Ccircle cx='200' cy='100' r='180' fill='rgba(42,82,152,0.12)'/%3E%3Ccircle cx='1000' cy='300' r='220' fill='rgba(26,188,156,0.07)'/%3E%3Crect x='0' y='0' width='1200' height='400' fill='url(%23dots)'/%3E%3Cdefs%3E%3Cpattern id='dots' width='30' height='30' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='2' cy='2' r='1' fill='rgba(255,255,255,0.025)'/%3E%3C/pattern%3E%3C/defs%3E%3C/svg%3E")
+                center/cover no-repeat;
+        }
+
+        .hero-inner { text-align: center; padding: 3rem 2rem; position: relative; z-index: 1; }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700; color: white; letter-spacing: 0.02em;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+        }
+
+        .hero p {
+            color: rgba(255,255,255,0.7);
+            font-size: 1rem; margin-top: 0.75rem;
+            font-weight: 300;
+        }
+
+        /* ─── CONTAINER ───────────────────────────────────── */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+        /* ─── TABS ────────────────────────────────────────── */
+        .tabs-section {
+            background: white;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            position: sticky;
+            top: 60px;
+            z-index: 100;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .tabs::-webkit-scrollbar { display: none; }
+
+        .tab-btn {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: color 0.2s, border-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover { color: var(--blue-mid); }
+
+        .tab-btn.active {
+            color: var(--blue-mid);
+            border-bottom-color: var(--blue-mid);
+            font-weight: 600;
+        }
+
+        /* ─── CONTENT ─────────────────────────────────────── */
+        .tab-content { display: none; padding: 3rem 0; }
+        .tab-content.active { display: block; }
+
+        /* ─── INTRO ───────────────────────────────────────── */
+        .section-intro {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-intro h2 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--blue-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-intro p {
+            font-size: 0.93rem;
+            color: var(--text-muted);
+        }
+
+        /* ─── SITES GRID ──────────────────────────────────── */
+        .sites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .site-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid rgba(0,0,0,0.07);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: transform 0.25s, box-shadow 0.25s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .site-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 28px rgba(42,82,152,0.14);
+        }
+
+        .card-header {
+            padding: 1.5rem 1.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .site-icon {
+            width: 52px; height: 52px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.6rem;
+            flex-shrink: 0;
+            font-weight: 700;
+            color: white;
+        }
+
+        .card-title { flex: 1; }
+
+        .card-title h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--blue-dark);
+            margin-bottom: 2px;
+        }
+
+        .card-title span {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .lang-badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .lang-pt { background: #e8f5e9; color: #2e7d32; }
+        .lang-en { background: #e3f2fd; color: #1565c0; }
+
+        .card-body {
+            padding: 1rem 1.5rem;
+            flex: 1;
+        }
+
+        .card-body p {
+            font-size: 0.88rem;
+            color: var(--text-body);
+            line-height: 1.7;
+        }
+
+        .card-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .btn-site {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            background: var(--blue-mid);
+            color: white;
+            text-decoration: none;
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 3px 10px rgba(42,82,152,0.22);
+        }
+        .btn-site:hover {
+            background: var(--blue-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(42,82,152,0.32);
+        }
+        .btn-site i { font-size: 0.82rem; }
+
+        /* ─── FOOTER ──────────────────────────────────────── */
+        footer {
+            background: white;
+            border-top: 1px solid rgba(0,0,0,0.08);
+            padding: 2.5rem 0;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .footer-contact { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+        .footer-contact a { color: var(--blue-mid); text-decoration: none; font-weight: 500; }
+        .footer-contact a:hover { text-decoration: underline; }
+        .footer-brands { display: flex; align-items: center; justify-content: center; gap: 3rem; }
+        .brand-probel   { font-size: 1.6rem; font-weight: 800; color: var(--blue-dark); }
+        .brand-prodormir{ font-size: 1.4rem; font-weight: 700; color: #b0b8c8; }
+
+        /* ─── RESPONSIVE ──────────────────────────────────── */
+        @media (max-width: 768px) {
+            header { padding: 0 1.25rem; }
+            .sites-grid { grid-template-columns: 1fr; }
+            .tab-btn { padding: 0.85rem 1rem; font-size: 0.82rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="logo-wrap">
+        <div class="logo-badge"><i class="fas fa-brain"></i></div>
+        <span class="logo-text">Universo IA</span>
+    </div>
+    <nav>
+        <a href="universo-ia-probel.html">Início</a>
+        <div class="nav-dropdown" id="navDropdown">
+            <button class="nav-dropdown-toggle" id="menuBtn">
+                Menu <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="agentes-pro.html">Agentes Pro</a>
+                <a href="artigos-reportagens.html" class="active">Artigos e Reportagens</a>
+                <a href="cursos.html">Cursos</a>
+            </div>
+        </div>
+    </nav>
+    <i class="fas fa-search nav-search"></i>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-inner">
+        <h1>Artigos e Reportagens</h1>
+        <p>Portais de referência para se manter atualizado sobre o mundo da Inteligência Artificial</p>
+    </div>
+</section>
+
+<!-- TABS -->
+<div class="tabs-section">
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="todos">
+            <i class="fas fa-globe"></i> Todos
+        </button>
+        <button class="tab-btn" data-tab="pt">
+            🇧🇷 Em Português
+        </button>
+        <button class="tab-btn" data-tab="en">
+            🇺🇸 Em Inglês
+        </button>
+        <button class="tab-btn" data-tab="pesquisa">
+            <i class="fas fa-flask"></i> Pesquisa & Academia
+        </button>
+        <button class="tab-btn" data-tab="negocios">
+            <i class="fas fa-briefcase"></i> IA & Negócios
+        </button>
+    </div>
+</div>
+
+<!-- CONTENT -->
+<div style="background: var(--bg-page);">
+<div class="container">
+
+    <!-- ABA: TODOS -->
+    <div class="tab-content active" id="tab-todos">
+        <div class="section-intro">
+            <h2>Todos os portais recomendados</h2>
+            <p>Seleção completa de sites confiáveis para acompanhar novidades, artigos e reportagens sobre IA.</p>
+        </div>
+        <div class="sites-grid">
+
+            <!-- IA Brasil Notícias -->
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#1a3b6e,#2a5298);">IA</div>
+                    <div class="card-title">
+                        <h3>IA Brasil Notícias</h3>
+                        <span>iabrasilnoticias.com.br</span>
+                    </div>
+                    <span class="lang-badge lang-pt">PT-BR</span>
+                </div>
+                <div class="card-body">
+                    <p>Portal brasileiro especializado em IA com reportagens exclusivas, entrevistas e análises sobre o mercado de inteligência artificial no Brasil e no mundo.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="https://iabrasilnoticias.com.br" target="_blank" class="btn-site"><i class="fas fa-arrow-up-right-from-square"></i> Acessar Site</a>
+                </div>
+            </div>
+
+            <!-- MIT Technology Review -->
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#a31f34,#c0392b);">MIT</div>
+                    <div class="card-title">
+                        <h3>MIT Technology Review</h3>
+                        <span>technologyreview.com</span>
+                    </div>
+                    <span class="lang-badge lang-en">EN</span>
+                </div>
+                <div class="card-body">
+                    <p>Publicação do MIT com análises profundas sobre IA, pesquisas acadêmicas e o impacto das tecnologias na sociedade. Referência global em jornalismo de tecnologia.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="https://www.technologyreview.com/topic/artificial-intelligence/" target="_blank" class="btn-site"><i class="fas fa-arrow-up-right-from-square"></i> Acessar Site</a>
+                </div>
+            </div>
+
+            <!-- VentureBeat -->
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#1d6fa4,#1a9cd8);">VB</div>
+                    <div class="card-title">
+                        <h3>VentureBeat AI</h3>
+                        <span>venturebeat.com/ai</span>
+                    </div>
+                    <span class="lang-badge lang-en">EN</span>
+                </div>
+                <div class="card-body">
+                    <p>Líder em cobertura de IA para negócios. Focado em IA generativa, automação empresarial e tendências do setor corporativo. Ideal para gestores e executivos.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="https://venturebeat.com/ai/" target="_blank" class="btn-site"><i class="fas fa-chart-line"></i> Acessar Portal</a>
+                </div>
+            </div>
+
+            <!-- The Verge - AI -->
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#fa3c00,#ff6d3a);">TV</div>
+                    <div class="card-title">
+                        <h3>The Verge – AI</h3>
+                        <span>theverge.com/ai</span>
+                    </div>
+                    <span class="lang-badge lang-en">EN</span>
+                </div>
+                <div class="card-body">
+                    <p>Cobertura moderna e acessível sobre IA com análises em vídeo, reviews de ferramentas e reportagens sobre o impacto da tecnologia no cotidiano.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="https://www.theverge.com/ai-artificial-intelligence" target="_blank" class="btn-site"><i class="fas fa-arrow-up-right-from-square"></i> Acessar Site</a>
+                </div>
+            </div>
+
+            <!-- Towards Data Science -->
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#00b39f,#00d4b8);">TDS</div>
+                    <div class="card-title">
+                        <h3>Towards Data Science</h3>
+                        <span>towardsdatascience.com</span>
+                    </div>
+                    <span class="lang-badge lang-en">EN</span>
+                </div>
+                <div class="card-body">
+                    <p>Plataforma do Medium com artigos técnicos sobre machine learning, IA e ciência de dados escritos por pesquisadores e profissionais da área.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="https://towardsdatascience.com" target="_blank" class="btn-site"><i class="fas fa-arrow-up-right-from-square"></i> Acessar Site</a>
+                </div>
+            </div>
+
+            <!-- OpenAI Blog -->
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#10a37f,#1ac99a);">OAI</div>
+                    <div class="card-title">
+                        <h3>OpenAI Blog</h3>
+                        <span>openai.com/news</span>
+                    </div>
+                    <span class="lang-badge lang-en">EN</span>
+                </div>
+                <div class="card-body">
+                    <p>Blog oficial da OpenAI com atualizações sobre modelos, pesquisas de segurança, lançamentos de produtos e a visão da empresa sobre o futuro da IA.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="https://openai.com/news" target="_blank" class="btn-site"><i class="fas fa-microchip"></i> Acessar Blog</a>
+                </div>
+            </div>
+
+            <!-- Wired AI -->
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#111,#333);">W</div>
+                    <div class="card-title">
+                        <h3>Wired – AI</h3>
+                        <span>wired.com/tag/artificial-intelligence</span>
+                    </div>
+                    <span class="lang-badge lang-en">EN</span>
+                </div>
+                <div class="card-body">
+                    <p>Jornalismo de tecnologia premiado com reportagens investigativas sobre ética em IA, impacto social, big tech e o futuro da inteligência artificial.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="https://www.wired.com/tag/artificial-intelligence/" target="_blank" class="btn-site"><i class="fas fa-magnifying-glass"></i> Acessar Portal</a>
+                </div>
+            </div>
+
+            <!-- TecMundo IA -->
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#e63946,#c1121f);">TM</div>
+                    <div class="card-title">
+                        <h3>TecMundo – IA</h3>
+                        <span>tecmundo.com.br</span>
+                    </div>
+                    <span class="lang-badge lang-pt">PT-BR</span>
+                </div>
+                <div class="card-body">
+                    <p>Um dos maiores portais de tecnologia do Brasil com cobertura acessível sobre inteligência artificial, lançamentos e novidades do setor em português.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="https://www.tecmundo.com.br/inteligencia-artificial" target="_blank" class="btn-site"><i class="fas fa-globe"></i> Ler Notícias</a>
+                </div>
+            </div>
+
+            <!-- Google AI Blog -->
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#4285f4,#34a853);">G</div>
+                    <div class="card-title">
+                        <h3>Google AI Blog</h3>
+                        <span>ai.googleblog.com</span>
+                    </div>
+                    <span class="lang-badge lang-en">EN</span>
+                </div>
+                <div class="card-body">
+                    <p>Blog oficial do Google com publicações sobre pesquisas em IA, DeepMind, Gemini e os avanços tecnológicos internos dos laboratórios do Google.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="https://ai.googleblog.com" target="_blank" class="btn-site"><i class="fas fa-arrow-up-right-from-square"></i> Acessar Site</a>
+                </div>
+            </div>
+
+            <!-- Olhar Digital -->
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#6c3483,#8e44ad);">OD</div>
+                    <div class="card-title">
+                        <h3>Olhar Digital – IA</h3>
+                        <span>olhardigital.com.br</span>
+                    </div>
+                    <span class="lang-badge lang-pt">PT-BR</span>
+                </div>
+                <div class="card-body">
+                    <p>Portal brasileiro de tecnologia com seção dedicada à IA, cobrindo novidades do mercado, tutoriais e análises para o público em geral.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="https://olhardigital.com.br/categoria/inteligencia-artificial/" target="_blank" class="btn-site"><i class="fas fa-arrow-up-right-from-square"></i> Acessar Site</a>
+                </div>
+            </div>
+
+            <!-- Analytics Insight -->
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#f39c12,#d68910);">AI</div>
+                    <div class="card-title">
+                        <h3>Analytics Insight</h3>
+                        <span>analyticsinsight.net</span>
+                    </div>
+                    <span class="lang-badge lang-en">EN</span>
+                </div>
+                <div class="card-body">
+                    <p>Plataforma especializada em IA, machine learning e data science com notícias de mercado, rankings e análises acessíveis tanto para iniciantes quanto para profissionais.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="https://www.analyticsinsight.net/artificial-intelligence/" target="_blank" class="btn-site"><i class="fas fa-chart-bar"></i> Acessar Portal</a>
+                </div>
+            </div>
+
+            <!-- Anthropic Blog -->
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#cc785c,#e8906f);">AN</div>
+                    <div class="card-title">
+                        <h3>Anthropic News</h3>
+                        <span>anthropic.com/news</span>
+                    </div>
+                    <span class="lang-badge lang-en">EN</span>
+                </div>
+                <div class="card-body">
+                    <p>Canal oficial da Anthropic com pesquisas sobre segurança em IA, atualizações do Claude e publicações sobre IA responsável e alinhamento de modelos.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="https://www.anthropic.com/news" target="_blank" class="btn-site"><i class="fas fa-robot"></i> Acessar Blog</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ABA: PORTUGUÊS -->
+    <div class="tab-content" id="tab-pt">
+        <div class="section-intro">
+            <h2>Portais em Português</h2>
+            <p>Sites em PT-BR para acompanhar IA com conteúdo acessível em português.</p>
+        </div>
+        <div class="sites-grid">
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#1a3b6e,#2a5298);">IA</div>
+                    <div class="card-title"><h3>IA Brasil Notícias</h3><span>iabrasilnoticias.com.br</span></div>
+                    <span class="lang-badge lang-pt">PT-BR</span>
+                </div>
+                <div class="card-body"><p>Portal brasileiro especializado em IA com reportagens exclusivas, entrevistas e análises sobre o mercado de inteligência artificial no Brasil e no mundo.</p></div>
+                <div class="card-footer"><a href="https://iabrasilnoticias.com.br" target="_blank" class="btn-site"><i class="fas fa-arrow-up-right-from-square"></i> Acessar Site</a></div>
+            </div>
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#e63946,#c1121f);">TM</div>
+                    <div class="card-title"><h3>TecMundo – IA</h3><span>tecmundo.com.br</span></div>
+                    <span class="lang-badge lang-pt">PT-BR</span>
+                </div>
+                <div class="card-body"><p>Um dos maiores portais de tecnologia do Brasil com cobertura acessível sobre inteligência artificial, lançamentos e novidades do setor em português.</p></div>
+                <div class="card-footer"><a href="https://www.tecmundo.com.br/inteligencia-artificial" target="_blank" class="btn-site"><i class="fas fa-globe"></i> Ler Notícias</a></div>
+            </div>
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#6c3483,#8e44ad);">OD</div>
+                    <div class="card-title"><h3>Olhar Digital – IA</h3><span>olhardigital.com.br</span></div>
+                    <span class="lang-badge lang-pt">PT-BR</span>
+                </div>
+                <div class="card-body"><p>Portal brasileiro de tecnologia com seção dedicada à IA, cobrindo novidades do mercado, tutoriais e análises para o público em geral.</p></div>
+                <div class="card-footer"><a href="https://olhardigital.com.br/categoria/inteligencia-artificial/" target="_blank" class="btn-site"><i class="fas fa-arrow-up-right-from-square"></i> Acessar Site</a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABA: INGLÊS -->
+    <div class="tab-content" id="tab-en">
+        <div class="section-intro">
+            <h2>Portais em Inglês</h2>
+            <p>Referências internacionais de primeira linha para quem quer ir além nas novidades de IA.</p>
+        </div>
+        <div class="sites-grid">
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#a31f34,#c0392b);">MIT</div>
+                    <div class="card-title"><h3>MIT Technology Review</h3><span>technologyreview.com</span></div>
+                    <span class="lang-badge lang-en">EN</span>
+                </div>
+                <div class="card-body"><p>Publicação do MIT com análises profundas sobre IA, pesquisas acadêmicas e o impacto das tecnologias na sociedade. Referência global em jornalismo de tecnologia.</p></div>
+                <div class="card-footer"><a href="https://www.technologyreview.com/topic/artificial-intelligence/" target="_blank" class="btn-site"><i class="fas fa-arrow-up-right-from-square"></i> Acessar Site</a></div>
+            </div>
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#1d6fa4,#1a9cd8);">VB</div>
+                    <div class="card-title"><h3>VentureBeat AI</h3><span>venturebeat.com/ai</span></div>
+                    <span class="lang-badge lang-en">EN</span>
+                </div>
+                <div class="card-body"><p>Líder em cobertura de IA para negócios. Focado em IA generativa, automação empresarial e tendências do setor corporativo.</p></div>
+                <div class="card-footer"><a href="https://venturebeat.com/ai/" target="_blank" class="btn-site"><i class="fas fa-chart-line"></i> Acessar Portal</a></div>
+            </div>
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#fa3c00,#ff6d3a);">TV</div>
+                    <div class="card-title"><h3>The Verge – AI</h3><span>theverge.com/ai</span></div>
+                    <span class="lang-badge lang-en">EN</span>
+                </div>
+                <div class="card-body"><p>Cobertura moderna e acessível sobre IA com análises em vídeo, reviews de ferramentas e reportagens sobre o impacto da tecnologia no cotidiano.</p></div>
+                <div class="card-footer"><a href="https://www.theverge.com/ai-artificial-intelligence" target="_blank" class="btn-site"><i class="fas fa-arrow-up-right-from-square"></i> Acessar Site</a></div>
+            </div>
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#111,#333);">W</div>
+                    <div class="card-title"><h3>Wired – AI</h3><span>wired.com</span></div>
+                    <span class="lang-badge lang-en">EN</span>
+                </div>
+                <div class="card-body"><p>Jornalismo de tecnologia premiado com reportagens investigativas sobre ética em IA, impacto social e o futuro da inteligência artificial.</p></div>
+                <div class="card-footer"><a href="https://www.wired.com/tag/artificial-intelligence/" target="_blank" class="btn-site"><i class="fas fa-magnifying-glass"></i> Acessar Portal</a></div>
+            </div>
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#10a37f,#1ac99a);">OAI</div>
+                    <div class="card-title"><h3>OpenAI Blog</h3><span>openai.com/news</span></div>
+                    <span class="lang-badge lang-en">EN</span>
+                </div>
+                <div class="card-body"><p>Blog oficial da OpenAI com atualizações sobre modelos, pesquisas de segurança e lançamentos de produtos.</p></div>
+                <div class="card-footer"><a href="https://openai.com/news" target="_blank" class="btn-site"><i class="fas fa-microchip"></i> Acessar Blog</a></div>
+            </div>
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#cc785c,#e8906f);">AN</div>
+                    <div class="card-title"><h3>Anthropic News</h3><span>anthropic.com/news</span></div>
+                    <span class="lang-badge lang-en">EN</span>
+                </div>
+                <div class="card-body"><p>Canal oficial da Anthropic com pesquisas sobre segurança em IA e publicações sobre IA responsável e alinhamento de modelos.</p></div>
+                <div class="card-footer"><a href="https://www.anthropic.com/news" target="_blank" class="btn-site"><i class="fas fa-robot"></i> Acessar Blog</a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABA: PESQUISA -->
+    <div class="tab-content" id="tab-pesquisa">
+        <div class="section-intro">
+            <h2>Pesquisa & Academia</h2>
+            <p>Fontes científicas e acadêmicas de alto nível sobre IA.</p>
+        </div>
+        <div class="sites-grid">
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#a31f34,#c0392b);">MIT</div>
+                    <div class="card-title"><h3>MIT Technology Review</h3><span>technologyreview.com</span></div>
+                    <span class="lang-badge lang-en">EN</span>
+                </div>
+                <div class="card-body"><p>Referência acadêmica com análises profundas, pesquisas e o impacto da IA na ciência e na sociedade global.</p></div>
+                <div class="card-footer"><a href="https://www.technologyreview.com/topic/artificial-intelligence/" target="_blank" class="btn-site"><i class="fas fa-arrow-up-right-from-square"></i> Acessar Site</a></div>
+            </div>
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#00b39f,#00d4b8);">TDS</div>
+                    <div class="card-title"><h3>Towards Data Science</h3><span>towardsdatascience.com</span></div>
+                    <span class="lang-badge lang-en">EN</span>
+                </div>
+                <div class="card-body"><p>Artigos técnicos de ML, IA e ciência de dados escritos por pesquisadores e profissionais da área, publicados na plataforma Medium.</p></div>
+                <div class="card-footer"><a href="https://towardsdatascience.com" target="_blank" class="btn-site"><i class="fas fa-arrow-up-right-from-square"></i> Acessar Site</a></div>
+            </div>
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#4285f4,#34a853);">G</div>
+                    <div class="card-title"><h3>Google AI Blog</h3><span>ai.googleblog.com</span></div>
+                    <span class="lang-badge lang-en">EN</span>
+                </div>
+                <div class="card-body"><p>Pesquisas e publicações dos laboratórios do Google sobre DeepMind, Gemini e avanços científicos em inteligência artificial.</p></div>
+                <div class="card-footer"><a href="https://ai.googleblog.com" target="_blank" class="btn-site"><i class="fas fa-arrow-up-right-from-square"></i> Acessar Site</a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABA: NEGÓCIOS -->
+    <div class="tab-content" id="tab-negocios">
+        <div class="section-intro">
+            <h2>IA & Negócios</h2>
+            <p>Como a IA está transformando o mercado corporativo e as empresas ao redor do mundo.</p>
+        </div>
+        <div class="sites-grid">
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#1d6fa4,#1a9cd8);">VB</div>
+                    <div class="card-title"><h3>VentureBeat AI</h3><span>venturebeat.com/ai</span></div>
+                    <span class="lang-badge lang-en">EN</span>
+                </div>
+                <div class="card-body"><p>Fonte primária para executivos que precisam implementar soluções de IA generativa e automação em suas empresas. Tendências corporativas em IA.</p></div>
+                <div class="card-footer"><a href="https://venturebeat.com/ai/" target="_blank" class="btn-site"><i class="fas fa-chart-line"></i> Acessar Portal</a></div>
+            </div>
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#f39c12,#d68910);">AI</div>
+                    <div class="card-title"><h3>Analytics Insight</h3><span>analyticsinsight.net</span></div>
+                    <span class="lang-badge lang-en">EN</span>
+                </div>
+                <div class="card-body"><p>Cobertura de IA, machine learning e data science com foco em aplicações empresariais, rankings de mercado e tendências do setor.</p></div>
+                <div class="card-footer"><a href="https://www.analyticsinsight.net/artificial-intelligence/" target="_blank" class="btn-site"><i class="fas fa-chart-bar"></i> Acessar Portal</a></div>
+            </div>
+            <div class="site-card">
+                <div class="card-header">
+                    <div class="site-icon" style="background: linear-gradient(135deg,#1a3b6e,#2a5298);">IA</div>
+                    <div class="card-title"><h3>IA Brasil Notícias</h3><span>iabrasilnoticias.com.br</span></div>
+                    <span class="lang-badge lang-pt">PT-BR</span>
+                </div>
+                <div class="card-body"><p>Cobertura do mercado brasileiro de IA com foco em eventos corporativos, startups e como as empresas nacionais estão adotando a inteligência artificial.</p></div>
+                <div class="card-footer"><a href="https://iabrasilnoticias.com.br" target="_blank" class="btn-site"><i class="fas fa-arrow-up-right-from-square"></i> Acessar Site</a></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <p class="footer-contact">
+            Em caso de dúvidas ou sugestões, entre em contato pelo e-mail:
+            <a href="mailto:daniel.avila@colchoes.ind.br">daniel.avila@colchoes.ind.br</a>
+        </p>
+        <div class="footer-brands">
+            <span class="brand-probel">Probel</span>
+            <span class="brand-prodormir">Prodormir</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Dropdown
+    const dropdown = document.getElementById('navDropdown');
+    const menuBtn  = document.getElementById('menuBtn');
+    menuBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        dropdown.classList.toggle('open');
+    });
+    document.addEventListener('click', function() { dropdown.classList.remove('open'); });
+    document.getElementById('dropdownMenu').addEventListener('click', function() { dropdown.classList.remove('open'); });
+
+    // Tabs
+    const tabBtns    = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const target = btn.dataset.tab;
+
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+
+            btn.classList.add('active');
+            document.getElementById('tab-' + target).classList.add('active');
+        });
+    });
+</script>
+</body>
+</html>

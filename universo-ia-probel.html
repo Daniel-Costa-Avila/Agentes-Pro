@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Universo IA – Ferramentas de Inteligência Artificial utilizadas na Probel">
+    <title>Universo IA – Probel</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --blue-dark:   #0d1f3c;
+            --blue-main:   #1a3b6e;
+            --blue-mid:    #2a5298;
+            --blue-light:  #4a7fd4;
+            --blue-accent: #3b7dd8;
+            --teal:        #1abc9c;
+            --gold:        #f0a500;
+            --text-body:   #3d4a5c;
+            --text-muted:  #7a8899;
+            --bg-page:     #f5f7fa;
+            --white:       #ffffff;
+            --card-border: rgba(42,82,152,0.1);
+            --radius-card: 14px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-page);
+            color: var(--text-body);
+            line-height: 1.7;
+        }
+
+        /* ─── HEADER ────────────────────────────────────── */
+        header {
+            background: var(--blue-dark);
+            padding: 0 3rem;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-badge {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, var(--blue-accent), var(--teal));
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: white;
+        }
+
+        .logo-text {
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover { color: white; }
+
+        .nav-menu-toggle {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .nav-search { color: rgba(255,255,255,0.7); cursor: pointer; font-size: 1rem; transition: color 0.2s; }
+        .nav-search:hover { color: white; }
+
+        /* ─── DROPDOWN ───────────────────────────────────── */
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-toggle {
+            color: rgba(255,255,255,0.85);
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.2s;
+            background: none;
+            border: none;
+            font-family: inherit;
+            padding: 0;
+        }
+
+        .nav-dropdown-toggle:hover { color: white; }
+
+        .nav-dropdown-toggle i {
+            font-size: 0.65rem;
+            transition: transform 0.25s;
+        }
+
+        .nav-dropdown.open .nav-dropdown-toggle i {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: calc(100% + 18px);
+            right: 0;
+            background: #1a1f2e;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 6px;
+            min-width: 210px;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.4);
+            z-index: 300;
+            overflow: hidden;
+            animation: dropIn 0.18s ease-out;
+        }
+
+        @keyframes dropIn {
+            from { opacity: 0; transform: translateY(-6px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-dropdown.open .dropdown-menu { display: block; }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 0.85rem 1.4rem;
+            color: rgba(255,255,255,0.82);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            transition: background 0.15s, color 0.15s;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .dropdown-menu a:last-child { border-bottom: none; }
+
+        .dropdown-menu a:hover {
+            background: rgba(255,255,255,0.06);
+            color: white;
+        }
+
+        /* ─── HERO ──────────────────────────────────────── */
+        .hero {
+            min-height: 320px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                linear-gradient(160deg, rgba(13,31,60,0.92) 0%, rgba(26,59,110,0.88) 50%, rgba(42,82,152,0.82) 100%),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='320'%3E%3Cdefs%3E%3Cpattern id='g' width='48' height='48' patternUnits='userSpaceOnUse'%3E%3Cpath d='M48 0L0 0 0 48' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='900' height='320' fill='%230d1f3c'/%3E%3Crect width='900' height='320' fill='url(%23g)'/%3E%3Ccircle cx='450' cy='160' r='260' fill='none' stroke='rgba(74,127,212,0.08)' stroke-width='60'/%3E%3Ccircle cx='450' cy='160' r='160' fill='none' stroke='rgba(74,127,212,0.06)' stroke-width='40'/%3E%3Ccircle cx='450' cy='160' r='80' fill='rgba(74,127,212,0.04)'/%3E%3C/svg%3E")
+                center/cover no-repeat;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(59,125,216,0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            color: white;
+            letter-spacing: 0.04em;
+            border: 2.5px solid rgba(255,255,255,0.75);
+            display: inline-block;
+            padding: 0.65rem 2.5rem;
+            position: relative;
+        }
+
+        /* cantos decorativos */
+        .hero h1::before,
+        .hero h1::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-color: var(--teal);
+            border-style: solid;
+        }
+        .hero h1::before { top: -4px; left: -4px; border-width: 2px 0 0 2px; }
+        .hero h1::after  { bottom: -4px; right: -4px; border-width: 0 2px 2px 0; }
+
+        /* ─── SECTION WRAPPER ───────────────────────────── */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ─── INTRO ─────────────────────────────────────── */
+        .intro-section {
+            background: white;
+            padding: 4rem 0 3rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .intro-section h2 {
+            text-align: center;
+            font-size: 1.65rem;
+            font-weight: 600;
+            color: var(--blue-dark);
+            margin-bottom: 2rem;
+        }
+
+        .intro-text p {
+            font-size: 0.97rem;
+            color: var(--text-body);
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .intro-text p:last-child { margin-bottom: 0; }
+
+        /* ─── TOOLS GRID ────────────────────────────────── */
+        .tools-section {
+            padding: 4rem 0 2rem;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem 3rem;
+        }
+
+        .tool-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            cursor: default;
+            transition: transform 0.25s;
+        }
+
+        .tool-item:hover { transform: translateY(-6px); }
+
+        .tool-logo {
+            width: 130px;
+            height: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            font-size: 3.6rem;
+            background: white;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 2px 14px rgba(0,0,0,0.07);
+            transition: box-shadow 0.25s;
+        }
+
+        .tool-item:hover .tool-logo {
+            box-shadow: 0 8px 24px rgba(42,82,152,0.15);
+        }
+
+        /* cores por ferramenta */
+        .chatgpt  .tool-logo { color: #10a37f; }
+        .gemini   .tool-logo { color: #4285f4; }
+        .notebook .tool-logo { color: #3367d6; }
+        .firefly  .tool-logo { background: #1a0533; color: #e040fb; }
+        .codex    .tool-logo { background: #0f1117; color: #7ecbff; }
+        .gaistudio .tool-logo { color: #4285f4; }
+
+        .tool-name {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--blue-mid);
+            text-align: center;
+        }
+
+        /* ─── DIVIDER ────────────────────────────────────── */
+        .section-divider {
+            border: none;
+            border-top: 1px solid rgba(0,0,0,0.07);
+            margin: 0;
+        }
+
+        /* ─── DETAILED TOOLS ────────────────────────────── */
+        .detailed-section {
+            padding: 3rem 0;
+            background: white;
+        }
+
+        .detail-card {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 2.5rem;
+            align-items: start;
+            padding: 2.5rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .detail-card:last-child { border-bottom: none; }
+
+        .detail-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .detail-icon-wrap {
+            width: 180px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            border-radius: 16px;
+            background: white;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        .cypress-icon { color: #00b14f; }
+        .n8n-icon     { color: #ea4b71; }
+
+        .detail-text h3 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--blue-mid);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .badge-soon {
+            font-size: 0.72rem;
+            font-weight: 600;
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffc107;
+            border-radius: 20px;
+            padding: 0.2rem 0.7rem;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+        }
+
+        .detail-text p {
+            font-size: 0.95rem;
+            color: var(--text-body);
+            text-align: justify;
+            line-height: 1.8;
+        }
+
+        /* ─── FOOTER ─────────────────────────────────────── */
+        footer {
+            background: white;
+            border-top: 1px solid rgba(0,0,0,0.08);
+            padding: 2.5rem 0;
+            text-align: center;
+        }
+
+        .footer-contact {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .footer-contact a {
+            color: var(--blue-mid);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer-contact a:hover { text-decoration: underline; }
+
+        .footer-brands {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+        }
+
+        .brand-probel {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--blue-dark);
+            letter-spacing: -0.02em;
+        }
+
+        .brand-prodormir {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #b0b8c8;
+            letter-spacing: -0.01em;
+        }
+
+        /* ─── RESPONSIVE ─────────────────────────────────── */
+        @media (max-width: 860px) {
+            .tools-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+            .detail-card { grid-template-columns: 1fr; }
+            .detail-icon-wrap { width: 120px; height: 90px; font-size: 3.5rem; }
+        }
+
+        @media (max-width: 560px) {
+            header { padding: 0 1.25rem; }
+            .tools-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+            .tool-logo { width: 100px; height: 100px; font-size: 2.8rem; }
+            nav { gap: 1.2rem; }
+            nav .hide-mobile { display: none; }
+            .nav-dropdown-toggle { font-size: 0.82rem; }
+            .hero h1 { font-size: 1.6rem; padding: 0.5rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="logo-wrap">
+        <div class="logo-badge"><i class="fas fa-brain" aria-hidden="true"></i></div>
+        <span class="logo-text">Universo IA</span>
+    </div>
+    <nav>
+        <a href="#inicio" style="color:var(--gold); font-weight:600;">Início</a>
+        <div class="nav-dropdown" id="navDropdown">
+            <button class="nav-dropdown-toggle" id="menuBtn" aria-haspopup="true" aria-expanded="false">
+                Menu <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="dropdown-menu" role="menu" id="dropdownMenu">
+                <a href="#agentes-pro" role="menuitem">Agentes Pro</a>
+                <a href="#artigos" role="menuitem">Artigos e Reportagens</a>
+                <a href="#cursos" role="menuitem">Cursos</a>
+            </div>
+        </div>
+    </nav>
+    <i class="fas fa-search nav-search" aria-label="Pesquisar"></i>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="inicio" aria-label="Bem-vindo ao Universo IA">
+    <div class="hero-inner">
+        <h1>Universo IA</h1>
+    </div>
+</section>
+
+<!-- INTRO -->
+<section class="intro-section">
+    <div class="container">
+        <h2>Ferramentas utilizadas atualmente na empresa</h2>
+        <div class="intro-text">
+            <p>A Probel utiliza atualmente diversas ferramentas tecnológicas que auxiliam nas atividades do dia a dia, trazendo mais agilidade, organização e eficiência para os processos internos. Entre elas, destacam-se as ferramentas de Inteligência Artificial (IA), que vêm sendo utilizadas para apoiar os colaboradores em diferentes tarefas e demandas.</p>
+            <p>As IAs funcionam como recursos de apoio para otimizar rotinas, automatizar atividades repetitivas, auxiliar na análise de informações e aumentar a produtividade das equipes. Além disso, essas ferramentas podem ser adaptadas conforme a necessidade de cada colaborador ou departamento, atendendo diferentes áreas e objetivos dentro da empresa.</p>
+            <p>O uso dessas tecnologias contribui para melhorar a comunicação, reduzir o tempo de execução de tarefas e apoiar a tomada de decisões, tornando os processos mais modernos, eficientes e alinhados às necessidades do negócio.</p>
+        </div>
+    </div>
+</section>
+
+<!-- TOOLS GRID - linha 1 -->
+<section class="tools-section">
+    <div class="container">
+        <div class="tools-grid">
+            <!-- ChatGPT -->
+            <div class="tool-item chatgpt">
+                <div class="tool-logo" aria-label="ChatGPT">
+                    <!-- ícone OpenAI simplificado -->
+                    <svg width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M35 8C19.536 8 7 20.536 7 36s12.536 28 28 28 28-12.536 28-28S50.464 8 35 8zm0 4c13.255 0 24 10.745 24 24S48.255 60 35 60 11 49.255 11 36s10.745-24 24-24z" fill="#10a37f" opacity=".3"/>
+                        <path d="M45.5 25.5C43.567 21.942 39.533 20 35 20c-7.732 0-14 6.268-14 14 0 3.93 1.607 7.482 4.194 10.05l-1.25 4.45 4.556-1.19A13.935 13.935 0 0035 49c7.732 0 14-6.268 14-14 0-3.4-1.22-6.514-3.228-8.94L45.5 25.5z" fill="#10a37f" opacity=".15"/>
+                        <path d="M52.8 29.3a18.5 18.5 0 00-2.6-5.4C47.3 19.5 41.5 17 35 17c-9.9 0-18 8.1-18 18 0 3.8 1.2 7.4 3.2 10.3l-2.4 8.5 8.7-2.3c2.7 1.5 5.8 2.3 9.1 2.3 7.4 0 13.8-4.5 16.8-11A18 18 0 0053 36c0-2.3-.4-4.5-1.1-6.5l.9-.2z" fill="none" stroke="#10a37f" stroke-width="2.5"/>
+                        <circle cx="28" cy="36" r="2.5" fill="#10a37f"/>
+                        <circle cx="35" cy="36" r="2.5" fill="#10a37f"/>
+                        <circle cx="42" cy="36" r="2.5" fill="#10a37f"/>
+                    </svg>
+                </div>
+                <span class="tool-name">ChatGPT</span>
+            
+                <a href="https://chat.openai.com" target="_blank" class="btn-tool"><i class="fas fa-robot"></i> Abrir ChatGPT</a>
+                </div>
+
+            <!-- Gemini -->
+            <div class="tool-item gemini">
+                <div class="tool-logo" aria-label="Gemini">
+                    <svg width="68" height="68" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M34 8 C34 8 42 26 60 34 C42 42 34 60 34 60 C34 60 26 42 8 34 C26 26 34 8 34 8Z" fill="url(#gem_g)"/>
+                        <defs>
+                            <linearGradient id="gem_g" x1="8" y1="34" x2="60" y2="34" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#4285f4"/>
+                                <stop offset="50%" stop-color="#a667f5"/>
+                                <stop offset="100%" stop-color="#4285f4"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="tool-name">Gemini</span>
+            
+                <a href="https://gemini.google.com" target="_blank" class="btn-tool"><i class="fas fa-star"></i> Abrir Gemini</a>
+                </div>
+
+            <!-- NotebookLM -->
+            <div class="tool-item notebook">
+                <div class="tool-logo" aria-label="NotebookLM">
+                    <svg width="66" height="66" viewBox="0 0 66 66" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect x="12" y="10" width="42" height="46" rx="6" fill="#e8f0fe" stroke="#3367d6" stroke-width="2.5"/>
+                        <path d="M20 18 h26 M20 26 h26 M20 34 h18" stroke="#3367d6" stroke-width="2.5" stroke-linecap="round"/>
+                        <circle cx="49" cy="47" r="10" fill="#3367d6"/>
+                        <path d="M44 47l4 4 7-8" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span class="tool-name">NotebookLM</span>
+            
+                <a href="https://notebooklm.google.com" target="_blank" class="btn-tool"><i class="fas fa-book-open"></i> Abrir NotebookLM</a>
+                </div>
+
+            <!-- Adobe Firefly -->
+            <div class="tool-item firefly">
+                <div class="tool-logo" aria-label="Adobe Firefly">
+                    <svg width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect width="70" height="70" rx="14" fill="#1a0533"/>
+                        <path d="M22 50L35 20L48 50H40L35 36L30 50H22Z" fill="#e040fb"/>
+                        <path d="M29 40H41" stroke="#e040fb" stroke-width="2" stroke-linecap="round" opacity=".6"/>
+                        <circle cx="35" cy="20" r="4" fill="#e040fb" opacity=".4"/>
+                    </svg>
+                </div>
+                <span class="tool-name">Adobe FireFly</span>
+            
+                <a href="https://firefly.adobe.com" target="_blank" class="btn-tool"><i class="fas fa-wand-magic-sparkles"></i> Abrir Firefly</a>
+                </div>
+
+            <!-- Codex -->
+            <div class="tool-item codex">
+                <div class="tool-logo" aria-label="Codex">
+                    <svg width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect width="70" height="70" rx="14" fill="#0f1117"/>
+                        <path d="M24 27L14 35L24 43" stroke="#7ecbff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M46 27L56 35L46 43" stroke="#7ecbff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M38 22L32 48" stroke="#7ecbff" stroke-width="3" stroke-linecap="round" opacity=".6"/>
+                    </svg>
+                </div>
+                <span class="tool-name">Codex</span>
+            
+                <a href="https://chatgpt.com/codex" target="_blank" class="btn-tool"><i class="fas fa-code"></i> Abrir Codex</a>
+                </div>
+
+            <!-- Google IA Studio -->
+            <div class="tool-item gaistudio">
+                <div class="tool-logo" aria-label="Google IA Studio">
+                    <svg width="68" height="68" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect x="8" y="8" width="52" height="52" rx="12" fill="#e8f0fe"/>
+                        <path d="M34 16C24.06 16 16 24.06 16 34s8.06 18 18 18 18-8.06 18-18S43.94 16 34 16z" fill="none" stroke="#4285f4" stroke-width="2.5"/>
+                        <path d="M34 24v20M24 34h20" stroke="#4285f4" stroke-width="2.5" stroke-linecap="round"/>
+                        <circle cx="34" cy="34" r="4" fill="#4285f4"/>
+                        <circle cx="34" cy="24" r="2" fill="#ea4335"/>
+                        <circle cx="44" cy="34" r="2" fill="#fbbc05"/>
+                        <circle cx="34" cy="44" r="2" fill="#34a853"/>
+                        <circle cx="24" cy="34" r="2" fill="#4285f4"/>
+                    </svg>
+                </div>
+                <span class="tool-name">Google IA Studio</span>
+            
+                <a href="https://aistudio.google.com" target="_blank" class="btn-tool"><i class="fas fa-microchip"></i> Abrir AI Studio</a>
+                </div>
+        </div>
+    </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- DETAILED SECTIONS -->
+<section class="detailed-section">
+    <div class="container">
+
+        <!-- Cypress -->
+        <div class="detail-card">
+            <div class="detail-logo">
+                <div class="detail-icon-wrap">
+                    <svg width="100" height="70" viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Cypress" aria-hidden="true">
+                        <circle cx="50" cy="35" r="32" fill="#e8faf2" stroke="#00b14f" stroke-width="2.5"/>
+                        <text x="50" y="43" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="18" fill="#00b14f">cypress</text>
+                        <circle cx="50" cy="24" r="5" fill="#00b14f" opacity=".25"/>
+                        <circle cx="50" cy="24" r="2.5" fill="#00b14f"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="detail-text">
+                <h3>
+                    Cypress (Em Breve)
+                    <span class="badge-soon">🔒 Em Breve</span>
+                </h3>
+                <p>O Cypress é uma ferramenta de automação de testes para aplicações web, utilizada para validar se o sistema está funcionando corretamente do ponto de vista do usuário. Ele permite testar páginas, botões, formulários e fluxos completos de navegação de forma rápida e prática, ajudando a identificar problemas antes que eles impactem os clientes. Além disso, possui configuração simples e facilita a visualização e correção de erros diretamente no navegador.</p>
+                <a href="https://www.cypress.io" target="_blank" class="btn-tool" style="margin-top:1rem;"><i class="fas fa-flask"></i> Saiba Mais sobre Cypress</a>
+            </div>
+        </div>
+
+        <!-- N8N -->
+        <div class="detail-card">
+            <div class="detail-logo">
+                <div class="detail-icon-wrap">
+                    <svg width="110" height="60" viewBox="0 0 110 60" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="n8n" aria-hidden="true">
+                        <circle cx="20" cy="30" r="16" fill="#fde8ee" stroke="#ea4b71" stroke-width="2.5"/>
+                        <circle cx="55" cy="30" r="16" fill="#fde8ee" stroke="#ea4b71" stroke-width="2.5"/>
+                        <circle cx="90" cy="30" r="16" fill="#fde8ee" stroke="#ea4b71" stroke-width="2.5"/>
+                        <path d="M36 30H39M71 30H74" stroke="#ea4b71" stroke-width="2.5" stroke-linecap="round"/>
+                        <text x="20" y="35" text-anchor="middle" font-family="Arial" font-weight="700" font-size="11" fill="#ea4b71">n</text>
+                        <text x="55" y="35" text-anchor="middle" font-family="Arial" font-weight="700" font-size="11" fill="#ea4b71">8</text>
+                        <text x="90" y="35" text-anchor="middle" font-family="Arial" font-weight="700" font-size="11" fill="#ea4b71">n</text>
+                    </svg>
+                </div>
+            </div>
+            <div class="detail-text">
+                <h3>
+                    N8N (Em Breve)
+                    <span class="badge-soon">🔒 Em Breve</span>
+                </h3>
+                <p>O n8n é uma plataforma de automação de fluxo de trabalho (<em>workflow automation</em>) técnica de baixo código (<em>low-code</em>) e código aberto (<em>open-source</em>) que conecta diferentes aplicativos, APIs e bancos de dados. Ele permite criar automações visuais (arrastar e soltar) para conectar ferramentas como WhatsApp, Gmail, Slack e CRMs, automatizando tarefas repetitivas.</p>
+                <a href="https://n8n.io" target="_blank" class="btn-tool" style="margin-top:1rem;"><i class="fas fa-diagram-project"></i> Saiba Mais sobre N8N</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <p class="footer-contact">
+            Em caso de dúvidas ou sugestões, entre em contato pelo e-mail:
+            <a href="mailto:daniel.avila@colchoes.ind.br">daniel.avila@colchoes.ind.br</a>
+        </p>
+        <div class="footer-brands">
+            <span class="brand-probel">Probel</span>
+            <span class="brand-prodormir">Prodormir</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const dropdown = document.getElementById('navDropdown');
+    const menuBtn  = document.getElementById('menuBtn');
+
+    menuBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const isOpen = dropdown.classList.toggle('open');
+        menuBtn.setAttribute('aria-expanded', isOpen);
+    });
+
+    document.addEventListener('click', function() {
+        dropdown.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+    });
+
+    document.getElementById('dropdownMenu').addEventListener('click', function() {
+        dropdown.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+    });
+</script>
+</body>
+</html>
