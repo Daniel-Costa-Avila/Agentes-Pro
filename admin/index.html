@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Painel · Agentes Pro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/admin/painel.css">
+</head>
+<body>
+
+<div class="app">
+
+    <aside class="lateral" id="lateral">
+        <div class="marca">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="#2a5298"/>
+                <path d="M8 16.5V9a2 2 0 0 1 2-2h1.6a2.6 2.6 0 0 1 0 5.2H8" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="16.4" cy="15.6" r="1.5" fill="#1abc9c"/>
+            </svg>
+            <div>
+                <div class="marca-txt">Agentes Pro</div>
+                <div class="marca-sub">Painel de conteúdo</div>
+            </div>
+        </div>
+
+        <nav class="nav" id="nav">
+            <div class="nav-titulo">Conteúdo</div>
+
+            <button class="nav-item on" type="button" data-tela="recursos">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/>
+                    <rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/>
+                </svg>
+                <span>Recursos</span>
+                <em class="nav-n" id="nav-n" style="font-style: normal">0</em>
+            </button>
+
+            <button class="nav-item" type="button" data-tela="mensagens">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/>
+                    <path d="M3 7l9 6 9-6"/>
+                </svg>
+                <span>Mensagens</span>
+                <em class="nav-n" id="nav-msg-n" style="font-style: normal; display: none">0</em>
+            </button>
+
+            <button class="nav-item" type="button" data-tela="pagina">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3.5 9.5 12 3.5l8.5 6V20a1 1 0 0 1-1 1h-15a1 1 0 0 1-1-1z"/><path d="M9.5 21v-6.5h5V21"/>
+                </svg>
+                <span>Página inicial</span>
+            </button>
+
+            <button class="nav-item" type="button" data-tela="midia">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4.5" width="18" height="15" rx="2.5"/><circle cx="8.5" cy="10" r="1.7"/><path d="m4 17 5-4.5 4 3.5 3-2.5 4 3.5"/>
+                </svg>
+                <span>Imagens</span>
+            </button>
+
+            <div class="nav-titulo">Administração</div>
+
+            <button class="nav-item" type="button" data-tela="usuarios" id="nav-usuarios">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="8" r="3.4"/><path d="M3 20c0-3.3 2.7-5.4 6-5.4s6 2.1 6 5.4"/><path d="M16.5 7.5h5M19 5v5"/>
+                </svg>
+                <span>Usuários e acessos</span>
+            </button>
+
+            <button class="nav-item" type="button" data-tela="historico">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 1.8"/>
+                </svg>
+                <span>Registro de alterações</span>
+            </button>
+        </nav>
+
+        <div class="lateral-fim">
+            <div class="avatar" id="eu-sigla">··</div>
+            <div style="flex: 1; min-width: 0">
+                <div class="eu-nome" id="eu-nome">carregando…</div>
+                <div class="eu-papel" id="eu-papel"></div>
+            </div>
+            <button class="sair" type="button" id="sair" title="Sair do painel" aria-label="Sair do painel">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 4.5h3.5a1.5 1.5 0 0 1 1.5 1.5v12a1.5 1.5 0 0 1-1.5 1.5H15"/><path d="M10 16.5 5.5 12 10 7.5M5.5 12H15"/>
+                </svg>
+            </button>
+        </div>
+    </aside>
+
+    <div class="conteudo">
+        <header class="topo">
+            <button class="icone-btn" type="button" id="menu" style="display: none" aria-label="Abrir menu">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            </button>
+            <div class="topo-tit">
+                <div class="migalha" id="migalha">Conteúdo</div>
+                <div class="topo-h" id="titulo">Recursos da página</div>
+            </div>
+            <div id="acoes-topo" style="display: flex; align-items: center; gap: 14px"></div>
+        </header>
+
+        <main class="corpo" id="tela">
+            <div class="carregando">
+                <svg class="girando" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <path d="M12 3.5a8.5 8.5 0 1 0 8.5 8.5" />
+                </svg>
+                Carregando o painel…
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="/admin/painel.js"></script>
+</body>
+</html>

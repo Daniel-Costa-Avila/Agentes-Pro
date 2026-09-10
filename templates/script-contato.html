@@ -1,0 +1,120 @@
+<script>
+// ─── FORMULÁRIO DE CONTATO (dúvidas/sugestões) ─────────
+// Compartilhado por todas as páginas do site (home, página de detalhes
+// e a de "não encontrada") — qualquer uma que tenha a topbar tem o botão
+// "Dúvidas e sugestões", então todas incluem este script.
+(function () {
+    'use strict';
+
+    var cortina  = document.getElementById('contato-cortina');
+    if (!cortina) return; // página sem o modal (não deveria acontecer, mas não trava o resto do script)
+
+    var gatilhos = Array.prototype.slice.call(document.querySelectorAll('[data-abrir-contato]'));
+    var fechar   = document.getElementById('contato-fechar');
+    var titulo   = document.getElementById('contato-titulo');
+    var sub      = document.getElementById('contato-sub');
+    var form     = document.getElementById('contato-form');
+    var erro     = document.getElementById('contato-erro');
+    var sucesso  = document.getElementById('contato-sucesso');
+    var enviar   = document.getElementById('contato-enviar');
+    var campoNome = document.getElementById('contato-nome');
+    var campoEmail = document.getElementById('contato-email');
+    var campoMsg  = document.getElementById('contato-mensagem');
+    var campoHp   = document.getElementById('contato-hp');
+
+    var TEXTOS = {
+        sugestao: {
+            titulo: 'Sugerir um agente',
+            sub: 'Conte pra gente que automação ajudaria seu time — a mensagem vai direto para quem cuida do Agentes Pro.',
+            rotuloMsg: 'O que você gostaria de automatizar?'
+        },
+        duvida: {
+            titulo: 'Dúvidas e sugestões',
+            sub: 'Escreva sua dúvida ou sugestão — respondemos por e-mail assim que possível.',
+            rotuloMsg: 'Sua mensagem'
+        }
+    };
+
+    var tipoAtual = 'duvida';
+    var ultimoFoco = null;
+
+    function abrir(tipo) {
+        tipoAtual = TEXTOS[tipo] ? tipo : 'duvida';
+        var t = TEXTOS[tipoAtual];
+        titulo.textContent = t.titulo;
+        sub.textContent = t.sub;
+        document.getElementById('contato-mensagem-rotulo').textContent = t.rotuloMsg;
+
+        form.reset();
+        form.classList.remove('is-hidden');
+        sucesso.classList.remove('is-visible');
+        erro.classList.remove('is-visible');
+        enviar.disabled = false;
+        enviar.textContent = 'Enviar';
+
+        ultimoFoco = document.activeElement;
+        cortina.classList.add('is-aberta');
+        document.body.style.overflow = 'hidden';
+        setTimeout(function () { campoMsg.focus(); }, 10);
+    }
+
+    function fecharModal() {
+        cortina.classList.remove('is-aberta');
+        document.body.style.overflow = '';
+        if (ultimoFoco && ultimoFoco.focus) ultimoFoco.focus();
+    }
+
+    gatilhos.forEach(function (btn) {
+        btn.addEventListener('click', function () { abrir(btn.getAttribute('data-abrir-contato')); });
+    });
+
+    fechar.addEventListener('click', fecharModal);
+    cortina.addEventListener('click', function (e) { if (e.target === cortina) fecharModal(); });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && cortina.classList.contains('is-aberta')) fecharModal();
+    });
+
+    function mostrarErro(msg) {
+        erro.textContent = msg;
+        erro.classList.add('is-visible');
+    }
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        erro.classList.remove('is-visible');
+
+        var mensagem = campoMsg.value.trim();
+        if (!mensagem) { mostrarErro('Escreva sua mensagem antes de enviar.'); campoMsg.focus(); return; }
+
+        enviar.disabled = true;
+        enviar.textContent = 'Enviando…';
+
+        fetch('/api/contato', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                tipo: tipoAtual,
+                nome: campoNome.value.trim(),
+                email: campoEmail.value.trim(),
+                mensagem: mensagem,
+                site: campoHp.value // honeypot: um visitante de verdade nunca preenche isto
+            })
+        })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, corpo: j }; }); })
+        .then(function (res) {
+            if (!res.ok) {
+                enviar.disabled = false;
+                enviar.textContent = 'Enviar';
+                return mostrarErro(res.corpo.erro || 'Não foi possível enviar agora. Tente de novo em instantes.');
+            }
+            form.classList.add('is-hidden');
+            sucesso.classList.add('is-visible');
+        })
+        .catch(function () {
+            enviar.disabled = false;
+            enviar.textContent = 'Enviar';
+            mostrarErro('Sem conexão com o servidor. Tente de novo em instantes.');
+        });
+    });
+})();
+</script>

@@ -1,0 +1,2 @@
+//Para instalar ou atualizar o agendamento diário:
+.\backup-gerenciador.ps1 -Install

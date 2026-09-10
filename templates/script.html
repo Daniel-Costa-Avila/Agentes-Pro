@@ -1,0 +1,92 @@
+<script>
+(function () {
+    'use strict';
+
+    var busca      = document.getElementById('busca');
+    var limpar     = document.getElementById('limpar');
+    var vazio      = document.getElementById('vazio');
+    var contador   = document.getElementById('contador');
+    var contadorTx = document.getElementById('contador-txt');
+    var chips      = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+    var agentes    = Array.prototype.slice.call(document.querySelectorAll('[data-agente]'));
+
+    var filtro = 'todos';
+
+    // remove acentos para a busca casar com ou sem eles
+    var DE = 'áàâãäéèêëíìîïóòôõöúùûüçñ';
+    var PARA = 'aaaaaeeeeiiiiooooouuuucn';
+    function norm(txt) {
+        txt = String(txt == null ? '' : txt).toLowerCase();
+        var out = '';
+        for (var i = 0; i < txt.length; i++) {
+            var j = DE.indexOf(txt.charAt(i));
+            out += j === -1 ? txt.charAt(i) : PARA.charAt(j);
+        }
+        return out;
+    }
+
+    // índice montado a partir do próprio conteúdo do card
+    agentes.forEach(function (el) {
+        var titulo = el.querySelector('h3');
+        var desc   = el.querySelector('p:not(.cat)');
+        el.dataset.busca = norm(
+            (titulo ? titulo.textContent : '') + ' ' +
+            (desc ? desc.textContent : '') + ' ' +
+            (el.dataset.kw || '')
+        );
+    });
+
+    function aplicar() {
+        var termo = busca ? norm(busca.value).trim() : '';
+        var visiveis = 0;
+
+        agentes.forEach(function (el) {
+            var okCat = filtro === 'todos' || el.dataset.cat === filtro;
+            var okTermo = termo === '' || el.dataset.busca.indexOf(termo) !== -1;
+            var mostrar = okCat && okTermo;
+            el.classList.toggle('is-hidden', !mostrar);
+            if (mostrar) visiveis++;
+        });
+
+        contador.textContent = visiveis;
+        contadorTx.textContent = visiveis === 1 ? 'agente disponível' : 'agentes disponíveis';
+        vazio.classList.toggle('is-visible', visiveis === 0);
+        if (limpar) limpar.classList.toggle('is-visible', busca && busca.value !== '');
+    }
+
+    // busca e limpar só existem na página quando "Mostrar campo de busca"
+    // está ligado no painel — o resto do filtro funciona igual sem eles.
+    if (busca) {
+        busca.addEventListener('input', aplicar);
+
+        busca.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && busca.value !== '') {
+                busca.value = '';
+                aplicar();
+            }
+        });
+    }
+
+    if (limpar) {
+        limpar.addEventListener('click', function () {
+            busca.value = '';
+            busca.focus();
+            aplicar();
+        });
+    }
+
+    chips.forEach(function (chip) {
+        chip.addEventListener('click', function () {
+            filtro = chip.dataset.filtro;
+            chips.forEach(function (c) {
+                var ativo = c === chip;
+                c.classList.toggle('is-on', ativo);
+                c.setAttribute('aria-pressed', ativo ? 'true' : 'false');
+            });
+            aplicar();
+        });
+    });
+
+    aplicar();
+})();
+</script>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Entrar · Painel Agentes Pro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/admin/painel.css">
+<style>
+    body { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; }
+    .caixa {
+        display: flex; width: 100%; max-width: 880px; min-height: 520px; overflow: hidden;
+        background: #fff; border: 1px solid var(--line); border-radius: 12px;
+        box-shadow: 0 12px 40px rgba(5,18,40,0.14);
+    }
+    .lado {
+        display: flex; flex-direction: column; justify-content: space-between;
+        width: 340px; flex-shrink: 0; padding: 34px 30px;
+        background: linear-gradient(135deg, #0d1f3c 0%, #1a3b6e 58%, #24497f 100%);
+    }
+    .lado-h { font-size: 25px; font-weight: 700; color: #fff; line-height: 1.25; margin-bottom: 12px; }
+    .lado-p { font-size: 13.5px; font-weight: 300; line-height: 1.7; color: rgba(255,255,255,0.72); text-wrap: pretty; }
+    .lado-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 12px; }
+    .marcas { display: flex; align-items: center; gap: 26px; }
+    .marcas span:first-child { font-size: 17px; font-weight: 800; color: rgba(255,255,255,0.9); }
+    .marcas span:last-child { font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.4); }
+    .form { display: flex; flex-direction: column; justify-content: center; flex: 1; min-width: 0; padding: 40px 46px; }
+    .form h1 { font-size: 20px; font-weight: 600; color: var(--blue-dark); line-height: 1.3; margin-bottom: 6px; }
+    .form .sub { font-size: 13px; line-height: 1.6; color: var(--text-muted); margin-bottom: 26px; }
+    .linha-extra { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 18px 0 22px; }
+    .marcador { display: flex; align-items: center; gap: 9px; cursor: pointer; font-size: 12.5px; color: var(--text-body); }
+    .marcador input { position: absolute; opacity: 0; pointer-events: none; }
+    .caixinha {
+        display: flex; align-items: center; justify-content: center; width: 18px; height: 18px;
+        border-radius: 5px; border: 1px solid var(--line-forte); background: #fff; color: transparent; flex-shrink: 0;
+    }
+    .marcador input:checked + .caixinha { background: var(--blue-mid); border-color: var(--blue-mid); color: #fff; }
+    .marcador input:focus-visible + .caixinha { outline: 2px solid var(--blue-accent); outline-offset: 2px; }
+    .entrar { height: 46px; font-size: 14.5px; width: 100%; }
+    .erro-cx {
+        display: none; align-items: flex-start; gap: 8px; padding: 11px 13px; margin-bottom: 16px;
+        background: #fdf3f2; border: 1px solid #f0c4bf; border-radius: 8px;
+        font-size: 12.5px; line-height: 1.5; color: #7d241a;
+    }
+    .erro-cx.vis { display: flex; }
+    .pe { display: flex; align-items: flex-start; gap: 8px; margin-top: 18px; font-size: 11.5px; line-height: 1.6; color: var(--text-soft); }
+    @media (max-width: 760px) { .lado { display: none; } .form { padding: 34px 26px; } }
+</style>
+</head>
+<body>
+
+<main class="caixa">
+    <div class="lado">
+        <div class="marca" style="padding: 0">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="#2a5298"/>
+                <path d="M8 16.5V9a2 2 0 0 1 2-2h1.6a2.6 2.6 0 0 1 0 5.2H8" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="16.4" cy="15.6" r="1.5" fill="#1abc9c"/>
+            </svg>
+            <div>
+                <div class="marca-txt" style="font-size: 15px">Agentes Pro</div>
+                <div class="marca-sub">Probel &middot; Prodormir</div>
+            </div>
+        </div>
+
+        <div>
+            <p class="lado-eyebrow">Painel de conteúdo</p>
+            <h2 class="lado-h">Publique sem tocar no código</h2>
+            <p class="lado-p">Cadastre agentes, mude textos e links, reordene os cards e ative ou oculte o que estiver no ar — tudo pela tela.</p>
+        </div>
+
+        <div class="marcas"><span>Probel</span><span>Prodormir</span></div>
+    </div>
+
+    <form class="form" id="form" novalidate>
+        <h1>Entrar no painel</h1>
+        <p class="sub">Acesso restrito à equipe autorizada de marketing e TI.</p>
+
+        <div class="erro-cx" id="erro" role="alert">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px">
+                <circle cx="12" cy="12" r="9"/><path d="M12 7.5v5M12 16h.01"/>
+            </svg>
+            <span id="erro-txt"></span>
+        </div>
+
+        <div class="campos">
+            <div class="campo">
+                <label for="email">E-mail corporativo</label>
+                <input class="entrada" type="email" id="email" name="email" autocomplete="username" required autofocus>
+            </div>
+            <div class="campo">
+                <label for="senha">Senha</label>
+                <input class="entrada" type="password" id="senha" name="senha" autocomplete="current-password" required>
+            </div>
+        </div>
+
+        <div class="linha-extra">
+            <label class="marcador">
+                <input type="checkbox" id="lembrar">
+                <span class="caixinha">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17.5 19 7"/></svg>
+                </span>
+                Manter conectado neste computador
+            </label>
+        </div>
+
+        <button class="btn btn-1 entrar" type="submit" id="enviar">
+            <span id="rotulo">Entrar</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m12.5 5.5 6.5 6.5-6.5 6.5"/></svg>
+        </button>
+
+        <p class="pe">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c3cbd6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px">
+                <rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/>
+            </svg>
+            <span>Todas as publicações ficam registradas com autor, data e hora no histórico de alterações.</span>
+        </p>
+    </form>
+</main>
+
+<script>
+(function () {
+    'use strict';
+    var form = document.getElementById('form');
+    var erro = document.getElementById('erro');
+    var erroTxt = document.getElementById('erro-txt');
+    var enviar = document.getElementById('enviar');
+    var rotulo = document.getElementById('rotulo');
+
+    function mostrarErro(msg) {
+        erroTxt.textContent = msg;
+        erro.classList.add('vis');
+    }
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        erro.classList.remove('vis');
+
+        var email = document.getElementById('email').value.trim();
+        var senha = document.getElementById('senha').value;
+        if (!email || !senha) return mostrarErro('Preencha o e-mail e a senha.');
+
+        enviar.disabled = true;
+        rotulo.textContent = 'Entrando…';
+
+        fetch('/api/entrar', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-Painel': '1' },
+            body: JSON.stringify({ email: email, senha: senha, lembrar: document.getElementById('lembrar').checked })
+        })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, corpo: j }; }); })
+        .then(function (res) {
+            if (!res.ok) {
+                enviar.disabled = false;
+                rotulo.textContent = 'Entrar';
+                return mostrarErro(res.corpo.erro || 'Não foi possível entrar.');
+            }
+            window.location.href = '/admin';
+        })
+        .catch(function () {
+            enviar.disabled = false;
+            rotulo.textContent = 'Entrar';
+            mostrarErro('Servidor fora do ar. Tente de novo em instantes.');
+        });
+    });
+})();
+</script>
+</body>
+</html>
