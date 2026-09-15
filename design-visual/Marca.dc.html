@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap">
+  <style>
+    body {
+      margin: 0;
+      background: #f0f4f8;
+      font-family: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+      color: #566573;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: #105074; text-decoration: none; }
+    a:hover { color: #0b3a57; }
+    * { box-sizing: border-box; }
+    .rotulo {
+      font-size: 11.5px; font-weight: 700; letter-spacing: 0.09em;
+      text-transform: uppercase; color: #8a97a3;
+    }
+    .cartao { background: #ffffff; border: 1px solid #dce4ec; border-radius: 6px; }
+    .hex {
+      font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+      font-size: 12.5px; font-weight: 600; letter-spacing: 0.01em;
+    }
+    th, td { text-align: left; padding: 9px 12px; font-size: 13.5px; border-bottom: 1px solid #e8eef4; }
+    th { font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: #8a97a3; }
+  </style>
+</helmet>
+
+<div style="background: #f0f4f8; padding: 44px 48px">
+
+  <p class="rotulo" style="margin: 0 0 8px">Fundamento</p>
+  <h1 style="margin: 0 0 8px; font-size: 30px; font-weight: 700; letter-spacing: -0.018em; color: #1f2a33">De onde vem cada cor</h1>
+  <p style="margin: 0 0 32px; font-size: 15.5px; line-height: 1.62; color: #566573; max-width: 62em; text-wrap: pretty">
+    Nada aqui foi escolhido por gosto. Todos os valores foram medidos pixel a pixel no banner institucional e no lockup Probel · Prodormir que já existem no projeto.
+  </p>
+
+  <!-- fontes -->
+  <div style="display: grid; grid-template-columns: 1.6fr 1fr; gap: 20px; margin-bottom: 30px">
+    <div class="cartao" style="padding: 18px">
+      <p class="rotulo" style="margin: 0 0 12px">Origem · banner_busca_pro_final.jpeg</p>
+      <img src="banner-institucional.jpg" alt="Banner institucional Pró Colchões" style="display: block; width: 100%; height: auto; border: 1px solid #e8eef4; border-radius: 4px">
+    </div>
+    <div class="cartao" style="padding: 18px; display: flex; flex-direction: column">
+      <p class="rotulo" style="margin: 0 0 12px">Origem · lockup das marcas</p>
+      <div style="flex: 1; display: flex; align-items: center; justify-content: center; background: #f7f9fb; border: 1px solid #e8eef4; border-radius: 4px; padding: 16px">
+        <img src="logo-lockup.jpg" alt="Probel e Prodormir" style="display: block; max-width: 100%; height: auto; mix-blend-mode: multiply">
+      </div>
+    </div>
+  </div>
+
+  <!-- paleta -->
+  <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; margin-bottom: 14px">
+
+    <div class="cartao" style="overflow: hidden">
+      <div style="height: 92px; background: #105074"></div>
+      <div style="padding: 13px 14px">
+        <div class="hex" style="color: #1f2a33">#105074</div>
+        <div style="font-size: 13px; font-weight: 600; color: #1f2a33; margin-top: 3px">Azul Probel</div>
+        <div style="font-size: 12px; line-height: 1.45; color: #8a97a3; margin-top: 4px">Medido no wordmark. Cor de ação e de texto forte.</div>
+      </div>
+    </div>
+
+    <div class="cartao" style="overflow: hidden">
+      <div style="height: 92px; background: #30a8c8"></div>
+      <div style="padding: 13px 14px">
+        <div class="hex" style="color: #1f2a33">#30A8C8</div>
+        <div style="font-size: 13px; font-weight: 600; color: #1f2a33; margin-top: 3px">Ciano institucional</div>
+        <div style="font-size: 12px; line-height: 1.45; color: #8a97a3; margin-top: 4px">Das linhas da ilustração de nós. Marca Assistentes&nbsp;IA.</div>
+      </div>
+    </div>
+
+    <div class="cartao" style="overflow: hidden">
+      <div style="height: 92px; background: #bca47c"></div>
+      <div style="padding: 13px 14px">
+        <div class="hex" style="color: #1f2a33">#BCA47C</div>
+        <div style="font-size: 13px; font-weight: 600; color: #1f2a33; margin-top: 3px">Bronze do swoosh</div>
+        <div style="font-size: 12px; line-height: 1.45; color: #8a97a3; margin-top: 4px">A curva sob o Probel. Marca Ferramentas e avisos.</div>
+      </div>
+    </div>
+
+    <div class="cartao" style="overflow: hidden">
+      <div style="height: 92px; background: #800808"></div>
+      <div style="padding: 13px 14px">
+        <div class="hex" style="color: #1f2a33">#800808</div>
+        <div style="font-size: 13px; font-weight: 600; color: #1f2a33; margin-top: 3px">Vinho Prodormir</div>
+        <div style="font-size: 12px; line-height: 1.45; color: #8a97a3; margin-top: 4px">Do "dormir". Reservado: só erro e exclusão.</div>
+      </div>
+    </div>
+
+    <div class="cartao" style="overflow: hidden">
+      <div style="height: 92px; background: #f0f4f8; border-bottom: 1px solid #dce4ec"></div>
+      <div style="padding: 13px 14px">
+        <div class="hex" style="color: #1f2a33">#F0F4F8</div>
+        <div style="font-size: 13px; font-weight: 600; color: #1f2a33; margin-top: 3px">Fundo</div>
+        <div style="font-size: 12px; line-height: 1.45; color: #8a97a3; margin-top: 4px">O cinza-azulado do próprio banner.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <p style="margin: 0 0 32px; font-size: 13px; color: #8a97a3">Neutros derivados: tinta <span class="hex">#1F2A33</span> · texto <span class="hex">#566573</span> · apoio <span class="hex">#8A97A3</span> · linha <span class="hex">#DCE4EC</span></p>
+
+  <!-- o que muda -->
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px">
+
+    <div class="cartao" style="padding: 20px 22px">
+      <h2 style="margin: 0 0 4px; font-size: 17px; font-weight: 700; color: #1f2a33">O que sai</h2>
+      <p style="margin: 0 0 14px; font-size: 13.5px; line-height: 1.55; color: #8a97a3">Cores que o site usa hoje e que não existem em nenhuma peça da marca.</p>
+      <table style="width: 100%; border-collapse: collapse">
+        <tr><th>Hoje</th><th>Onde</th><th>Vira</th></tr>
+        <tr>
+          <td><span style="display: inline-block; width: 11px; height: 11px; border-radius: 3px; background: #1abc9c; vertical-align: -1px; margin-right: 7px"></span><span class="hex">#1ABC9C</span></td>
+          <td style="color: #8a97a3">Assistentes IA</td>
+          <td><span style="display: inline-block; width: 11px; height: 11px; border-radius: 3px; background: #30a8c8; vertical-align: -1px; margin-right: 7px"></span><span class="hex">#30A8C8</span></td>
+        </tr>
+        <tr>
+          <td><span style="display: inline-block; width: 11px; height: 11px; border-radius: 3px; background: #f0a500; vertical-align: -1px; margin-right: 7px"></span><span class="hex">#F0A500</span></td>
+          <td style="color: #8a97a3">Ferramentas</td>
+          <td><span style="display: inline-block; width: 11px; height: 11px; border-radius: 3px; background: #bca47c; vertical-align: -1px; margin-right: 7px"></span><span class="hex">#BCA47C</span></td>
+        </tr>
+        <tr>
+          <td><span style="display: inline-block; width: 11px; height: 11px; border-radius: 3px; background: #1a3b6e; vertical-align: -1px; margin-right: 7px"></span><span class="hex">#1A3B6E</span></td>
+          <td style="color: #8a97a3">Azul principal</td>
+          <td><span style="display: inline-block; width: 11px; height: 11px; border-radius: 3px; background: #105074; vertical-align: -1px; margin-right: 7px"></span><span class="hex">#105074</span></td>
+        </tr>
+        <tr style="border-bottom: 0">
+          <td><span style="display: inline-block; width: 11px; height: 11px; border-radius: 3px; background: #e74c3c; vertical-align: -1px; margin-right: 7px"></span><span class="hex">#E74C3C</span></td>
+          <td style="color: #8a97a3">Erro</td>
+          <td><span style="display: inline-block; width: 11px; height: 11px; border-radius: 3px; background: #800808; vertical-align: -1px; margin-right: 7px"></span><span class="hex">#800808</span></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="cartao" style="padding: 20px 22px">
+      <h2 style="margin: 0 0 4px; font-size: 17px; font-weight: 700; color: #1f2a33">Tipografia</h2>
+      <p style="margin: 0 0 16px; font-size: 13.5px; line-height: 1.55; color: #8a97a3">
+        Source Sans 3, uma família só. Humanista e de abertura larga, como o wordmark Probel — trabalha por peso, não por contraste de fontes.
+      </p>
+      <div style="display: flex; flex-direction: column; gap: 11px">
+        <div style="display: flex; align-items: baseline; gap: 14px; padding-bottom: 11px; border-bottom: 1px solid #e8eef4">
+          <span class="rotulo" style="width: 96px; flex-shrink: 0">700 · 27px</span>
+          <span style="font-size: 27px; font-weight: 700; letter-spacing: -0.015em; color: #1f2a33">Agentes Pro</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 14px; padding-bottom: 11px; border-bottom: 1px solid #e8eef4">
+          <span class="rotulo" style="width: 96px; flex-shrink: 0">700 · 18,5px</span>
+          <span style="font-size: 18.5px; font-weight: 700; letter-spacing: -0.01em; color: #1f2a33">Gerenciador de Tarefas</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 14px; padding-bottom: 11px; border-bottom: 1px solid #e8eef4">
+          <span class="rotulo" style="width: 96px; flex-shrink: 0">400 · 14px</span>
+          <span style="font-size: 14px; line-height: 1.6; color: #6b7885">Kanban personalizado para gestão de tarefas.</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 14px">
+          <span class="rotulo" style="width: 96px; flex-shrink: 0">700 · 11,5px</span>
+          <span class="rotulo">Assistentes IA</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

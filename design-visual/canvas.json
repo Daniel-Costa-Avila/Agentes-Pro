@@ -1,58 +1,32 @@
 {
-  "pages": [
-    { "id": "page-1", "name": "Três direções" },
-    { "id": "page-2", "name": "Direção A aplicada" }
-  ],
   "artboards": [
-    { "file": "Main.dc.html", "page": "page-1", "x": 0, "y": 0, "w": 1440, "h": 2780, "title": "A · Papel técnico — home" },
-    { "file": "DirecaoB.dc.html", "page": "page-1", "x": 1560, "y": 0, "w": 1440, "h": 2180, "title": "B · Console — home" },
-    { "file": "DirecaoC.dc.html", "page": "page-1", "x": 3120, "y": 0, "w": 1440, "h": 2920, "title": "C · Bloco Probel — home" },
-
-    { "file": "PaginaConteudo.dc.html", "page": "page-2", "x": 0, "y": 0, "w": 1440, "h": 1900, "title": "A · Página criada no painel" },
-    { "file": "Celular.dc.html", "page": "page-2", "x": 1560, "y": 0, "w": 390, "h": 3000, "title": "A · Home no celular" },
-    { "file": "Destaques.dc.html", "page": "page-2", "x": 2070, "y": 0, "w": 1200, "h": 1720, "title": "A · Destaques 1 / 2 / 3" }
+    { "file": "Main.dc.html", "x": 0, "y": 0, "w": 1440, "h": 2800, "title": "Home" },
+    { "file": "PaginaConteudo.dc.html", "x": 1560, "y": 0, "w": 1440, "h": 1820, "title": "Página criada no painel" },
+    { "file": "Celular.dc.html", "x": 3120, "y": 0, "w": 390, "h": 2750, "title": "Home no celular" },
+    { "file": "Marca.dc.html", "x": 3630, "y": 0, "w": 1200, "h": 1160, "title": "Fundamento — de onde vem cada cor" }
   ],
   "annotations": [
     {
-      "id": "nota-como-ler",
-      "page": "page-1",
+      "id": "nota-fundamento",
       "x": 0,
-      "y": -300,
-      "w": 420,
-      "text": "Três direções para o mesmo conteúdo real: os 11 agentes, os textos e os selos que estão no ar hoje.\n\nCada uma muda tipografia, cor, densidade e a forma do card — não só a paleta. Escolha uma e eu levo para o código.\n\nO chip de cor acima de cada artboard troca o acento sem sair da direção."
+      "y": -280,
+      "w": 520,
+      "text": "Refeito a partir da marca real, não de uma paleta inventada.\n\nAs cores foram medidas pixel a pixel no banner institucional e no lockup Probel · Prodormir que já estavam no projeto — o artboard \"Fundamento\", no fim da fileira, mostra a origem de cada valor.\n\nO banner do topo é a peça do Marketing, usada como está: ele já diz o que o portal é, então não inventei manchete por cima."
     },
     {
-      "id": "nota-a",
-      "page": "page-1",
-      "x": 470,
-      "y": -300,
-      "w": 460,
-      "text": "A · PAPEL TÉCNICO  (candidata principal)\nNewsreader + IBM Plex Sans/Mono sobre papel quente. Fios de 1px no lugar de sombras, acento único em terracota, numeração editorial.\n\nPor quê: parece um manual interno bem feito, não mais um SaaS azul. Envelhece bem e imprime bem.\nTroca: menos \"aplicativo\"; quem espera botão azul estranha no primeiro dia."
+      "id": "nota-tirado",
+      "x": 570,
+      "y": -280,
+      "w": 480,
+      "text": "O que saiu de propósito, por ser o que denunciava as tentativas anteriores:\n\n· a coluna de números (11 / 3 / 4) — dado que ninguém pediu e que não existe no painel;\n· a palavra colorida no meio do título;\n· gradientes, brilhos e texturas de fundo;\n· o teal #1ABC9C e o dourado #F0A500, que não aparecem em nenhuma peça da marca.\n\nSobrou uma fonte só, Source Sans 3, trabalhando por peso."
     },
     {
-      "id": "nota-b",
-      "page": "page-1",
-      "x": 1560,
-      "y": -300,
-      "w": 460,
-      "text": "B · CONSOLE\nEscura, Space Grotesk + IBM Plex Mono, grade de 4 colunas, LED de status por agente, endereços em monoespaçada.\n\nPor quê: é a que mais parece com o que o produto faz — automações rodando. A mais densa: cabe tudo em menos rolagem.\nTroca: tema escuro cansa em texto longo e imprime mal; as páginas de guia sofrem mais que a home."
-    },
-    {
-      "id": "nota-c",
-      "page": "page-1",
-      "x": 3120,
-      "y": -300,
-      "w": 460,
-      "text": "C · BLOCO PROBEL\nMantém o azul #0d1f3c da marca, mas em blocos chapados: Bricolage Grotesque enorme, bordas de 2px, zero sombra, teal e gold como campos de cor inteiros.\n\nPor quê: continuidade com o que já existe, com muito mais presença. A transição mais barata.\nTroca: a mais próxima do atual — é evolução, não visual novo."
-    },
-    {
-      "id": "nota-pagina-2",
-      "page": "page-2",
-      "x": 0,
-      "y": -240,
-      "w": 560,
-      "text": "A direção A levada às outras três telas, para conferir se o sistema se sustenta fora da home.\n\nA página criada no painel usa os blocos que existem de verdade: texto, subtítulo, cards de links, aviso, passos e botão.\n\nO artboard da direita mostra os três arranjos de destaque (1, 2 e 3) que a tela Destaques controla."
+      "id": "nota-pendencia",
+      "x": 3630,
+      "y": -280,
+      "w": 480,
+      "text": "Uma ressalva honesta: os logos aqui foram recortados do JPEG do banner, então têm fundo branco e bordas de compressão.\n\nPara ir ao ar preciso dos arquivos originais — de preferência SVG ou PNG com transparência — e do manual de marca, se existir. Com eles as cores podem mudar um pouco: os valores acima vieram de uma imagem comprimida, não da fonte."
     }
   ],
-  "launch": { "view": "canvas", "page": "page-1" }
+  "launch": { "view": "canvas" }
 }
