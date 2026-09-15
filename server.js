@@ -228,6 +228,9 @@ async function api(req, res, url, sessao) {
       recursos: store.listarRecursos(),
       categorias: store.listarCategorias(),
       config: store.lerConfig(),
+      paginas: store.listarPaginas(),
+      destaques: store.listarDestaques(),
+      maxDestaques: store.MAX_DESTAQUES,
       icones: icones.lista(),
       usuarios: sessao.papel === 'admin' ? store.listarUsuarios() : [],
       historico: store.historico(60),
@@ -315,6 +318,63 @@ async function api(req, res, url, sessao) {
       store.removerCategoria(id, quem);
       return json(res, 200, { ok: true });
     }
+  }
+
+  // ── páginas do site ──
+  if (rota === 'paginas' && metodo === 'GET') {
+    return json(res, 200, { paginas: store.listarPaginas() });
+  }
+
+  if (rota === 'paginas' && metodo === 'POST') {
+    const corpo = await lerCorpo(req);
+    return json(res, 201, { pagina: store.criarPagina(corpo, quem), paginas: store.listarPaginas() });
+  }
+
+  if (rota === 'paginas/ordem' && metodo === 'POST') {
+    const corpo = await lerCorpo(req, 32768);
+    if (!Array.isArray(corpo.ids)) return json(res, 400, { erro: 'Lista de ordem inválida.' });
+    store.reordenarPaginas(corpo.ids, quem);
+    return json(res, 200, { paginas: store.listarPaginas() });
+  }
+
+  let mp = rota.match(/^paginas\/(\d+)$/);
+  if (mp) {
+    const id = Number(mp[1]);
+    if (metodo === 'GET') {
+      const pg = store.obterPagina(id);
+      return pg ? json(res, 200, { pagina: pg }) : json(res, 404, { erro: 'Página não encontrada.' });
+    }
+    if (metodo === 'PUT') {
+      const corpo = await lerCorpo(req);
+      return json(res, 200, { pagina: store.atualizarPagina(id, corpo, quem), paginas: store.listarPaginas() });
+    }
+    if (metodo === 'DELETE') {
+      store.removerPagina(id, quem);
+      return json(res, 200, { ok: true, paginas: store.listarPaginas() });
+    }
+  }
+
+  mp = rota.match(/^paginas\/(\d+)\/alternar$/);
+  if (mp && metodo === 'POST') {
+    const corpo = await lerCorpo(req, 8192);
+    return json(res, 200, {
+      pagina: store.alternarPagina(Number(mp[1]), corpo.campo, quem),
+      paginas: store.listarPaginas()
+    });
+  }
+
+  // ── destaques da página inicial ──
+  if (rota === 'destaques' && metodo === 'GET') {
+    return json(res, 200, { destaques: store.listarDestaques(), max: store.MAX_DESTAQUES });
+  }
+
+  if (rota === 'destaques' && metodo === 'PUT') {
+    const corpo = await lerCorpo(req, 32768);
+    const destaques = store.definirDestaques(corpo.ids, quem);
+    if (corpo.arranjo !== undefined) {
+      store.gravarConfig({ destaques_arranjo: String(corpo.arranjo) }, quem);
+    }
+    return json(res, 200, { destaques, recursos: store.listarRecursos(), config: store.lerConfig() });
   }
 
   // ── configuração da página ──
@@ -471,14 +531,19 @@ const servidor = http.createServer(async (req, res) => {
       return enviar(res, 200, html, 'text/html; charset=utf-8', { 'Cache-Control': 'no-store' });
     }
 
-    // Página de detalhes de um recurso
+    // Páginas criadas no painel — ligadas a um agente ou livres
     if (caminho.startsWith('/pagina/')) {
       const slug = caminho.slice('/pagina/'.length).replace(/\/+$/, '');
-      const recurso = slug ? store.obterRecursoPorSlugPagina(slug) : null;
-      if (!recurso) {
-        return enviar(res, 404, render.montarNaoEncontrada(), 'text/html; charset=utf-8', { 'Cache-Control': 'no-store' });
+      const pagina = slug ? store.obterPaginaPorSlug(slug) : null;
+      if (!pagina || !pagina.blocos.length) {
+        return enviar(res, 404, render.montarNaoEncontrada(store.menuPublico()), 'text/html; charset=utf-8', { 'Cache-Control': 'no-store' });
       }
-      return enviar(res, 200, render.montarPagina(recurso), 'text/html; charset=utf-8', { 'Cache-Control': 'no-store' });
+      // O botão de acesso ao agente só aparece quando a página está ligada
+      // a um recurso que continua no ar.
+      const recurso = pagina.recurso_id ? store.obterRecurso(pagina.recurso_id) : null;
+      const comBotao = recurso && recurso.ativo && !recurso.oculto ? recurso : null;
+      return enviar(res, 200, render.montarPagina(pagina, comBotao, store.menuPublico()),
+        'text/html; charset=utf-8', { 'Cache-Control': 'no-store' });
     }
 
     // Estáticos da raiz — só imagens
@@ -489,7 +554,8 @@ const servidor = http.createServer(async (req, res) => {
       return servirArquivo(res, alvo);
     }
 
-    return enviar(res, 404, 'Não encontrado');
+    return enviar(res, 404, render.montarNaoEncontrada(store.menuPublico()),
+      'text/html; charset=utf-8', { 'Cache-Control': 'no-store' });
   } catch (erro) {
     if (erro && erro.ehDeDados) return json(res, 400, { erro: erro.message, campo: erro.campo });
     if (erro && erro.status) return json(res, erro.status, { erro: erro.message });

@@ -1,0 +1,33 @@
+{
+  "pages": [
+    { "id": "page-1", "name": "Página pública" },
+    { "id": "page-2", "name": "Painel" }
+  ],
+  "artboards": [
+    { "file": "Main.dc.html", "page": "page-1", "x": 0, "y": 0, "w": 1440, "h": 2700, "title": "Home — desktop", "is_interactive": true },
+    { "file": "Celular.dc.html", "page": "page-1", "x": 1560, "y": 0, "w": 390, "h": 3400, "title": "Home — celular", "is_interactive": true },
+    { "file": "PaginaLivre.dc.html", "page": "page-1", "x": 2070, "y": 0, "w": 1440, "h": 2400, "title": "Página criada no painel", "is_interactive": true },
+    { "file": "PainelPaginas.dc.html", "page": "page-2", "x": 0, "y": 0, "w": 1440, "h": 1020, "title": "Painel — Páginas", "is_interactive": true },
+    { "file": "EditorPagina.dc.html", "page": "page-2", "x": 1560, "y": 0, "w": 1440, "h": 1240, "title": "Painel — Editor de página", "is_interactive": true },
+    { "file": "PainelDestaques.dc.html", "page": "page-2", "x": 3120, "y": 0, "w": 1440, "h": 940, "title": "Painel — Destaques", "is_interactive": true }
+  ],
+  "annotations": [
+    {
+      "id": "nota-publica",
+      "page": "page-1",
+      "x": 0,
+      "y": -270,
+      "w": 900,
+      "text": "Mesmo sistema visual de hoje (Poppins, azuis, teal, gold), com três mudanças estruturais:\n1) menu no topo para as páginas criadas no painel;\n2) bloco de destaques que muda de arranjo conforme 1, 2 ou 3 destaques — use o controle acima do artboard, vale para os dois;\n3) grade fluida repeat(auto-fill, minmax(248px, 1fr)) no lugar das 3 colunas fixas.\nBusca e filtros funcionam nos dois artboards."
+    },
+    {
+      "id": "nota-painel",
+      "page": "page-2",
+      "x": 0,
+      "y": -270,
+      "w": 900,
+      "text": "Páginas deixam de ser um apêndice do recurso e viram conteúdo próprio: uma página pode estar ligada a um agente (mantém o link \"Ver tutorial e detalhes\") ou ser livre.\nNo editor, os tipos de bloco com borda tracejada são novos: aviso, passos, botão e cards de links.\nOs blocos podem ser adicionados e removidos no protótipo."
+    }
+  ],
+  "launch": { "view": "canvas", "page": "page-1" }
+}

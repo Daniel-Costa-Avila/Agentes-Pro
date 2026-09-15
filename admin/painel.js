@@ -159,6 +159,10 @@ function carregar() {
         $('eu-papel').textContent = j.usuario.papel === 'admin' ? 'Administrador' : 'Editor';
         $('eu-sigla').textContent = siglaDe(j.usuario.nome);
         $('nav-n').textContent = j.recursos.length;
+        var nPg = (j.paginas || []).length;
+        var seloPg = $('nav-pg-n');
+        seloPg.textContent = nPg;
+        seloPg.style.display = nPg > 0 ? '' : 'none';
         $('nav-usuarios').style.display = j.usuario.papel === 'admin' ? '' : 'none';
         var naoLidas = (j.mensagens || []).filter(function (m) { return !m.lida; }).length;
         var selo = $('nav-msg-n');
@@ -464,15 +468,29 @@ function vazio() {
         url: '', botao_rotulo: 'Acesso Direto', botao_icone: 'link', botao_ativo: true,
         botao_off: 'Em breve', nova_aba: true, selo: '', palavras: '',
         thumb_tipo: 'imagem', thumb_imagem: '', thumb_svg: '', thumb_fundo: '#ffffff',
-        destaque: false, ativo: true, oculto: false,
-        pagina_ativa: false, pagina_slug: '', pagina_titulo: '', pagina_resumo: '', pagina_blocos: []
+        destaque: false, ativo: true, oculto: false
     };
 }
 
 // ─── blocos da página de detalhes ───────────────────────
 
-var ROTULO_BLOCO = { titulo: 'Subtítulo', texto: 'Texto', imagem: 'Imagem', video: 'Vídeo' };
+var ROTULO_BLOCO = {
+    titulo: 'Subtítulo', texto: 'Texto', imagem: 'Imagem', video: 'Vídeo',
+    aviso: 'Aviso', passos: 'Passos', botao: 'Botão', cards: 'Cards de links'
+};
 var blocoUploadPendente = null;
+
+// O editor de blocos é o mesmo nas duas telas que o usam (hoje só a de
+// páginas). Quem abre a tela aponta esta variável para o array que está
+// sendo editado, e os handlers de bloco trabalham sempre em cima dela.
+var blocosEmEdicao = [];
+
+function seletorIcone(valor, atributo) {
+    var itens = (dados && dados.icones || []).map(function (i) {
+        return '<option value="' + esc(i.nome) + '"' + (i.nome === valor ? ' selected' : '') + '>' + esc(i.rotulo) + '</option>';
+    }).join('');
+    return '<select class="entrada" ' + atributo + '>' + itens + '</select>';
+}
 
 // Espelho simples, só para feedback imediato — a validação de verdade
 // é sempre a do servidor (lib/paginas.js), que é quem decide de fato.
@@ -510,6 +528,69 @@ function corpoBloco(b) {
             + '<input class="entrada" data-bloco-campo="legenda" value="' + esc(b.legenda || '') + '" placeholder="Legenda (opcional)" maxlength="200">'
             + '</div></div>';
     }
+    if (b.tipo === 'aviso') {
+        var tons = [['info', 'Informação'], ['atencao', 'Atenção'], ['ok', 'Tudo certo']];
+        return '<div class="campo">'
+            + '<textarea class="area" data-bloco-campo="texto" maxlength="600" placeholder="Texto do aviso.">' + esc(b.texto || '') + '</textarea>'
+            + '<div class="segmentado" style="margin-top:8px">'
+            + tons.map(function (t) {
+                return '<button type="button" class="seg' + ((b.tom || 'info') === t[0] ? ' on' : '') + '" data-bloco-tom="' + t[0] + '">' + t[1] + '</button>';
+            }).join('')
+            + '</div></div>';
+    }
+
+    if (b.tipo === 'passos') {
+        return '<div class="campo">'
+            + '<input class="entrada" data-bloco-campo="titulo" value="' + esc(b.titulo || '') + '" maxlength="150" placeholder="Título da lista (opcional)">'
+            + '<textarea class="area" data-bloco-campo="itens" style="margin-top:8px;min-height:110px" '
+            + 'placeholder="Um passo por linha.">' + esc((b.itens || []).join('\n')) + '</textarea>'
+            + '<div class="dica">Um passo por linha. Os números são colocados automaticamente na página.</div>'
+            + '</div>';
+    }
+
+    if (b.tipo === 'botao') {
+        var alinhas = [['esquerda', 'Esquerda'], ['centro', 'Centro'], ['direita', 'Direita']];
+        return '<div class="campo">'
+            + '<div class="duplo">'
+            + '<div class="campo"><label>Texto do botão</label>'
+            + '<input class="entrada" data-bloco-campo="rotulo" value="' + esc(b.rotulo || '') + '" maxlength="60" placeholder="Abrir o agente"></div>'
+            + '<div class="campo"><label>Ícone</label>' + seletorIcone(b.icone || 'link', 'data-bloco-campo="icone"') + '</div>'
+            + '</div>'
+            + '<label style="margin-top:8px;display:block">Endereço</label>'
+            + '<input class="entrada" data-bloco-campo="url" value="' + esc(b.url || '') + '" placeholder="https://… ou /pagina/outra-pagina">'
+            + '<div class="duplo" style="margin-top:8px">'
+            + '<div class="campo"><label>Estilo</label><div class="segmentado">'
+            + '<button type="button" class="seg' + ((b.estilo || 'principal') === 'principal' ? ' on' : '') + '" data-bloco-estilo="principal">Principal</button>'
+            + '<button type="button" class="seg' + (b.estilo === 'secundario' ? ' on' : '') + '" data-bloco-estilo="secundario">Secundário</button>'
+            + '</div></div>'
+            + '<div class="campo"><label>Posição na linha</label><div class="segmentado">'
+            + alinhas.map(function (a) {
+                return '<button type="button" class="seg' + ((b.alinhamento || 'esquerda') === a[0] ? ' on' : '') + '" data-bloco-alinha="' + a[0] + '">' + a[1] + '</button>';
+            }).join('')
+            + '</div></div></div>'
+            + '</div>';
+    }
+
+    if (b.tipo === 'cards') {
+        var cards = (b.itens || []).map(function (c, j) {
+            return '<div class="card-item" data-card="' + j + '">'
+                + '<div class="duplo">'
+                + '<div class="campo"><label>Título</label>'
+                + '<input class="entrada" data-card-campo="titulo" value="' + esc(c.titulo || '') + '" maxlength="90"></div>'
+                + '<div class="campo"><label>Ícone</label>' + seletorIcone(c.icone || 'link', 'data-card-campo="icone"') + '</div>'
+                + '</div>'
+                + '<input class="entrada" data-card-campo="url" value="' + esc(c.url || '') + '" placeholder="https://… ou /pagina/outra" style="margin-top:8px">'
+                + '<input class="entrada" data-card-campo="texto" value="' + esc(c.texto || '') + '" placeholder="Descrição curta (opcional)" maxlength="200" style="margin-top:8px">'
+                + '<button type="button" class="btn btn-perigo btn-mini" data-card-excluir style="margin-top:10px">' + svg(ICO.lixo, 13) + ' Remover card</button>'
+                + '</div>';
+        }).join('');
+        return '<div class="campo">'
+            + '<input class="entrada" data-bloco-campo="titulo" value="' + esc(b.titulo || '') + '" maxlength="150" placeholder="Título do grupo (opcional)">'
+            + '<div class="cards-lista" style="margin-top:10px">' + cards + '</div>'
+            + '<button type="button" class="btn btn-2 btn-mini" data-card-novo style="margin-top:10px">' + svg(ICO.mais, 13, 2.2) + ' Adicionar card</button>'
+            + '</div>';
+    }
+
     // vídeo
     var info = b.url ? analisarVideoCliente(b.url) : null;
     return '<div class="campo">'
@@ -541,13 +622,179 @@ function renderizarBlocos(lista) {
 
 function redesenharBlocos() {
     var caixa = $('blocos-lista');
-    if (caixa) caixa.innerHTML = renderizarBlocos(rascunho.pagina_blocos);
+    if (caixa) caixa.innerHTML = renderizarBlocos(blocosEmEdicao);
+}
+
+// Handlers do editor de blocos, compartilhados por qualquer tela que
+// monte um <div id="blocos-lista">. Devolvem true quando trataram o
+// evento, para a tela seguir com os campos dela.
+function blocoDigitou(e) {
+    var campo = e.target.getAttribute && e.target.getAttribute('data-bloco-campo');
+    var campoCard = e.target.getAttribute && e.target.getAttribute('data-card-campo');
+    if (!campo && !campoCard) return false;
+
+    var item = e.target.closest('[data-bloco]');
+    if (!item) return false;
+    var b = blocosEmEdicao[Number(item.getAttribute('data-bloco'))];
+    if (!b) return false;
+
+    if (campoCard) {
+        var cx = e.target.closest('[data-card]');
+        if (!cx) return true;
+        var c = b.itens[Number(cx.getAttribute('data-card'))];
+        if (c) c[campoCard] = e.target.value;
+        return true;
+    }
+
+    if (campo === 'itens' && b.tipo === 'passos') {
+        b.itens = e.target.value.split('\n').map(function (t) { return t.trim(); })
+            .filter(function (t) { return t !== ''; });
+        return true;
+    }
+
+    b[campo] = e.target.value;
+
+    if (campo === 'url' && b.tipo === 'video') {
+        var dica = item.querySelector('.dica');
+        var info = analisarVideoCliente(e.target.value);
+        if (dica) {
+            dica.textContent = e.target.value
+                ? (info ? 'Reconhecido: ' + info.provedor : 'Link não reconhecido — use YouTube, Vimeo ou Loom.')
+                : 'Cole o link do vídeo já publicado.';
+            dica.classList.toggle('erro', !!(e.target.value && !info));
+        }
+    }
+    return true;
+}
+
+function blocoClicou(e) {
+    var add = e.target.closest('[data-add-bloco]');
+    if (add) {
+        blocosEmEdicao.push(novoBloco(add.getAttribute('data-add-bloco')));
+        redesenharBlocos();
+        return true;
+    }
+
+    var item = e.target.closest('[data-bloco]');
+    if (!item) return false;
+    var idx = Number(item.getAttribute('data-bloco'));
+    var b = blocosEmEdicao[idx];
+    if (!b) return false;
+
+    var mv = e.target.closest('[data-bloco-mover]');
+    if (mv) {
+        var destino = idx + Number(mv.getAttribute('data-bloco-mover'));
+        if (destino >= 0 && destino < blocosEmEdicao.length) {
+            var tmp = blocosEmEdicao[idx];
+            blocosEmEdicao[idx] = blocosEmEdicao[destino];
+            blocosEmEdicao[destino] = tmp;
+            redesenharBlocos();
+        }
+        return true;
+    }
+    if (e.target.closest('[data-bloco-excluir]')) {
+        blocosEmEdicao.splice(idx, 1);
+        redesenharBlocos();
+        return true;
+    }
+    if (e.target.closest('[data-bloco-upload]')) {
+        blocoUploadPendente = idx;
+        $('bloco-file').click();
+        return true;
+    }
+
+    // escolhas em segmentado dentro do bloco (tom, estilo, alinhamento)
+    var escolhas = [['data-bloco-tom', 'tom'], ['data-bloco-estilo', 'estilo'], ['data-bloco-alinha', 'alinhamento']];
+    for (var i = 0; i < escolhas.length; i++) {
+        var btn = e.target.closest('[' + escolhas[i][0] + ']');
+        if (btn) {
+            b[escolhas[i][1]] = btn.getAttribute(escolhas[i][0]);
+            Array.prototype.forEach.call(btn.parentNode.querySelectorAll('.seg'), function (o) {
+                o.classList.toggle('on', o === btn);
+            });
+            return true;
+        }
+    }
+
+    if (e.target.closest('[data-card-novo]')) {
+        b.itens = b.itens || [];
+        b.itens.push({ titulo: '', texto: '', url: '', icone: 'link' });
+        redesenharBlocos();
+        return true;
+    }
+    var exc = e.target.closest('[data-card-excluir]');
+    if (exc) {
+        var cx = exc.closest('[data-card]');
+        if (cx) {
+            b.itens.splice(Number(cx.getAttribute('data-card')), 1);
+            redesenharBlocos();
+        }
+        return true;
+    }
+    return true;
+}
+
+// Upload de imagem de um bloco. A tela que monta o editor precisa ter um
+// <input type="file" id="bloco-file"> escondido.
+function ligarUploadDeBloco() {
+    var campo = $('bloco-file');
+    if (!campo) return;
+    campo.onchange = function () {
+        var f = this.files[0];
+        this.value = '';
+        if (!f || blocoUploadPendente == null) return;
+        if (f.size > 3 * 1024 * 1024) return recado('Imagem acima de 3 MB. Reduza antes de enviar.', true);
+        var idx = blocoUploadPendente;
+        var fr = new FileReader();
+        fr.onload = function () {
+            api('POST', 'upload', { nome: f.name, dados: String(fr.result) }).then(function (j) {
+                if (blocosEmEdicao[idx]) blocosEmEdicao[idx].url = j.caminho;
+                redesenharBlocos();
+                recado('Imagem enviada.');
+            }).catch(function (e) { recado(e.message, true); });
+        };
+        fr.readAsDataURL(f);
+    };
+}
+
+// Botões "Adicionar bloco" — os mesmos oito em qualquer editor.
+function botoesAddBloco() {
+    var tipos = ['titulo', 'texto', 'imagem', 'video', 'aviso', 'passos', 'botao', 'cards'];
+    return '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">'
+        + tipos.map(function (t) {
+            return '<button type="button" class="btn btn-2 btn-mini" data-add-bloco="' + t + '">'
+                + svg(ICO.mais, 13, 2.2) + ' ' + esc(ROTULO_BLOCO[t]) + '</button>';
+        }).join('')
+        + '</div>';
 }
 
 function novoBloco(tipo) {
     if (tipo === 'imagem') return { tipo: tipo, url: '', legenda: '' };
     if (tipo === 'video') return { tipo: tipo, url: '', legenda: '' };
+    if (tipo === 'aviso') return { tipo: tipo, texto: '', tom: 'info' };
+    if (tipo === 'passos') return { tipo: tipo, titulo: '', itens: [] };
+    if (tipo === 'botao') {
+        return { tipo: tipo, rotulo: '', url: '', icone: 'link', estilo: 'principal', alinhamento: 'esquerda', nova_aba: true };
+    }
+    if (tipo === 'cards') return { tipo: tipo, titulo: '', itens: [{ titulo: '', texto: '', url: '', icone: 'link' }] };
     return { tipo: tipo, texto: '' };
+}
+
+// O conteúdo da página não mora mais dentro do recurso: aqui o editor só
+// mostra qual página aponta para ele e leva para a tela de Páginas.
+function paginaLigadaHtml(r) {
+    if (r.id == null) {
+        return '<div class="dica" style="padding:4px 0">Salve o recurso primeiro. Depois dá para criar uma página de tutorial ligada a ele na tela <b>Páginas</b>.</div>';
+    }
+    var pg = (dados.paginas || []).filter(function (x) { return x.recurso_id === r.id; })[0];
+    if (!pg) {
+        return '<div class="opcao"><div><div class="opcao-t">Nenhuma página ligada a este agente</div>'
+            + '<div class="opcao-d">Uma página dá espaço para tutorial, imagens, vídeos e passo a passo, e acrescenta o link "Ver tutorial e detalhes" no card.</div></div>'
+            + '<button type="button" class="btn btn-2 btn-mini" id="e-nova-pagina">' + svg(ICO.mais, 13, 2.2) + ' Criar página</button></div>';
+    }
+    return '<div class="opcao"><div><div class="opcao-t">' + esc(pg.titulo) + ' ' + seloPagina(pg) + '</div>'
+        + '<div class="opcao-d">' + esc(pg.caminho) + ' · ' + pg.blocos.length + ' bloco(s)</div></div>'
+        + '<button type="button" class="btn btn-2 btn-mini" id="e-abrir-pagina">' + svg(ICO.lapis, 13) + ' Editar página</button></div>';
 }
 
 function telaEditor() {
@@ -643,36 +890,13 @@ function telaEditor() {
     + '<div class="campo"><label>Status</label><div class="segmentado" id="e-status">' + segs + '</div>'
     + '<div class="dica" id="e-status-txt"></div></div>'
     + '<div class="opcao"><div><div class="opcao-t">Card em destaque</div>'
-    + '<div class="opcao-d">Ocupa a faixa larga acima da grade. Só um recurso pode estar em destaque por vez.</div></div>'
+    + '<div class="opcao-d">Entra no bloco de destaques da home (até três). A posição e o arranjo são escolhidos na tela Destaques.</div></div>'
     + '<button type="button" class="chave g' + (r.destaque ? ' on' : '') + '" data-chave="destaque" role="switch" aria-checked="' + r.destaque + '"><b></b></button></div>'
     + '</div></section>'
 
     + '<section class="bloco"><div class="bloco-tit"><span>Página de detalhes</span></div>'
-    + '<div class="opcao"><div><div class="opcao-t">Ativar página com tutorial</div>'
-    + '<div class="opcao-d">Cria uma página própria dentro do site, com texto, imagens e vídeos, além do link do botão. Some junto se o recurso for ocultado ou desativado.</div></div>'
-    + '<button type="button" class="chave g' + (r.pagina_ativa ? ' on' : '') + '" data-chave="pagina_ativa" role="switch" aria-checked="' + r.pagina_ativa + '"><b></b></button></div>'
-    + '<div id="pg-campos" style="margin-top:14px' + (r.pagina_ativa ? '' : ';display:none') + '">'
-    + '<div class="duplo">'
-    + '<div class="campo"><label for="pg-titulo">Título da página</label>'
-    + '<input class="entrada" id="pg-titulo" data-pg-campo="pagina_titulo" value="' + esc(r.pagina_titulo) + '" placeholder="' + esc(r.titulo || 'Título') + '" maxlength="150"></div>'
-    + '<div class="campo"><label for="pg-slug">Endereço</label>'
-    + '<div style="display:flex;align-items:center;gap:6px">'
-    + '<span style="font-size:12.5px;color:var(--text-soft);white-space:nowrap">/pagina/</span>'
-    + '<input class="entrada" id="pg-slug" data-pg-campo="pagina_slug" value="' + esc(r.pagina_slug) + '" placeholder="gerado automaticamente"></div>'
-    + '<div class="dica">Muda só se você mexer aqui — editar o título não move um endereço já publicado.</div></div>'
-    + '</div>'
-    + '<div class="campo"><label for="pg-resumo">Resumo (aparece no topo da página)</label>'
-    + '<textarea class="area" id="pg-resumo" data-pg-campo="pagina_resumo" maxlength="300">' + esc(r.pagina_resumo) + '</textarea></div>'
-    + '<div class="campo"><label>Conteúdo da página</label>'
-    + '<div id="blocos-lista">' + renderizarBlocos(r.pagina_blocos) + '</div>'
-    + '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">'
-    + '<button type="button" class="btn btn-2 btn-mini" data-add-bloco="titulo">' + svg(ICO.mais, 13, 2.2) + ' Subtítulo</button>'
-    + '<button type="button" class="btn btn-2 btn-mini" data-add-bloco="texto">' + svg(ICO.mais, 13, 2.2) + ' Texto</button>'
-    + '<button type="button" class="btn btn-2 btn-mini" data-add-bloco="imagem">' + svg(ICO.mais, 13, 2.2) + ' Imagem</button>'
-    + '<button type="button" class="btn btn-2 btn-mini" data-add-bloco="video">' + svg(ICO.mais, 13, 2.2) + ' Vídeo</button>'
-    + '</div></div>'
-    + '<input type="file" id="bloco-file" accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml" hidden>'
-    + '</div></section>'
+    + paginaLigadaHtml(r)
+    + '</section>'
 
     + '</div>'
 
@@ -703,28 +927,19 @@ function ligarEditor() {
     };
     $('salvar').onclick = salvarRecurso;
 
+    var abrirPg = $('e-abrir-pagina');
+    if (abrirPg) {
+        abrirPg.onclick = function () {
+            var pg = (dados.paginas || []).filter(function (x) { return x.recurso_id === r.id; })[0];
+            if (pg) irPara('editorPagina', { id: pg.id });
+        };
+    }
+    var novaPg = $('e-nova-pagina');
+    if (novaPg) {
+        novaPg.onclick = function () { irPara('editorPagina', { id: null, recurso_id: r.id }); };
+    }
+
     alvo.oninput = (function (e) {
-        var campoBloco = e.target.getAttribute && e.target.getAttribute('data-bloco-campo');
-        if (campoBloco) {
-            var item = e.target.closest('[data-bloco]');
-            var idx = Number(item.getAttribute('data-bloco'));
-            r.pagina_blocos[idx][campoBloco] = e.target.value;
-            if (campoBloco === 'url' && r.pagina_blocos[idx].tipo === 'video') {
-                var dica = item.querySelector('.dica');
-                var info = analisarVideoCliente(e.target.value);
-                if (dica) {
-                    dica.textContent = e.target.value
-                        ? (info ? 'Reconhecido: ' + info.provedor : 'Link não reconhecido — use YouTube, Vimeo ou Loom.')
-                        : 'Cole o link do vídeo já publicado.';
-                    dica.classList.toggle('erro', !!(e.target.value && !info));
-                }
-            }
-            return;
-        }
-
-        var campoPg = e.target.getAttribute && e.target.getAttribute('data-pg-campo');
-        if (campoPg) { r[campoPg] = e.target.value; return; }
-
         var campo = e.target.getAttribute && e.target.getAttribute('data-campo');
         if (!campo) return;
         r[campo] = campo === 'categoria_id' ? Number(e.target.value) : e.target.value;
@@ -748,47 +963,7 @@ function ligarEditor() {
             ch.classList.toggle('on', !!r[c]);
             ch.setAttribute('aria-checked', String(!!r[c]));
             if (c === 'botao_ativo') $('e-off-cx').style.display = r.botao_ativo ? 'none' : '';
-            if (c === 'pagina_ativa') {
-                var campos = $('pg-campos');
-                if (campos) campos.style.display = r.pagina_ativa ? '' : 'none';
-            }
             return desenharPrevia();
-        }
-
-        var bi = e.target.closest('[data-bloco]');
-        if (bi) {
-            var idxB = Number(bi.getAttribute('data-bloco'));
-
-            var mv = e.target.closest('[data-bloco-mover]');
-            if (mv) {
-                var passo = Number(mv.getAttribute('data-bloco-mover'));
-                var alvoIdx = idxB + passo;
-                if (alvoIdx >= 0 && alvoIdx < r.pagina_blocos.length) {
-                    var tmp = r.pagina_blocos[idxB];
-                    r.pagina_blocos[idxB] = r.pagina_blocos[alvoIdx];
-                    r.pagina_blocos[alvoIdx] = tmp;
-                    redesenharBlocos();
-                }
-                return;
-            }
-            if (e.target.closest('[data-bloco-excluir]')) {
-                r.pagina_blocos.splice(idxB, 1);
-                redesenharBlocos();
-                return;
-            }
-            if (e.target.closest('[data-bloco-upload]')) {
-                blocoUploadPendente = idxB;
-                $('bloco-file').click();
-                return;
-            }
-            return;
-        }
-
-        var addB = e.target.closest('[data-add-bloco]');
-        if (addB) {
-            r.pagina_blocos.push(novoBloco(addB.getAttribute('data-add-bloco')));
-            redesenharBlocos();
-            return;
         }
 
         var ic = e.target.closest('[data-icone]');
@@ -864,25 +1039,6 @@ function ligarEditor() {
         desenharPrevia();
     };
 
-    var arquivoBloco = $('bloco-file');
-    if (arquivoBloco) {
-        arquivoBloco.onchange = function () {
-            var f = this.files[0];
-            this.value = '';
-            if (!f || blocoUploadPendente == null) return;
-            if (f.size > 3 * 1024 * 1024) return recado('Imagem acima de 3 MB. Reduza antes de enviar.', true);
-            var idx = blocoUploadPendente;
-            var fr = new FileReader();
-            fr.onload = function () {
-                api('POST', 'upload', { nome: f.name, dados: String(fr.result) }).then(function (j) {
-                    r.pagina_blocos[idx].url = j.caminho;
-                    redesenharBlocos();
-                    recado('Imagem enviada.');
-                }).catch(function (e) { recado(e.message, true); });
-            };
-            fr.readAsDataURL(f);
-        };
-    }
 }
 
 function desenharPrevia() {
@@ -1012,6 +1168,23 @@ function telaPagina() {
     + '</section>'
 
     + '</div>'
+
+    + '<section class="bloco"><div class="bloco-tit"><span>Menu e guias</span></div>'
+    + '<div class="colunas" style="grid-template-columns:repeat(2,minmax(0,1fr))">'
+    + '<div class="campos">'
+    + '<div class="campo"><label for="p-menu1">Nome do primeiro item do menu</label>'
+    + '<input class="entrada" id="p-menu1" data-cfg="menu_inicio_rotulo" value="' + esc(c.menu_inicio_rotulo || '') + '" maxlength="24">'
+    + '<div class="dica">É o link que volta para esta página. Os outros itens vêm das páginas marcadas como "No menu do site".</div></div>'
+    + '</div>'
+    + '<div class="campos">'
+    + '<div class="campo"><label for="p-guiast">Título da lista de guias</label>'
+    + '<input class="entrada" id="p-guiast" data-cfg="guias_titulo" value="' + esc(c.guias_titulo || '') + '" maxlength="60"></div>'
+    + '<div class="campo"><label for="p-guiasx">Texto de apoio da lista</label>'
+    + '<input class="entrada" id="p-guiasx" data-cfg="guias_texto" value="' + esc(c.guias_texto || '') + '" maxlength="160"></div>'
+    + '<div class="opcao"><div><div class="opcao-t">Exibir "Guias e materiais"</div>'
+    + '<div class="opcao-d">A lista some sozinha quando nenhuma página está marcada para aparecer nela.</div></div>'
+    + '<button type="button" class="chave g' + (c.mostrar_guias === '1' ? ' on' : '') + '" data-cfg-chave="mostrar_guias" role="switch"><b></b></button></div>'
+    + '</div></div></section>'
 
     + '<section class="bloco"><div class="bloco-tit"><span>Aviso e rodapé</span></div>'
     + '<div class="colunas" style="grid-template-columns:repeat(2,minmax(0,1fr))">'
@@ -1415,9 +1588,581 @@ function telaHistorico() {
 //  NAVEGAÇÃO
 // ═══════════════════════════════════════════════════════
 
+// ═══════════════════════════════════════════════════════
+//  TELA: PÁGINAS DO SITE
+// ═══════════════════════════════════════════════════════
+
+var filtroPg = 'todas';
+var pgRascunho = null;
+
+function statusPagina(p) {
+    if (!p.publicada) return 'rascunho';
+    if (!p.blocos.length) return 'oculto';
+    return 'ativo';
+}
+
+function seloPagina(p) {
+    var s = statusPagina(p);
+    if (s === 'rascunho') return '<span class="selo selo-inativo"><i></i>Rascunho</span>';
+    if (s === 'oculto') return '<span class="selo selo-oculto"><i></i>Sem conteúdo</span>';
+    return '<span class="selo selo-ativo"><i></i>No ar</span>';
+}
+
+function paginasFiltradas() {
+    var lista = dados.paginas || [];
+    if (filtroPg === 'ar') return lista.filter(function (p) { return statusPagina(p) === 'ativo'; });
+    if (filtroPg === 'ocultas') return lista.filter(function (p) { return statusPagina(p) === 'oculto'; });
+    if (filtroPg === 'rascunhos') return lista.filter(function (p) { return statusPagina(p) === 'rascunho'; });
+    return lista;
+}
+
+function telaPaginas() {
+    $('migalha').textContent = 'Conteúdo';
+    $('titulo').textContent = 'Páginas do site';
+    $('acoes-topo').innerHTML =
+        '<a class="btn btn-2" href="/" target="_blank" rel="noopener">' + svg(ICO.externo, 15, 1.7) + ' Ver a página</a>'
+        + '<button class="btn btn-ok" id="pg-novo">' + svg(ICO.mais, 16, 2.1) + ' Nova página</button>';
+    $('pg-novo').onclick = function () { irPara('editorPagina', { id: null }); };
+
+    var todas = dados.paginas || [];
+    var lista = paginasFiltradas();
+
+    var conta = {
+        todas: todas.length,
+        ar: todas.filter(function (p) { return statusPagina(p) === 'ativo'; }).length,
+        ocultas: todas.filter(function (p) { return statusPagina(p) === 'oculto'; }).length,
+        rascunhos: todas.filter(function (p) { return statusPagina(p) === 'rascunho'; }).length
+    };
+    var abas = [['todas', 'Todas'], ['ar', 'No ar'], ['ocultas', 'Ocultas'], ['rascunhos', 'Rascunhos']];
+    var pilulas = abas.map(function (a) {
+        return '<button class="pilula' + (filtroPg === a[0] ? ' on' : '') + '" data-fpg="' + a[0] + '">'
+            + a[1] + ' <small>' + conta[a[0]] + '</small></button>';
+    }).join('');
+
+    var linhas = lista.map(function (p, i) {
+        var ligada = p.recurso_id
+            ? '<span class="cat-l"><i style="background:var(--blue-accent)"></i>' + esc(p.recurso_titulo || 'agente removido') + '</span>'
+            : '<span class="cat-l"><i style="background:#c3cbd6"></i>Página livre</span>';
+
+        return '<div class="linha' + (p.publicada ? '' : ' e-oculto') + '" data-pg="' + p.id + '" draggable="true">'
+            + '<div class="c-ordem">'
+            + '<span class="alca" title="Arraste para reordenar">' + svg(ICO.alca, 14, 1.9) + '</span>'
+            + '<span class="pos">' + (i + 1) + '</span>'
+            + '<span class="setas">'
+            + '<button class="seta" data-pg-mover="-1" ' + (i === 0 ? 'disabled' : '') + ' aria-label="Subir">' + svg(ICO.cima, 9, 3) + '</button>'
+            + '<button class="seta" data-pg-mover="1" ' + (i === lista.length - 1 ? 'disabled' : '') + ' aria-label="Descer">' + svg(ICO.baixo, 9, 3) + '</button>'
+            + '</span></div>'
+
+            + '<div class="c-nome"><div style="min-width:0">'
+            + '<div class="nome-l"><span class="nome-t">' + esc(p.titulo) + '</span>'
+            + (p.etiqueta ? '<span class="tag-dest" style="background:#eef4fc;border-color:#cfe0f7;color:#2a5298">' + esc(p.etiqueta) + '</span>' : '')
+            + '</div>'
+            + '<div class="nome-u">' + esc(p.caminho) + '</div>'
+            + '</div></div>'
+
+            + '<div class="c-cat">' + ligada + '</div>'
+
+            + '<div class="c-blocos"><span class="conta-blocos">' + p.blocos.length + '</span></div>'
+
+            + '<div class="c-menu">'
+            + '<button class="chip-botao' + (p.no_menu ? '' : ' off') + '" data-pg-alternar="no_menu" title="Mostrar no menu do topo">'
+            + svg(p.no_menu ? ICO.check : ICO.xis, 12, 2) + (p.no_menu ? 'No menu' : 'Fora') + '</button></div>'
+
+            + '<div class="c-status">' + seloPagina(p) + '</div>'
+
+            + '<div class="c-chave"><button class="chave' + (p.publicada ? ' on' : '') + '" data-pg-alternar="publicada" '
+            + 'role="switch" aria-checked="' + p.publicada + '" aria-label="Publicar página"><b></b></button></div>'
+
+            + '<div class="c-acoes">'
+            + '<button class="icone-btn" data-pg-editar title="Editar">' + svg(ICO.lapis, 15) + '</button>'
+            + '<a class="icone-btn" href="' + esc(p.caminho) + '" target="_blank" rel="noopener" title="Abrir no site">' + svg(ICO.externo, 14) + '</a>'
+            + '<button class="icone-btn perigo" data-pg-excluir title="Excluir">' + svg(ICO.lixo, 15) + '</button>'
+            + '</div></div>';
+    }).join('');
+
+    alvo.innerHTML =
+        '<div class="ferramentas"><div class="filtros">' + pilulas + '</div></div>'
+        + '<div class="quadro">'
+        + '<div class="linha-cab">'
+        + '<div class="c-ordem">Ordem</div><div class="c-nome">Página</div><div class="c-cat">Ligada a</div>'
+        + '<div class="c-blocos">Blocos</div><div class="c-menu">No menu</div><div class="c-status">Status</div>'
+        + '<div class="c-chave">No ar</div><div class="c-acoes">Ações</div>'
+        + '</div>'
+        + (lista.length ? linhas : '<div class="vazio">' + svg(ICO.info, 30, 1.6)
+            + '<h4>Nenhuma página neste filtro</h4>'
+            + '<p>Páginas podem ser tutoriais de um agente ou conteúdo livre, como uma lista de materiais.</p></div>')
+        + '</div>';
+
+    ligarPaginas(lista);
+}
+
+function ligarPaginas(lista) {
+    alvo.onclick = function (e) {
+        var fp = e.target.closest('[data-fpg]');
+        if (fp) { filtroPg = fp.getAttribute('data-fpg'); return desenhar(); }
+
+        var linha = e.target.closest('[data-pg]');
+        if (!linha) return;
+        var id = Number(linha.getAttribute('data-pg'));
+
+        var mv = e.target.closest('[data-pg-mover]');
+        if (mv) return moverPagina(id, Number(mv.getAttribute('data-pg-mover')), lista);
+
+        if (e.target.closest('[data-pg-editar]')) return irPara('editorPagina', { id: id });
+
+        var alt = e.target.closest('[data-pg-alternar]');
+        if (alt) {
+            return api('POST', 'paginas/' + id + '/alternar', { campo: alt.getAttribute('data-pg-alternar') })
+                .then(function (j) { dados.paginas = j.paginas; desenhar(); })
+                .catch(function (err) { recado(err.message, true); });
+        }
+
+        if (e.target.closest('[data-pg-excluir]')) {
+            var pg = (dados.paginas || []).filter(function (x) { return x.id === id; })[0];
+            return confirmar('Excluir "' + (pg ? pg.titulo : 'página') + '"?',
+                'O endereço sai do ar e o conteúdo é perdido. Se for só uma pausa, desligue "No ar" em vez de excluir.',
+                'Excluir', true).then(function (ok) {
+                if (!ok) return;
+                api('DELETE', 'paginas/' + id)
+                    .then(function (j) { dados.paginas = j.paginas; recado('Página excluída.'); desenhar(); })
+                    .catch(function (err) { recado(err.message, true); });
+            });
+        }
+    };
+
+    ligarArrastePaginas(lista);
+}
+
+function moverPagina(id, passo, lista) {
+    var idx = -1;
+    lista.forEach(function (p, i) { if (p.id === id) idx = i; });
+    var destino = idx + passo;
+    if (idx < 0 || destino < 0 || destino >= lista.length) return;
+
+    var ordem = lista.map(function (p) { return p.id; });
+    var tmp = ordem[idx];
+    ordem[idx] = ordem[destino];
+    ordem[destino] = tmp;
+    salvarOrdemPaginas(ordem);
+}
+
+function salvarOrdemPaginas(ordem) {
+    // A ordem mandada é só a das páginas visíveis no filtro; as escondidas
+    // entram depois, mantendo a posição relativa que já tinham.
+    var restantes = (dados.paginas || [])
+        .filter(function (p) { return ordem.indexOf(p.id) === -1; })
+        .map(function (p) { return p.id; });
+
+    api('POST', 'paginas/ordem', { ids: ordem.concat(restantes) })
+        .then(function (j) { dados.paginas = j.paginas; desenhar(); })
+        .catch(function (e) { recado(e.message, true); });
+}
+
+function ligarArrastePaginas(lista) {
+    var arrastada = null;
+    Array.prototype.forEach.call(alvo.querySelectorAll('[data-pg]'), function (el) {
+        el.ondragstart = function () { arrastada = el; el.classList.add('arrastando'); };
+        el.ondragend = function () {
+            el.classList.remove('arrastando');
+            Array.prototype.forEach.call(alvo.querySelectorAll('.alvo'), function (o) { o.classList.remove('alvo'); });
+            arrastada = null;
+        };
+        el.ondragover = function (ev) { ev.preventDefault(); if (arrastada && arrastada !== el) el.classList.add('alvo'); };
+        el.ondragleave = function () { el.classList.remove('alvo'); };
+        el.ondrop = function (ev) {
+            ev.preventDefault();
+            el.classList.remove('alvo');
+            if (!arrastada || arrastada === el) return;
+            var ordem = lista.map(function (p) { return p.id; });
+            var de = ordem.indexOf(Number(arrastada.getAttribute('data-pg')));
+            var para = ordem.indexOf(Number(el.getAttribute('data-pg')));
+            if (de < 0 || para < 0) return;
+            ordem.splice(para, 0, ordem.splice(de, 1)[0]);
+            salvarOrdemPaginas(ordem);
+        };
+    });
+}
+
+// ═══════════════════════════════════════════════════════
+//  TELA: EDITOR DE PÁGINA
+// ═══════════════════════════════════════════════════════
+
+function paginaVazia() {
+    return {
+        id: null, titulo: '', slug: '', resumo: '', blocos: [], recurso_id: null,
+        no_menu: false, menu_rotulo: '', em_guias: true, icone: 'link', etiqueta: '', publicada: false
+    };
+}
+
+function telaEditorPagina() {
+    var nova = contexto.id == null;
+    if (!pgRascunho) {
+        if (nova) {
+            pgRascunho = paginaVazia();
+            if (contexto.recurso_id) pgRascunho.recurso_id = contexto.recurso_id;
+        } else {
+            pgRascunho = JSON.parse(JSON.stringify(
+                (dados.paginas || []).filter(function (x) { return x.id === contexto.id; })[0] || paginaVazia()));
+        }
+    }
+    var p = pgRascunho;
+    blocosEmEdicao = p.blocos;
+
+    $('migalha').textContent = nova ? 'Páginas · Nova' : 'Páginas · editando';
+    $('titulo').textContent = p.titulo || (nova ? 'Nova página' : '—');
+    $('acoes-topo').innerHTML =
+        '<button class="btn btn-2" id="pg-cancelar">' + svg(ICO.voltar, 15, 2) + ' Voltar</button>'
+        + '<button class="btn btn-ok" id="pg-salvar">' + svg(ICO.check, 16, 2.2) + ' Salvar página</button>';
+
+    var agentes = ['<option value="">Nenhum — página livre</option>'].concat(
+        (dados.recursos || []).map(function (r) {
+            return '<option value="' + r.id + '"' + (r.id === p.recurso_id ? ' selected' : '') + '>' + esc(r.titulo) + '</option>';
+        })).join('');
+
+    alvo.innerHTML = '<div class="colunas">'
+
+        + '<div class="pilha">'
+
+        + '<section class="bloco"><div class="bloco-tit"><span>Identificação</span></div><div class="campos">'
+        + '<div class="campo"><label for="pgc-titulo">Título da página</label>'
+        + '<input class="entrada" id="pgc-titulo" data-pgc="titulo" value="' + esc(p.titulo) + '" maxlength="150" placeholder="Como montar uma coleta no Busca Preço"></div>'
+        + '<div class="campo"><label for="pgc-resumo">Resumo</label>'
+        + '<textarea class="area" id="pgc-resumo" data-pgc="resumo" maxlength="300">' + esc(p.resumo) + '</textarea>'
+        + '<div class="dica">Aparece abaixo do título na página e no card da lista de guias.</div></div>'
+        + '</div></section>'
+
+        + '<section class="bloco"><div class="bloco-tit"><span>Blocos de conteúdo</span></div>'
+        + '<div id="blocos-lista">' + renderizarBlocos(p.blocos) + '</div>'
+        + botoesAddBloco()
+        + '<input type="file" id="bloco-file" accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml" hidden>'
+        + '</section>'
+
+        + '</div>'
+
+        + '<aside class="pilha" style="position:sticky;top:88px">'
+
+        + '<section class="bloco"><div class="bloco-tit"><span>Publicação</span></div>'
+        + '<div class="opcao"><div><div class="opcao-t">No ar</div>'
+        + '<div class="opcao-d">Publicada, o endereço responde no site. Fora do ar, só você vê aqui.</div></div>'
+        + '<button type="button" class="chave g' + (p.publicada ? ' on' : '') + '" data-pgchave="publicada" role="switch" aria-checked="' + p.publicada + '"><b></b></button></div>'
+        + '<div class="campo" style="margin-top:12px"><label for="pgc-slug">Endereço</label>'
+        + '<div style="display:flex;align-items:center;gap:6px">'
+        + '<span style="font-size:12.5px;color:var(--text-soft);white-space:nowrap">/pagina/</span>'
+        + '<input class="entrada" id="pgc-slug" data-pgc="slug" value="' + esc(p.slug) + '" placeholder="gerado do título"></div>'
+        + '<div class="dica">Muda só se você mexer aqui — editar o título não move um endereço já publicado.</div></div>'
+        + '</section>'
+
+        + '<section class="bloco"><div class="bloco-tit"><span>Onde a página aparece</span></div>'
+        + '<div class="opcao"><div><div class="opcao-t">No menu do site</div>'
+        + '<div class="opcao-d">Vira um item no topo, ao lado de "' + esc((dados.config && dados.config.menu_inicio_rotulo) || 'Agentes') + '".</div></div>'
+        + '<button type="button" class="chave g' + (p.no_menu ? ' on' : '') + '" data-pgchave="no_menu" role="switch" aria-checked="' + p.no_menu + '"><b></b></button></div>'
+        + '<div class="campo" id="pgc-menu-cx" style="margin-top:10px' + (p.no_menu ? '' : ';display:none') + '">'
+        + '<label for="pgc-menurot">Nome no menu</label>'
+        + '<input class="entrada" id="pgc-menurot" data-pgc="menu_rotulo" value="' + esc(p.menu_rotulo) + '" maxlength="40" placeholder="' + esc(p.titulo || 'igual ao título') + '"></div>'
+        + '<div class="opcao" style="margin-top:10px"><div><div class="opcao-t">Em "Guias e materiais"</div>'
+        + '<div class="opcao-d">Card na lista ao pé da página inicial.</div></div>'
+        + '<button type="button" class="chave g' + (p.em_guias ? ' on' : '') + '" data-pgchave="em_guias" role="switch" aria-checked="' + p.em_guias + '"><b></b></button></div>'
+        + '</section>'
+
+        + '<section class="bloco"><div class="bloco-tit"><span>Ligada a um agente</span></div><div class="campos">'
+        + '<div class="campo"><select class="entrada" data-pgc="recurso_id">' + agentes + '</select>'
+        + '<div class="dica">Ligada a um agente, o card dele ganha o link "Ver tutorial e detalhes" e esta página mostra o botão de acesso.</div></div>'
+        + '</div></section>'
+
+        + '<section class="bloco"><div class="bloco-tit"><span>Etiqueta e ícone</span></div><div class="campos">'
+        + '<div class="campo"><label for="pgc-etiq">Etiqueta</label>'
+        + '<input class="entrada" id="pgc-etiq" data-pgc="etiqueta" value="' + esc(p.etiqueta) + '" maxlength="30" placeholder="Tutorial, Novidade…"></div>'
+        + '<div class="campo"><label>Ícone do card</label>' + seletorIcone(p.icone, 'data-pgc="icone"') + '</div>'
+        + '</div></section>'
+
+        + '</aside></div>';
+
+    ligarEditorPagina();
+}
+
+function ligarEditorPagina() {
+    var p = pgRascunho;
+
+    $('pg-cancelar').onclick = function () {
+        confirmar('Descartar as alterações?', 'O que você mudou nesta tela não será salvo.', 'Descartar', true)
+            .then(function (ok) { if (ok) { pgRascunho = null; irPara('paginas', {}); } });
+    };
+    $('pg-salvar').onclick = salvarPagina;
+
+    ligarUploadDeBloco();
+
+    alvo.oninput = function (e) {
+        if (blocoDigitou(e)) return;
+        var campo = e.target.getAttribute && e.target.getAttribute('data-pgc');
+        if (!campo) return;
+        p[campo] = campo === 'recurso_id' ? (e.target.value ? Number(e.target.value) : null) : e.target.value;
+        if (campo === 'titulo') $('titulo').textContent = e.target.value || 'Nova página';
+    };
+
+    alvo.onchange = function (e) {
+        if (blocoDigitou(e)) return;
+        var campo = e.target.getAttribute && e.target.getAttribute('data-pgc');
+        if (campo === 'recurso_id') p.recurso_id = e.target.value ? Number(e.target.value) : null;
+        if (campo === 'icone') p.icone = e.target.value;
+    };
+
+    alvo.onclick = function (e) {
+        var ch = e.target.closest('[data-pgchave]');
+        if (ch) {
+            var c = ch.getAttribute('data-pgchave');
+            p[c] = !p[c];
+            ch.classList.toggle('on', !!p[c]);
+            ch.setAttribute('aria-checked', String(!!p[c]));
+            if (c === 'no_menu') {
+                var cx = $('pgc-menu-cx');
+                if (cx) cx.style.display = p.no_menu ? '' : 'none';
+            }
+            return;
+        }
+        blocoClicou(e);
+    };
+}
+
+function salvarPagina() {
+    var p = pgRascunho;
+    var corpo = {
+        titulo: p.titulo, slug: p.slug, resumo: p.resumo, blocos: p.blocos,
+        recurso_id: p.recurso_id, no_menu: p.no_menu, menu_rotulo: p.menu_rotulo,
+        em_guias: p.em_guias, icone: p.icone, etiqueta: p.etiqueta, publicada: p.publicada
+    };
+    var novo = contexto.id == null;
+    var chamada = novo
+        ? api('POST', 'paginas', corpo)
+        : api('PUT', 'paginas/' + contexto.id, corpo);
+
+    $('pg-salvar').disabled = true;
+    chamada.then(function (j) {
+        dados.paginas = j.paginas;
+        pgRascunho = null;
+        recado(novo ? 'Página criada.' : 'Página salva.');
+        irPara('paginas', {});
+    }).catch(function (e) {
+        $('pg-salvar').disabled = false;
+        recado(e.message, true);
+    });
+}
+
+// ═══════════════════════════════════════════════════════
+//  TELA: DESTAQUES DA PÁGINA INICIAL
+// ═══════════════════════════════════════════════════════
+
+var destRascunho = null;
+
+function telaDestaques() {
+    if (!destRascunho) {
+        destRascunho = {
+            ids: (dados.destaques || []).map(function (r) { return r.id; }),
+            arranjo: Number((dados.config && dados.config.destaques_arranjo) || 1) || 1
+        };
+    }
+    var d = destRascunho;
+    var max = dados.maxDestaques || 3;
+
+    $('migalha').textContent = 'Conteúdo';
+    $('titulo').textContent = 'Destaques da página inicial';
+    $('acoes-topo').innerHTML =
+        '<a class="btn btn-2" href="/" target="_blank" rel="noopener">' + svg(ICO.externo, 15, 1.7) + ' Ver a página</a>'
+        + '<button class="btn btn-ok" id="d-salvar">' + svg(ICO.check, 16, 2.2) + ' Salvar destaques</button>';
+
+    var arranjos = [
+        [1, 'Um', 'faixa larga'],
+        [2, 'Dois', 'lado a lado'],
+        [3, 'Três', 'principal + dois']
+    ];
+
+    var escolhidos = d.ids.map(function (id) {
+        return (dados.recursos || []).filter(function (r) { return r.id === id; })[0];
+    }).filter(Boolean);
+
+    var linhas = escolhidos.map(function (r, i) {
+        return '<div class="linha" data-dest="' + r.id + '" draggable="true">'
+            + '<div class="c-ordem">'
+            + '<span class="alca" title="Arraste para trocar de posição">' + svg(ICO.alca, 14, 1.9) + '</span>'
+            + '<span class="pos">' + (i + 1) + '</span>'
+            + '<span class="setas">'
+            + '<button class="seta" data-dest-mover="-1" ' + (i === 0 ? 'disabled' : '') + ' aria-label="Subir">' + svg(ICO.cima, 9, 3) + '</button>'
+            + '<button class="seta" data-dest-mover="1" ' + (i === escolhidos.length - 1 ? 'disabled' : '') + ' aria-label="Descer">' + svg(ICO.baixo, 9, 3) + '</button>'
+            + '</span></div>'
+            + '<div class="c-nome">' + miniaturaHtml(r, 'mini') + '<div style="min-width:0">'
+            + '<div class="nome-l"><span class="nome-t">' + esc(r.titulo) + '</span>'
+            + (i === 0 && d.arranjo === 3 ? '<span class="tag-dest">Principal</span>' : '')
+            + (r.selo ? '<span class="tag-dest" style="background:#eef4fc;border-color:#cfe0f7;color:#2a5298">' + esc(r.selo) + '</span>' : '')
+            + '</div>'
+            + '<div class="nome-u">' + esc(r.cat_nome || 'sem categoria') + '</div>'
+            + '</div></div>'
+            + '<div class="c-acoes">'
+            + '<button class="icone-btn perigo" data-dest-tirar title="Tirar dos destaques">' + svg(ICO.xis, 14, 2) + '</button>'
+            + '</div></div>';
+    }).join('');
+
+    var candidatos = (dados.recursos || []).filter(function (r) {
+        return d.ids.indexOf(r.id) === -1 && r.ativo && !r.oculto;
+    });
+
+    var cheio = escolhidos.length >= Math.min(d.arranjo, max);
+
+    alvo.innerHTML = '<div class="colunas">'
+
+        + '<div class="pilha">'
+
+        + '<section class="bloco"><div class="bloco-tit"><span>Quantos destaques na página</span></div>'
+        + '<div class="segmentado" style="margin-top:4px">'
+        + arranjos.map(function (a) {
+            return '<button type="button" class="seg' + (d.arranjo === a[0] ? ' on' : '') + '" data-arranjo="' + a[0] + '">'
+                + a[1] + ' · <span style="font-weight:400">' + a[2] + '</span></button>';
+        }).join('')
+        + '</div>'
+        + '<div class="dica" style="margin-top:8px">A grade abaixo recebe os agentes que não estão em destaque.</div>'
+        + '</section>'
+
+        + '<section class="bloco"><div class="bloco-tit"><span>Ordem dos destaques</span>'
+        + '<small style="font-weight:400;color:var(--text-soft)">Arraste para trocar de posição</small></div>'
+        + '<div class="quadro" style="margin-top:10px">'
+        + (escolhidos.length ? linhas : '<div class="vazio">' + svg(ICO.info, 28, 1.6)
+            + '<h4>Nenhum destaque escolhido</h4><p>Sem destaque, todos os agentes aparecem na grade.</p></div>')
+        + '</div>'
+        + (cheio
+            ? '<div class="dica" style="margin-top:10px">Você já escolheu ' + escolhidos.length + ' destaque(s) para este arranjo. Tire um antes de acrescentar outro, ou mude o arranjo acima.</div>'
+            : '<div class="campo" style="margin-top:12px"><label for="d-add">Adicionar aos destaques</label>'
+                + '<select class="entrada" id="d-add">'
+                + '<option value="">Escolha um agente…</option>'
+                + candidatos.map(function (r) { return '<option value="' + r.id + '">' + esc(r.titulo) + '</option>'; }).join('')
+                + '</select></div>')
+        + '</section>'
+
+        + '</div>'
+
+        + '<aside class="pilha" style="position:sticky;top:88px">'
+        + '<section class="bloco"><div class="bloco-tit"><span>Como fica na página</span></div>'
+        + previaDestaques(d.arranjo, escolhidos)
+        + '</section>'
+        + '</aside></div>';
+
+    ligarDestaques(escolhidos);
+}
+
+function previaDestaques(arranjo, escolhidos) {
+    var caixa = function (texto, alto) {
+        return '<div class="prev-dest" style="height:' + alto + 'px">' + esc(texto) + '</div>';
+    };
+    var nome = function (i) { return escolhidos[i] ? escolhidos[i].titulo : 'vaga livre'; };
+
+    var topo;
+    if (arranjo === 1) {
+        topo = caixa(nome(0), 64);
+    } else if (arranjo === 2) {
+        topo = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'
+            + caixa(nome(0), 64) + caixa(nome(1), 64) + '</div>';
+    } else {
+        topo = '<div style="display:grid;grid-template-columns:1.35fr 1fr;gap:8px">'
+            + caixa(nome(0), 108)
+            + '<div style="display:grid;grid-template-rows:1fr 1fr;gap:8px">'
+            + caixa(nome(1), 50) + caixa(nome(2), 50) + '</div></div>';
+    }
+
+    return '<div style="margin-top:6px">' + topo
+        + '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px">'
+        + '<div class="prev-grade"></div><div class="prev-grade"></div><div class="prev-grade"></div>'
+        + '</div>'
+        + '<div class="dica" style="margin-top:8px">Em destaque em cima, a grade dos demais agentes embaixo.</div></div>';
+}
+
+function ligarDestaques(escolhidos) {
+    var d = destRascunho;
+    var max = dados.maxDestaques || 3;
+
+    $('d-salvar').onclick = function () {
+        $('d-salvar').disabled = true;
+        api('PUT', 'destaques', { ids: d.ids.slice(0, d.arranjo), arranjo: d.arranjo })
+            .then(function (j) {
+                dados.destaques = j.destaques;
+                dados.recursos = j.recursos;
+                dados.config = j.config;
+                destRascunho = null;
+                recado('Destaques salvos.');
+                desenhar();
+            })
+            .catch(function (e) { $('d-salvar').disabled = false; recado(e.message, true); });
+    };
+
+    var add = $('d-add');
+    if (add) {
+        add.onchange = function () {
+            var id = Number(this.value);
+            if (!id) return;
+            if (d.ids.length >= Math.min(d.arranjo, max)) {
+                return recado('Este arranjo comporta ' + Math.min(d.arranjo, max) + ' destaque(s).', true);
+            }
+            d.ids.push(id);
+            desenhar();
+        };
+    }
+
+    alvo.onclick = function (e) {
+        var ar = e.target.closest('[data-arranjo]');
+        if (ar) {
+            d.arranjo = Number(ar.getAttribute('data-arranjo'));
+            // Diminuir o arranjo devolve os destaques que sobraram para a grade.
+            if (d.ids.length > d.arranjo) d.ids = d.ids.slice(0, d.arranjo);
+            return desenhar();
+        }
+
+        var linha = e.target.closest('[data-dest]');
+        if (!linha) return;
+        var id = Number(linha.getAttribute('data-dest'));
+        var idx = d.ids.indexOf(id);
+
+        var mv = e.target.closest('[data-dest-mover]');
+        if (mv) {
+            var destino = idx + Number(mv.getAttribute('data-dest-mover'));
+            if (destino < 0 || destino >= d.ids.length) return;
+            var tmp = d.ids[idx];
+            d.ids[idx] = d.ids[destino];
+            d.ids[destino] = tmp;
+            return desenhar();
+        }
+
+        if (e.target.closest('[data-dest-tirar]')) {
+            d.ids.splice(idx, 1);
+            return desenhar();
+        }
+    };
+
+    // arrastar para reordenar
+    var arrastada = null;
+    Array.prototype.forEach.call(alvo.querySelectorAll('[data-dest]'), function (el) {
+        el.ondragstart = function () { arrastada = el; el.classList.add('arrastando'); };
+        el.ondragend = function () {
+            el.classList.remove('arrastando');
+            Array.prototype.forEach.call(alvo.querySelectorAll('.alvo'), function (o) { o.classList.remove('alvo'); });
+            arrastada = null;
+        };
+        el.ondragover = function (ev) { ev.preventDefault(); if (arrastada && arrastada !== el) el.classList.add('alvo'); };
+        el.ondragleave = function () { el.classList.remove('alvo'); };
+        el.ondrop = function (ev) {
+            ev.preventDefault();
+            el.classList.remove('alvo');
+            if (!arrastada || arrastada === el) return;
+            var de = d.ids.indexOf(Number(arrastada.getAttribute('data-dest')));
+            var para = d.ids.indexOf(Number(el.getAttribute('data-dest')));
+            if (de < 0 || para < 0) return;
+            d.ids.splice(para, 0, d.ids.splice(de, 1)[0]);
+            desenhar();
+        };
+    });
+}
+
 var TELAS = {
     recursos: telaRecursos,
     editor: telaEditor,
+    paginas: telaPaginas,
+    editorPagina: telaEditorPagina,
+    destaques: telaDestaques,
     pagina: telaPagina,
     mensagens: telaMensagens,
     midia: telaMidia,
@@ -1430,10 +2175,14 @@ function irPara(nome, ctx) {
     contexto = ctx || {};
     if (nome !== 'editor') rascunho = null;
     if (nome !== 'pagina') cfgRascunho = null;
+    if (nome !== 'editorPagina') pgRascunho = null;
+    if (nome !== 'destaques') destRascunho = null;
 
     Array.prototype.forEach.call(document.querySelectorAll('.nav-item'), function (b) {
         var t = b.getAttribute('data-tela');
-        b.classList.toggle('on', t === nome || (nome === 'editor' && t === 'recursos'));
+        b.classList.toggle('on', t === nome
+            || (nome === 'editor' && t === 'recursos')
+            || (nome === 'editorPagina' && t === 'paginas'));
     });
     $('lateral').classList.remove('aberta');
     window.scrollTo(0, 0);

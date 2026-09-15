@@ -122,10 +122,10 @@
         </div>
 
         <div style="display: flex; align-items: center; gap: 7px; flex-wrap: wrap">
-          <button type="button" onClick="{{ verTodas }}" style="height: 32px; padding: 0 14px; border-radius: 20px; cursor: pointer; font-size: 12.5px; font-weight: {{ f.todas.peso }}; background: {{ f.todas.fundo }}; color: {{ f.todas.cor }}; border: 1px solid {{ f.todas.borda }}">Todas <small style="font-size: 11px; font-weight: 600; opacity: 0.6">5</small></button>
-          <button type="button" onClick="{{ verNoAr }}" style="height: 32px; padding: 0 14px; border-radius: 20px; cursor: pointer; font-size: 12.5px; font-weight: {{ f.noar.peso }}; background: {{ f.noar.fundo }}; color: {{ f.noar.cor }}; border: 1px solid {{ f.noar.borda }}">No ar <small style="font-size: 11px; font-weight: 600; opacity: 0.6">3</small></button>
-          <button type="button" onClick="{{ verOcultas }}" style="height: 32px; padding: 0 14px; border-radius: 20px; cursor: pointer; font-size: 12.5px; font-weight: {{ f.ocultas.peso }}; background: {{ f.ocultas.fundo }}; color: {{ f.ocultas.cor }}; border: 1px solid {{ f.ocultas.borda }}">Ocultas <small style="font-size: 11px; font-weight: 600; opacity: 0.6">1</small></button>
-          <button type="button" onClick="{{ verRascunho }}" style="height: 32px; padding: 0 14px; border-radius: 20px; cursor: pointer; font-size: 12.5px; font-weight: {{ f.rascunho.peso }}; background: {{ f.rascunho.fundo }}; color: {{ f.rascunho.cor }}; border: 1px solid {{ f.rascunho.borda }}">Rascunho <small style="font-size: 11px; font-weight: 600; opacity: 0.6">1</small></button>
+          <button type="button" onClick="{{ verTodas }}" style="height: 32px; padding: 0 14px; border-radius: 20px; cursor: pointer; font-size: 12.5px; font-weight: {{ f.todas.peso }}; background: {{ f.todas.fundo }}; color: {{ f.todas.cor }}; border: 1px solid {{ f.todas.borda }}">Todas <small style="font-size: 11px; font-weight: 600; opacity: 0.6">{{ f.todas.n }}</small></button>
+          <button type="button" onClick="{{ verNoAr }}" style="height: 32px; padding: 0 14px; border-radius: 20px; cursor: pointer; font-size: 12.5px; font-weight: {{ f.noar.peso }}; background: {{ f.noar.fundo }}; color: {{ f.noar.cor }}; border: 1px solid {{ f.noar.borda }}">No ar <small style="font-size: 11px; font-weight: 600; opacity: 0.6">{{ f.noar.n }}</small></button>
+          <button type="button" onClick="{{ verOcultas }}" style="height: 32px; padding: 0 14px; border-radius: 20px; cursor: pointer; font-size: 12.5px; font-weight: {{ f.ocultas.peso }}; background: {{ f.ocultas.fundo }}; color: {{ f.ocultas.cor }}; border: 1px solid {{ f.ocultas.borda }}">Ocultas <small style="font-size: 11px; font-weight: 600; opacity: 0.6">{{ f.ocultas.n }}</small></button>
+          <button type="button" onClick="{{ verRascunho }}" style="height: 32px; padding: 0 14px; border-radius: 20px; cursor: pointer; font-size: 12.5px; font-weight: {{ f.rascunho.peso }}; background: {{ f.rascunho.fundo }}; color: {{ f.rascunho.cor }}; border: 1px solid {{ f.rascunho.borda }}">Rascunhos <small style="font-size: 11px; font-weight: 600; opacity: 0.6">{{ f.rascunho.n }}</small></button>
         </div>
       </div>
 
@@ -331,18 +331,34 @@ class Component extends DCLogic {
     ];
   }
 
+  // O índice é gravado sem acento; quem digita "preço" tem que achar
+  // "preco" — por isso o termo perde os acentos antes da comparação.
+  semAcento(txt) {
+    return String(txt || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  }
+
   renderVals() {
     var self = this;
-    var termo = String(this.state.q || '').trim().toLowerCase();
+    var termo = this.semAcento(this.state.q).trim();
+    var paginas = this.paginas();
     var linhas = {};
     var n = 0;
 
-    this.paginas().forEach(function (p) {
-      var ok = (self.state.filtro === 'todas' || p.status === self.state.filtro)
-        && (!termo || p.texto.indexOf(termo) !== -1);
+    var cabeNaBusca = function (p) { return !termo || p.texto.indexOf(termo) !== -1; };
+
+    paginas.forEach(function (p) {
+      var ok = (self.state.filtro === 'todas' || p.status === self.state.filtro) && cabeNaBusca(p);
       linhas[p.chave] = ok ? 'flex' : 'none';
       if (ok) n += 1;
     });
+
+    // Os números das pílulas acompanham a busca — senão dizem "Todas 5"
+    // enquanto a lista mostra uma linha só.
+    var contar = function (status) {
+      return paginas.filter(function (p) {
+        return (status === 'todas' || p.status === status) && cabeNaBusca(p);
+      }).length;
+    };
 
     var pilulaDe = function (nome) {
       var on = self.state.filtro === nome;
@@ -350,7 +366,8 @@ class Component extends DCLogic {
         fundo: on ? '#0d1f3c' : '#ffffff',
         cor: on ? '#ffffff' : '#7a8899',
         borda: on ? '#0d1f3c' : 'rgba(0,0,0,0.12)',
-        peso: on ? '600' : '500'
+        peso: on ? '600' : '500',
+        n: contar(nome)
       };
     };
 

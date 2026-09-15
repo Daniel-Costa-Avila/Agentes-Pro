@@ -1,0 +1,410 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif; background: #f5f7fa; color: #3d4a5c; -webkit-font-smoothing: antialiased; }
+    a { color: #2a5298; text-decoration: none; }
+    a:hover { color: #0d1f3c; }
+    button, input, textarea, select { font-family: inherit; }
+    .bloco-linha:hover { background: #fcfdfe; }
+  </style>
+</helmet>
+
+<div style="display: flex; min-height: 100%; background: #f5f7fa">
+
+  <aside style="display: flex; flex-direction: column; width: 236px; flex-shrink: 0; background: #0d1f3c; padding: 20px 0">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 0 20px 22px">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="#2a5298"/>
+        <path d="M8 16.5V9a2 2 0 0 1 2-2h1.6a2.6 2.6 0 0 1 0 5.2H8" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="16.4" cy="15.6" r="1.5" fill="#1abc9c"/>
+      </svg>
+      <div>
+        <div style="font-size: 14px; font-weight: 700; color: #fff; line-height: 1.25">Agentes Pro</div>
+        <div style="font-size: 9.5px; font-weight: 500; color: rgba(255,255,255,0.44); letter-spacing: 0.16em; text-transform: uppercase; line-height: 1.3">Painel de conteúdo</div>
+      </div>
+    </div>
+
+    <nav style="display: flex; flex-direction: column; gap: 2px; padding: 0 12px">
+      <div style="font-size: 9.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.34); padding: 10px 8px 8px">Conteúdo</div>
+
+      <button type="button" style="display: flex; align-items: center; gap: 11px; height: 38px; padding: 0 10px; border: 0; border-radius: 8px; background: transparent; cursor: pointer; width: 100%; color: rgba(255,255,255,0.62); font-size: 13.5px; font-weight: 500; text-align: left">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg>
+        <span style="flex: 1">Recursos</span>
+        <em style="font-style: normal; font-size: 11px; font-weight: 600; background: rgba(255,255,255,0.2); border-radius: 20px; padding: 1px 8px">7</em>
+      </button>
+
+      <button type="button" style="display: flex; align-items: center; gap: 11px; height: 38px; padding: 0 10px; border: 0; border-radius: 8px; background: #2a5298; cursor: pointer; width: 100%; color: #fff; font-size: 13.5px; font-weight: 600; text-align: left">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h7.5L18.5 8v12.5H6z"/><path d="M13.5 3.5V8h5"/><path d="M9 12.5h6M9 16h4"/></svg>
+        <span style="flex: 1">Páginas</span>
+        <em style="font-style: normal; font-size: 11px; font-weight: 600; background: rgba(255,255,255,0.2); border-radius: 20px; padding: 1px 8px">5</em>
+      </button>
+
+      <button type="button" style="display: flex; align-items: center; gap: 11px; height: 38px; padding: 0 10px; border: 0; border-radius: 8px; background: transparent; cursor: pointer; width: 100%; color: rgba(255,255,255,0.62); font-size: 13.5px; font-weight: 500; text-align: left">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 14.6 9l6 .8-4.4 4.2 1.1 6-5.3-2.9L6.7 20l1.1-6L3.4 9.8 9.4 9z"/></svg>
+        <span style="flex: 1">Destaques</span>
+        <em style="font-style: normal; font-size: 11px; font-weight: 600; background: rgba(255,255,255,0.2); border-radius: 20px; padding: 1px 8px">3</em>
+      </button>
+
+      <button type="button" style="display: flex; align-items: center; gap: 11px; height: 38px; padding: 0 10px; border: 0; border-radius: 8px; background: transparent; cursor: pointer; width: 100%; color: rgba(255,255,255,0.62); font-size: 13.5px; font-weight: 500; text-align: left">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3 7l9 6 9-6"/></svg>
+        <span style="flex: 1">Mensagens</span>
+      </button>
+
+      <button type="button" style="display: flex; align-items: center; gap: 11px; height: 38px; padding: 0 10px; border: 0; border-radius: 8px; background: transparent; cursor: pointer; width: 100%; color: rgba(255,255,255,0.62); font-size: 13.5px; font-weight: 500; text-align: left">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 9.5 12 3.5l8.5 6V20a1 1 0 0 1-1 1h-15a1 1 0 0 1-1-1z"/><path d="M9.5 21v-6.5h5V21"/></svg>
+        <span style="flex: 1">Página inicial</span>
+      </button>
+
+      <button type="button" style="display: flex; align-items: center; gap: 11px; height: 38px; padding: 0 10px; border: 0; border-radius: 8px; background: transparent; cursor: pointer; width: 100%; color: rgba(255,255,255,0.62); font-size: 13.5px; font-weight: 500; text-align: left">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><circle cx="8.5" cy="10" r="1.7"/><path d="m4 17 5-4.5 4 3.5 3-2.5 4 3.5"/></svg>
+        <span style="flex: 1">Imagens</span>
+      </button>
+
+      <div style="font-size: 9.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.34); padding: 14px 8px 8px">Administração</div>
+
+      <button type="button" style="display: flex; align-items: center; gap: 11px; height: 38px; padding: 0 10px; border: 0; border-radius: 8px; background: transparent; cursor: pointer; width: 100%; color: rgba(255,255,255,0.62); font-size: 13.5px; font-weight: 500; text-align: left">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.4"/><path d="M3 20c0-3.3 2.7-5.4 6-5.4s6 2.1 6 5.4"/><path d="M16.5 7.5h5M19 5v5"/></svg>
+        <span style="flex: 1">Usuários e acessos</span>
+      </button>
+
+      <button type="button" style="display: flex; align-items: center; gap: 11px; height: 38px; padding: 0 10px; border: 0; border-radius: 8px; background: transparent; cursor: pointer; width: 100%; color: rgba(255,255,255,0.62); font-size: 13.5px; font-weight: 500; text-align: left">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 1.8"/></svg>
+        <span style="flex: 1">Registro de alterações</span>
+      </button>
+    </nav>
+
+    <div style="display: flex; align-items: center; gap: 10px; margin: auto 12px 0; padding: 11px 10px; border-top: 1px solid rgba(255,255,255,0.09)">
+      <div style="display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 20px; background: #1abc9c; color: #06301f; font-size: 12px; font-weight: 700">DA</div>
+      <div style="flex: 1; min-width: 0">
+        <div style="font-size: 12.5px; font-weight: 600; color: #fff; line-height: 1.3">Daniel Avila</div>
+        <div style="font-size: 10.5px; color: rgba(255,255,255,0.45); line-height: 1.3">Administrador</div>
+      </div>
+    </div>
+  </aside>
+
+  <div style="display: flex; flex-direction: column; flex: 1; min-width: 0">
+
+    <header style="display: flex; align-items: center; gap: 16px; height: 66px; flex-shrink: 0; padding: 0 28px; background: #ffffff; border-bottom: 1px solid rgba(0,0,0,0.07)">
+      <button type="button" aria-label="Voltar" style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 7px; border: 1px solid rgba(0,0,0,0.1); background: #fff; color: #7a8899; cursor: pointer">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5 8 12l6.5 6.5"/></svg>
+      </button>
+      <div style="flex: 1; min-width: 0">
+        <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #a4aebc; line-height: 1.4">Páginas &middot; editando</div>
+        <div style="font-size: 17px; font-weight: 600; color: #0d1f3c; line-height: 1.3">Como montar uma coleta no Busca Preço</div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px">
+        <span style="font-size: 12px; color: #a4aebc">{{ aviso }}</span>
+        <button type="button" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 38px; padding: 0 16px; border-radius: 8px; cursor: pointer; font-size: 13.5px; font-weight: 500; background: #ffffff; border: 1px solid rgba(0,0,0,0.12); color: #3d4a5c">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/></svg>
+          Ver prévia
+        </button>
+        <button type="button" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 38px; padding: 0 18px; border: 0; border-radius: 8px; cursor: pointer; font-size: 13.5px; font-weight: 600; background: #2a5298; color: #fff; box-shadow: 0 3px 10px rgba(42,82,152,0.25)">Salvar página</button>
+      </div>
+    </header>
+
+    <main style="padding: 22px 28px 40px">
+      <div style="display: grid; grid-template-columns: minmax(0, 1fr) 384px; gap: 24px; align-items: start">
+
+        <div style="display: flex; flex-direction: column; gap: 18px">
+
+          <section style="background: #ffffff; border: 1px solid rgba(0,0,0,0.07); border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 20px 22px">
+            <div style="display: flex; align-items: center; gap: 10px; font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #a4aebc; margin-bottom: 16px">
+              <span style="flex: 1">Identificação</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 14px">
+              <div style="display: flex; flex-direction: column; gap: 6px">
+                <label style="font-size: 12.5px; font-weight: 600; color: #3d4a5c">Título da página</label>
+                <input type="text" value="Como montar uma coleta no Busca Preço" style="width: 100%; height: 40px; padding: 0 13px; border: 1px solid rgba(0,0,0,0.12); border-radius: 8px; background: #fff; font-size: 13.5px; color: #3d4a5c; outline: 0">
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 6px">
+                <label style="font-size: 12.5px; font-weight: 600; color: #3d4a5c">Resumo</label>
+                <textarea rows="2" style="width: 100%; min-height: 76px; padding: 11px 13px; border: 1px solid rgba(0,0,0,0.12); border-radius: 8px; background: #fff; font-size: 13.5px; line-height: 1.6; color: #3d4a5c; outline: 0; resize: vertical">Do cadastro da lista de produtos até a planilha final, com os pontos onde a coleta costuma travar e o que fazer em cada um.</textarea>
+                <span style="font-size: 11.5px; color: #7a8899; line-height: 1.5">Aparece abaixo do título na página e no card da lista de guias.</span>
+              </div>
+            </div>
+          </section>
+
+          <section style="background: #ffffff; border: 1px solid rgba(0,0,0,0.07); border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 20px 22px">
+            <div style="display: flex; align-items: center; gap: 10px; font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #a4aebc; margin-bottom: 16px">
+              <span style="flex: 1">Blocos de conteúdo</span>
+              <span style="font-size: 11px; letter-spacing: 0; text-transform: none; font-weight: 500; color: #7a8899">{{ total }} de 40</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px">
+              <sc-for list="{{ blocos }}" as="b" hint-placeholder-count="6">
+                <div class="bloco-linha" style="display: flex; align-items: center; gap: 12px; min-height: 60px; padding: 10px 14px; border: 1px solid rgba(0,0,0,0.08); border-radius: 10px; background: #ffffff">
+                  <span style="display: flex; color: #c3cbd6; cursor: grab; flex-shrink: 0">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg>
+                  </span>
+                  <span style="display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; flex-shrink: 0; border-radius: 8px; background: {{ b.fundo }}; color: {{ b.cor }}">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="{{ b.icone }}"/></svg>
+                  </span>
+                  <span style="flex: 1; min-width: 0">
+                    <span style="display: block; font-size: 10px; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; color: #a4aebc">{{ b.tipo }}</span>
+                    <span style="display: block; font-size: 13.5px; color: #3d4a5c; line-height: 1.5; margin-top: 1px">{{ b.resumo }}</span>
+                  </span>
+                  <span style="display: flex; align-items: center; gap: 5px; flex-shrink: 0">
+                    <button type="button" aria-label="Editar bloco" style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 7px; border: 1px solid rgba(0,0,0,0.1); background: #fff; color: #7a8899; cursor: pointer">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4l10-10-4-4L4 16z"/><path d="m14.5 5.5 4 4"/></svg>
+                    </button>
+                    <button type="button" onClick="{{ b.remover }}" aria-label="Excluir bloco" style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 7px; border: 1px solid rgba(0,0,0,0.1); background: #fff; color: #7a8899; cursor: pointer">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14M9.5 7V5.2h5V7M7 7l.8 12.3h8.4L17 7"/></svg>
+                    </button>
+                  </span>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="border-top: 1px dashed rgba(0,0,0,0.12); padding-top: 16px">
+              <p style="font-size: 11.5px; font-weight: 600; color: #7a8899; margin-bottom: 10px">Adicionar bloco</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px">
+                <button type="button" onClick="{{ addSubtitulo }}" style="display: flex; align-items: center; gap: 7px; height: 36px; padding: 0 13px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.12); background: #ffffff; color: #3d4a5c; font-size: 12.5px; font-weight: 500; cursor: pointer">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2a5298" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 6.5h11M5 12h14M5 17.5h8"/></svg>
+                  Subtítulo
+                </button>
+                <button type="button" onClick="{{ addTexto }}" style="display: flex; align-items: center; gap: 7px; height: 36px; padding: 0 13px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.12); background: #ffffff; color: #3d4a5c; font-size: 12.5px; font-weight: 500; cursor: pointer">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2a5298" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 11h16M4 16h11"/></svg>
+                  Texto
+                </button>
+                <button type="button" onClick="{{ addImagem }}" style="display: flex; align-items: center; gap: 7px; height: 36px; padding: 0 13px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.12); background: #ffffff; color: #3d4a5c; font-size: 12.5px; font-weight: 500; cursor: pointer">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2a5298" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 5.5h17v13h-17zM6 16l4-4 3 3 3-2.5 3 3.5"/></svg>
+                  Imagem
+                </button>
+                <button type="button" onClick="{{ addVideo }}" style="display: flex; align-items: center; gap: 7px; height: 36px; padding: 0 13px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.12); background: #ffffff; color: #3d4a5c; font-size: 12.5px; font-weight: 500; cursor: pointer">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2a5298" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 6.5h13v11h-13zM16.5 11l4-2.5v7l-4-2.5z"/></svg>
+                  Vídeo
+                </button>
+                <button type="button" onClick="{{ addAviso }}" style="display: flex; align-items: center; gap: 7px; height: 36px; padding: 0 13px; border-radius: 8px; border: 1px dashed #ffc107; background: #fffdf5; color: #856404; font-size: 12.5px; font-weight: 500; cursor: pointer">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f0a500" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 21 19.5H3zM12 10v4M12 16.8h.01"/></svg>
+                  Aviso
+                </button>
+                <button type="button" onClick="{{ addPassos }}" style="display: flex; align-items: center; gap: 7px; height: 36px; padding: 0 13px; border-radius: 8px; border: 1px dashed #ffc107; background: #fffdf5; color: #856404; font-size: 12.5px; font-weight: 500; cursor: pointer">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f0a500" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h2M9.5 6.5h10M4 12h2M9.5 12h10M4 17.5h2M9.5 17.5h10"/></svg>
+                  Passos
+                </button>
+                <button type="button" onClick="{{ addBotao }}" style="display: flex; align-items: center; gap: 7px; height: 36px; padding: 0 13px; border-radius: 8px; border: 1px dashed #ffc107; background: #fffdf5; color: #856404; font-size: 12.5px; font-weight: 500; cursor: pointer">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f0a500" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="8" width="17" height="8" rx="4"/><path d="M9 12h6"/></svg>
+                  Botão
+                </button>
+                <button type="button" onClick="{{ addLinks }}" style="display: flex; align-items: center; gap: 7px; height: 36px; padding: 0 13px; border-radius: 8px; border: 1px dashed #ffc107; background: #fffdf5; color: #856404; font-size: 12.5px; font-weight: 500; cursor: pointer">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f0a500" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="7" height="14" rx="2"/><rect x="13.5" y="5" width="7" height="14" rx="2"/></svg>
+                  Cards de links
+                </button>
+              </div>
+              <p style="display: flex; align-items: center; gap: 7px; font-size: 11.5px; color: #7a8899; margin-top: 12px">
+                <span style="display: inline-block; width: 22px; height: 0; border-top: 1px dashed #ffc107"></span>
+                Os quatro tracejados são tipos novos, que ainda não existem no painel.
+              </p>
+            </div>
+          </section>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 18px">
+
+          <section style="background: #ffffff; border: 1px solid rgba(0,0,0,0.07); border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 20px 22px">
+            <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #a4aebc; margin-bottom: 16px">Publicação</div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px">
+              <button type="button" onClick="{{ porNoAr }}" style="display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: {{ st.noar.peso }}; background: {{ st.noar.fundo }}; color: {{ st.noar.cor }}; border: 1px solid {{ st.noar.borda }}">
+                <i style="width: 7px; height: 7px; border-radius: 20px; background: #1abc9c"></i> No ar
+              </button>
+              <button type="button" onClick="{{ ocultar }}" style="display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: {{ st.oculta.peso }}; background: {{ st.oculta.fundo }}; color: {{ st.oculta.cor }}; border: 1px solid {{ st.oculta.borda }}">
+                <i style="width: 7px; height: 7px; border-radius: 20px; background: #f0a500"></i> Oculta
+              </button>
+              <button type="button" onClick="{{ rascunhar }}" style="display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: {{ st.rascunho.peso }}; background: {{ st.rascunho.fundo }}; color: {{ st.rascunho.cor }}; border: 1px solid {{ st.rascunho.borda }}">
+                <i style="width: 7px; height: 7px; border-radius: 20px; background: #c3cbd6"></i> Rascunho
+              </button>
+            </div>
+            <p style="font-size: 11.5px; line-height: 1.6; color: #7a8899">{{ explicacaoStatus }}</p>
+          </section>
+
+          <section style="background: #ffffff; border: 1px solid rgba(0,0,0,0.07); border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 20px 22px">
+            <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #a4aebc; margin-bottom: 16px">Endereço</div>
+            <div style="display: flex; align-items: center; height: 40px; border: 1px solid rgba(0,0,0,0.12); border-radius: 8px; overflow: hidden">
+              <span style="display: flex; align-items: center; height: 100%; padding: 0 11px; background: #f8fafc; border-right: 1px solid rgba(0,0,0,0.08); font-size: 13px; color: #7a8899">/p/</span>
+              <input type="text" value="coleta-busca-preco" style="flex: 1; min-width: 0; height: 100%; padding: 0 12px; border: 0; outline: 0; font-size: 13.5px; color: #3d4a5c">
+            </div>
+            <p style="font-size: 11.5px; color: #7a8899; margin-top: 8px; line-height: 1.5">O endereço não muda sozinho quando você edita o título — trocar aqui quebra os links já compartilhados.</p>
+          </section>
+
+          <section style="background: #ffffff; border: 1px solid rgba(0,0,0,0.07); border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 20px 22px">
+            <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #a4aebc; margin-bottom: 16px">Onde a página aparece</div>
+            <div style="display: flex; flex-direction: column; gap: 10px">
+              <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: #f8fafc; border: 1px solid rgba(0,0,0,0.06); border-radius: 8px">
+                <div style="flex: 1; min-width: 0">
+                  <div style="font-size: 13px; font-weight: 600; color: #3d4a5c">No menu do site</div>
+                  <div style="font-size: 11.5px; color: #7a8899; line-height: 1.5">Vira um item no topo, ao lado de "Agentes".</div>
+                </div>
+                <button type="button" onClick="{{ alternarMenu }}" aria-label="Mostrar no menu" style="display: flex; align-items: center; width: 44px; height: 24px; flex-shrink: 0; padding: 0 3px; border: 0; border-radius: 20px; cursor: pointer; background: {{ menu.fundo }}; justify-content: {{ menu.lado }}">
+                  <b style="display: block; width: 18px; height: 18px; border-radius: 20px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.3)"></b>
+                </button>
+              </div>
+
+              <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: #f8fafc; border: 1px solid rgba(0,0,0,0.06); border-radius: 8px">
+                <div style="flex: 1; min-width: 0">
+                  <div style="font-size: 13px; font-weight: 600; color: #3d4a5c">Em "Guias e materiais"</div>
+                  <div style="font-size: 11.5px; color: #7a8899; line-height: 1.5">Card na lista ao pé da página inicial.</div>
+                </div>
+                <button type="button" onClick="{{ alternarGuias }}" aria-label="Mostrar em guias" style="display: flex; align-items: center; width: 44px; height: 24px; flex-shrink: 0; padding: 0 3px; border: 0; border-radius: 20px; cursor: pointer; background: {{ guias.fundo }}; justify-content: {{ guias.lado }}">
+                  <b style="display: block; width: 18px; height: 18px; border-radius: 20px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.3)"></b>
+                </button>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 4px">
+                <label style="font-size: 12.5px; font-weight: 600; color: #3d4a5c">Ligada a um agente</label>
+                <div style="display: flex; align-items: center; height: 40px; padding: 0 13px; border: 1px solid rgba(0,0,0,0.12); border-radius: 8px; background: #fff; font-size: 13.5px; color: #3d4a5c">
+                  <span style="flex: 1">Busca Preço</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a4aebc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                </div>
+                <span style="font-size: 11.5px; color: #7a8899; line-height: 1.5">O card do agente ganha o link "Ver tutorial e detalhes". Deixe em branco para uma página livre.</span>
+              </div>
+            </div>
+          </section>
+
+          <section style="background: #ffffff; border: 1px solid rgba(0,0,0,0.07); border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 20px 22px">
+            <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #a4aebc; margin-bottom: 14px">Etiqueta e ícone</div>
+            <div style="display: flex; gap: 12px">
+              <div style="display: flex; flex-direction: column; gap: 6px; flex: 1">
+                <label style="font-size: 12.5px; font-weight: 600; color: #3d4a5c">Etiqueta</label>
+                <input type="text" value="Tutorial" style="width: 100%; height: 40px; padding: 0 13px; border: 1px solid rgba(0,0,0,0.12); border-radius: 8px; font-size: 13.5px; color: #3d4a5c; outline: 0">
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 6px; width: 120px">
+                <label style="font-size: 12.5px; font-weight: 600; color: #3d4a5c">Cor</label>
+                <div style="display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px; border: 1px solid rgba(0,0,0,0.12); border-radius: 8px">
+                  <span style="width: 16px; height: 16px; border-radius: 5px; background: #2a5298"></span>
+                  <span style="font-size: 12.5px; color: #7a8899">#2a5298</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"$preview":{"width":1440,"height":1240}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      status: 'noar',
+      noMenu: true,
+      emGuias: true,
+      blocos: [
+        { id: 1, tipo: 'Subtítulo', resumo: 'Antes de começar' },
+        { id: 2, tipo: 'Texto', resumo: 'A coleta trabalha em cima de uma lista de produtos e de uma lista de…' },
+        { id: 3, tipo: 'Aviso', resumo: 'Refazer a lista com a coleta rodando obriga a começar de novo.' },
+        { id: 4, tipo: 'Passos', resumo: '3 passos — nova coleta, colar a lista, escolher as fontes' },
+        { id: 5, tipo: 'Imagem', resumo: 'tela-nova-coleta.png' },
+        { id: 6, tipo: 'Vídeo', resumo: 'youtube.com/watch?v=…' }
+      ],
+      proximoId: 7
+    };
+  }
+
+  // Cada tipo de bloco carrega seu ícone e sua cor — os quatro últimos
+  // são os tipos novos propostos, hoje o painel só tem os quatro primeiros.
+  estiloDoTipo(tipo) {
+    var mapa = {
+      'Subtítulo':      { icone: 'M5 6.5h11M5 12h14M5 17.5h8', fundo: '#eef4fc', cor: '#2a5298' },
+      'Texto':          { icone: 'M4 6h16M4 11h16M4 16h11', fundo: '#eef4fc', cor: '#2a5298' },
+      'Imagem':         { icone: 'M3.5 5.5h17v13h-17zM6 16l4-4 3 3 3-2.5 3 3.5', fundo: '#eef4fc', cor: '#2a5298' },
+      'Vídeo':          { icone: 'M3.5 6.5h13v11h-13zM16.5 11l4-2.5v7l-4-2.5z', fundo: '#eef4fc', cor: '#2a5298' },
+      'Aviso':          { icone: 'M12 3.5 21 19.5H3zM12 10v4M12 16.8h.01', fundo: '#fff3cd', cor: '#856404' },
+      'Passos':         { icone: 'M4 6.5h2M9.5 6.5h10M4 12h2M9.5 12h10M4 17.5h2M9.5 17.5h10', fundo: '#fff3cd', cor: '#856404' },
+      'Botão':          { icone: 'M3.5 8h13a4 4 0 0 1 0 8h-13a4 4 0 0 1 0-8zM9 12h6', fundo: '#fff3cd', cor: '#856404' },
+      'Cards de links': { icone: 'M3.5 5h7v14h-7zM13.5 5h7v14h-7z', fundo: '#fff3cd', cor: '#856404' }
+    };
+    return mapa[tipo] || mapa['Texto'];
+  }
+
+  adicionar(tipo, resumo) {
+    var lista = this.state.blocos.slice();
+    lista.push({ id: this.state.proximoId, tipo: tipo, resumo: resumo });
+    this.setState({ blocos: lista, proximoId: this.state.proximoId + 1 });
+  }
+
+  renderVals() {
+    var self = this;
+
+    var blocos = this.state.blocos.map(function (b) {
+      var estilo = self.estiloDoTipo(b.tipo);
+      return {
+        id: b.id,
+        tipo: b.tipo,
+        resumo: b.resumo,
+        icone: estilo.icone,
+        fundo: estilo.fundo,
+        cor: estilo.cor,
+        remover: function () {
+          self.setState({
+            blocos: self.state.blocos.filter(function (x) { return x.id !== b.id; })
+          });
+        }
+      };
+    });
+
+    var segDe = function (nome, fundoOn, corOn, bordaOn) {
+      var on = self.state.status === nome;
+      return {
+        fundo: on ? fundoOn : '#ffffff',
+        cor: on ? corOn : '#7a8899',
+        borda: on ? bordaOn : 'rgba(0,0,0,0.12)',
+        peso: on ? '600' : '500'
+      };
+    };
+
+    var explicacoes = {
+      noar: 'A página está publicada e pode ser aberta por qualquer pessoa com o link.',
+      oculta: 'Sai do menu e das listas, mas quem tem o link ainda abre — bom para revisar antes de anunciar.',
+      rascunho: 'Fora do ar. O endereço responde "página não encontrada" até você publicar.'
+    };
+
+    return {
+      total: this.state.blocos.length,
+      blocos: blocos,
+      aviso: 'Alterações não salvas',
+      st: {
+        noar: segDe('noar', '#e6f7f2', '#0e7c62', '#a9e3d4'),
+        oculta: segDe('oculta', '#fff3cd', '#856404', '#ffc107'),
+        rascunho: segDe('rascunho', '#eef1f5', '#7a8899', '#dde3ea')
+      },
+      explicacaoStatus: explicacoes[this.state.status],
+      menu: {
+        fundo: this.state.noMenu ? '#1abc9c' : '#c3cbd6',
+        lado: this.state.noMenu ? 'flex-end' : 'flex-start'
+      },
+      guias: {
+        fundo: this.state.emGuias ? '#1abc9c' : '#c3cbd6',
+        lado: this.state.emGuias ? 'flex-end' : 'flex-start'
+      },
+      porNoAr: function () { self.setState({ status: 'noar' }); },
+      ocultar: function () { self.setState({ status: 'oculta' }); },
+      rascunhar: function () { self.setState({ status: 'rascunho' }); },
+      alternarMenu: function () { self.setState({ noMenu: !self.state.noMenu }); },
+      alternarGuias: function () { self.setState({ emGuias: !self.state.emGuias }); },
+      addSubtitulo: function () { self.adicionar('Subtítulo', 'Novo subtítulo'); },
+      addTexto: function () { self.adicionar('Texto', 'Novo parágrafo'); },
+      addImagem: function () { self.adicionar('Imagem', 'Escolher uma imagem…'); },
+      addVideo: function () { self.adicionar('Vídeo', 'Colar o link do vídeo…'); },
+      addAviso: function () { self.adicionar('Aviso', 'Novo aviso'); },
+      addPassos: function () { self.adicionar('Passos', 'Nova lista de passos'); },
+      addBotao: function () { self.adicionar('Botão', 'Novo botão de ação'); },
+      addLinks: function () { self.adicionar('Cards de links', 'Novos cards de links'); }
+    };
+  }
+}
+</script>
+</body>
+</html>

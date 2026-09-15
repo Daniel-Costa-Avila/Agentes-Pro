@@ -1,0 +1,58 @@
+{
+  "pages": [
+    { "id": "page-1", "name": "Três direções" },
+    { "id": "page-2", "name": "Direção A aplicada" }
+  ],
+  "artboards": [
+    { "file": "Main.dc.html", "page": "page-1", "x": 0, "y": 0, "w": 1440, "h": 2780, "title": "A · Papel técnico — home" },
+    { "file": "DirecaoB.dc.html", "page": "page-1", "x": 1560, "y": 0, "w": 1440, "h": 2180, "title": "B · Console — home" },
+    { "file": "DirecaoC.dc.html", "page": "page-1", "x": 3120, "y": 0, "w": 1440, "h": 2920, "title": "C · Bloco Probel — home" },
+
+    { "file": "PaginaConteudo.dc.html", "page": "page-2", "x": 0, "y": 0, "w": 1440, "h": 1900, "title": "A · Página criada no painel" },
+    { "file": "Celular.dc.html", "page": "page-2", "x": 1560, "y": 0, "w": 390, "h": 3000, "title": "A · Home no celular" },
+    { "file": "Destaques.dc.html", "page": "page-2", "x": 2070, "y": 0, "w": 1200, "h": 1720, "title": "A · Destaques 1 / 2 / 3" }
+  ],
+  "annotations": [
+    {
+      "id": "nota-como-ler",
+      "page": "page-1",
+      "x": 0,
+      "y": -300,
+      "w": 420,
+      "text": "Três direções para o mesmo conteúdo real: os 11 agentes, os textos e os selos que estão no ar hoje.\n\nCada uma muda tipografia, cor, densidade e a forma do card — não só a paleta. Escolha uma e eu levo para o código.\n\nO chip de cor acima de cada artboard troca o acento sem sair da direção."
+    },
+    {
+      "id": "nota-a",
+      "page": "page-1",
+      "x": 470,
+      "y": -300,
+      "w": 460,
+      "text": "A · PAPEL TÉCNICO  (candidata principal)\nNewsreader + IBM Plex Sans/Mono sobre papel quente. Fios de 1px no lugar de sombras, acento único em terracota, numeração editorial.\n\nPor quê: parece um manual interno bem feito, não mais um SaaS azul. Envelhece bem e imprime bem.\nTroca: menos \"aplicativo\"; quem espera botão azul estranha no primeiro dia."
+    },
+    {
+      "id": "nota-b",
+      "page": "page-1",
+      "x": 1560,
+      "y": -300,
+      "w": 460,
+      "text": "B · CONSOLE\nEscura, Space Grotesk + IBM Plex Mono, grade de 4 colunas, LED de status por agente, endereços em monoespaçada.\n\nPor quê: é a que mais parece com o que o produto faz — automações rodando. A mais densa: cabe tudo em menos rolagem.\nTroca: tema escuro cansa em texto longo e imprime mal; as páginas de guia sofrem mais que a home."
+    },
+    {
+      "id": "nota-c",
+      "page": "page-1",
+      "x": 3120,
+      "y": -300,
+      "w": 460,
+      "text": "C · BLOCO PROBEL\nMantém o azul #0d1f3c da marca, mas em blocos chapados: Bricolage Grotesque enorme, bordas de 2px, zero sombra, teal e gold como campos de cor inteiros.\n\nPor quê: continuidade com o que já existe, com muito mais presença. A transição mais barata.\nTroca: a mais próxima do atual — é evolução, não visual novo."
+    },
+    {
+      "id": "nota-pagina-2",
+      "page": "page-2",
+      "x": 0,
+      "y": -240,
+      "w": 560,
+      "text": "A direção A levada às outras três telas, para conferir se o sistema se sustenta fora da home.\n\nA página criada no painel usa os blocos que existem de verdade: texto, subtítulo, cards de links, aviso, passos e botão.\n\nO artboard da direita mostra os três arranjos de destaque (1, 2 e 3) que a tela Destaques controla."
+    }
+  ],
+  "launch": { "view": "canvas", "page": "page-1" }
+}

@@ -1,0 +1,352 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif; background: #f5f7fa; color: #3d4a5c; -webkit-font-smoothing: antialiased; }
+    a { color: #2a5298; text-decoration: none; }
+    button { font-family: inherit; }
+  </style>
+</helmet>
+
+<div style="display: flex; min-height: 100%; background: #f5f7fa">
+
+  <aside style="display: flex; flex-direction: column; width: 236px; flex-shrink: 0; background: #0d1f3c; padding: 20px 0">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 0 20px 22px">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="#2a5298"/>
+        <path d="M8 16.5V9a2 2 0 0 1 2-2h1.6a2.6 2.6 0 0 1 0 5.2H8" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="16.4" cy="15.6" r="1.5" fill="#1abc9c"/>
+      </svg>
+      <div>
+        <div style="font-size: 14px; font-weight: 700; color: #fff; line-height: 1.25">Agentes Pro</div>
+        <div style="font-size: 9.5px; font-weight: 500; color: rgba(255,255,255,0.44); letter-spacing: 0.16em; text-transform: uppercase; line-height: 1.3">Painel de conteúdo</div>
+      </div>
+    </div>
+
+    <nav style="display: flex; flex-direction: column; gap: 2px; padding: 0 12px">
+      <div style="font-size: 9.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.34); padding: 10px 8px 8px">Conteúdo</div>
+
+      <button type="button" style="display: flex; align-items: center; gap: 11px; height: 38px; padding: 0 10px; border: 0; border-radius: 8px; background: transparent; cursor: pointer; width: 100%; color: rgba(255,255,255,0.62); font-size: 13.5px; font-weight: 500; text-align: left">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg>
+        <span style="flex: 1">Recursos</span>
+        <em style="font-style: normal; font-size: 11px; font-weight: 600; background: rgba(255,255,255,0.2); border-radius: 20px; padding: 1px 8px">7</em>
+      </button>
+
+      <button type="button" style="display: flex; align-items: center; gap: 11px; height: 38px; padding: 0 10px; border: 0; border-radius: 8px; background: transparent; cursor: pointer; width: 100%; color: rgba(255,255,255,0.62); font-size: 13.5px; font-weight: 500; text-align: left">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h7.5L18.5 8v12.5H6z"/><path d="M13.5 3.5V8h5"/><path d="M9 12.5h6M9 16h4"/></svg>
+        <span style="flex: 1">Páginas</span>
+        <em style="font-style: normal; font-size: 11px; font-weight: 600; background: rgba(255,255,255,0.2); border-radius: 20px; padding: 1px 8px">5</em>
+      </button>
+
+      <button type="button" style="display: flex; align-items: center; gap: 11px; height: 38px; padding: 0 10px; border: 0; border-radius: 8px; background: #2a5298; cursor: pointer; width: 100%; color: #fff; font-size: 13.5px; font-weight: 600; text-align: left">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 14.6 9l6 .8-4.4 4.2 1.1 6-5.3-2.9L6.7 20l1.1-6L3.4 9.8 9.4 9z"/></svg>
+        <span style="flex: 1">Destaques</span>
+        <em style="font-style: normal; font-size: 11px; font-weight: 600; background: rgba(255,255,255,0.2); border-radius: 20px; padding: 1px 8px">{{ quantos }}</em>
+      </button>
+
+      <button type="button" style="display: flex; align-items: center; gap: 11px; height: 38px; padding: 0 10px; border: 0; border-radius: 8px; background: transparent; cursor: pointer; width: 100%; color: rgba(255,255,255,0.62); font-size: 13.5px; font-weight: 500; text-align: left">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3 7l9 6 9-6"/></svg>
+        <span style="flex: 1">Mensagens</span>
+      </button>
+
+      <button type="button" style="display: flex; align-items: center; gap: 11px; height: 38px; padding: 0 10px; border: 0; border-radius: 8px; background: transparent; cursor: pointer; width: 100%; color: rgba(255,255,255,0.62); font-size: 13.5px; font-weight: 500; text-align: left">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 9.5 12 3.5l8.5 6V20a1 1 0 0 1-1 1h-15a1 1 0 0 1-1-1z"/><path d="M9.5 21v-6.5h5V21"/></svg>
+        <span style="flex: 1">Página inicial</span>
+      </button>
+
+      <button type="button" style="display: flex; align-items: center; gap: 11px; height: 38px; padding: 0 10px; border: 0; border-radius: 8px; background: transparent; cursor: pointer; width: 100%; color: rgba(255,255,255,0.62); font-size: 13.5px; font-weight: 500; text-align: left">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><circle cx="8.5" cy="10" r="1.7"/><path d="m4 17 5-4.5 4 3.5 3-2.5 4 3.5"/></svg>
+        <span style="flex: 1">Imagens</span>
+      </button>
+
+      <div style="font-size: 9.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.34); padding: 14px 8px 8px">Administração</div>
+
+      <button type="button" style="display: flex; align-items: center; gap: 11px; height: 38px; padding: 0 10px; border: 0; border-radius: 8px; background: transparent; cursor: pointer; width: 100%; color: rgba(255,255,255,0.62); font-size: 13.5px; font-weight: 500; text-align: left">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.4"/><path d="M3 20c0-3.3 2.7-5.4 6-5.4s6 2.1 6 5.4"/><path d="M16.5 7.5h5M19 5v5"/></svg>
+        <span style="flex: 1">Usuários e acessos</span>
+      </button>
+
+      <button type="button" style="display: flex; align-items: center; gap: 11px; height: 38px; padding: 0 10px; border: 0; border-radius: 8px; background: transparent; cursor: pointer; width: 100%; color: rgba(255,255,255,0.62); font-size: 13.5px; font-weight: 500; text-align: left">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 1.8"/></svg>
+        <span style="flex: 1">Registro de alterações</span>
+      </button>
+    </nav>
+
+    <div style="display: flex; align-items: center; gap: 10px; margin: auto 12px 0; padding: 11px 10px; border-top: 1px solid rgba(255,255,255,0.09)">
+      <div style="display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 20px; background: #1abc9c; color: #06301f; font-size: 12px; font-weight: 700">DA</div>
+      <div style="flex: 1; min-width: 0">
+        <div style="font-size: 12.5px; font-weight: 600; color: #fff; line-height: 1.3">Daniel Avila</div>
+        <div style="font-size: 10.5px; color: rgba(255,255,255,0.45); line-height: 1.3">Administrador</div>
+      </div>
+    </div>
+  </aside>
+
+  <div style="display: flex; flex-direction: column; flex: 1; min-width: 0">
+
+    <header style="display: flex; align-items: center; gap: 16px; height: 66px; flex-shrink: 0; padding: 0 28px; background: #ffffff; border-bottom: 1px solid rgba(0,0,0,0.07)">
+      <div style="flex: 1; min-width: 0">
+        <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #a4aebc; line-height: 1.4">Conteúdo</div>
+        <div style="font-size: 17px; font-weight: 600; color: #0d1f3c; line-height: 1.3">Destaques da página inicial</div>
+      </div>
+      <button type="button" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 38px; padding: 0 18px; border: 0; border-radius: 8px; cursor: pointer; font-size: 13.5px; font-weight: 600; background: #2a5298; color: #fff; box-shadow: 0 3px 10px rgba(42,82,152,0.25)">Salvar destaques</button>
+    </header>
+
+    <main style="padding: 22px 28px 40px">
+      <div style="display: grid; grid-template-columns: minmax(0, 1fr) 420px; gap: 24px; align-items: start">
+
+        <div style="display: flex; flex-direction: column; gap: 18px">
+
+          <section style="background: #ffffff; border: 1px solid rgba(0,0,0,0.07); border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 20px 22px">
+            <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #a4aebc; margin-bottom: 14px">Quantos destaques na página</div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap">
+              <button type="button" onClick="{{ usarUm }}" style="display: flex; align-items: center; gap: 9px; height: 44px; padding: 0 18px; border-radius: 8px; cursor: pointer; font-size: 13.5px; font-weight: {{ q1.peso }}; background: {{ q1.fundo }}; color: {{ q1.cor }}; border: 1px solid {{ q1.borda }}">Um &middot; faixa larga</button>
+              <button type="button" onClick="{{ usarDois }}" style="display: flex; align-items: center; gap: 9px; height: 44px; padding: 0 18px; border-radius: 8px; cursor: pointer; font-size: 13.5px; font-weight: {{ q2.peso }}; background: {{ q2.fundo }}; color: {{ q2.cor }}; border: 1px solid {{ q2.borda }}">Dois &middot; lado a lado</button>
+              <button type="button" onClick="{{ usarTres }}" style="display: flex; align-items: center; gap: 9px; height: 44px; padding: 0 18px; border-radius: 8px; cursor: pointer; font-size: 13.5px; font-weight: {{ q3.peso }}; background: {{ q3.fundo }}; color: {{ q3.cor }}; border: 1px solid {{ q3.borda }}">Três &middot; principal + dois</button>
+            </div>
+            <p style="font-size: 12px; line-height: 1.6; color: #7a8899; margin-top: 12px">{{ explicacao }}</p>
+          </section>
+
+          <section style="background: #ffffff; border: 1px solid rgba(0,0,0,0.07); border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 20px 22px">
+            <div style="display: flex; align-items: center; gap: 10px; font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #a4aebc; margin-bottom: 14px">
+              <span style="flex: 1">Ordem dos destaques</span>
+              <span style="font-size: 11px; letter-spacing: 0; text-transform: none; font-weight: 500; color: #7a8899">Arraste para trocar de posição</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 8px">
+
+              <div style="display: flex; align-items: center; gap: 12px; min-height: 66px; padding: 10px 14px; border: 1px solid {{ slot1.borda }}; border-radius: 10px; background: {{ slot1.fundo }}; opacity: {{ slot1.opacidade }}">
+                <span style="display: flex; color: #c3cbd6; cursor: grab; flex-shrink: 0"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span>
+                <span style="display: flex; align-items: center; justify-content: center; width: 46px; height: 46px; flex-shrink: 0; border-radius: 8px; background: linear-gradient(135deg, #1a1a2e, #16213e)">
+                  <svg width="30" height="20" viewBox="0 0 200 100" fill="none" aria-hidden="true">
+                    <rect x="24" y="52" width="22" height="30" rx="3" fill="#3b7dd8" opacity=".55"/>
+                    <rect x="56" y="38" width="22" height="44" rx="3" fill="#3b7dd8" opacity=".75"/>
+                    <rect x="88" y="26" width="22" height="56" rx="3" fill="#1abc9c" opacity=".8"/>
+                    <path d="M30 46 L67 32 L99 18" stroke="#f0a500" stroke-width="3" stroke-linecap="round" fill="none"/>
+                  </svg>
+                </span>
+                <span style="flex: 1; min-width: 0">
+                  <span style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+                    <span style="font-size: 14px; font-weight: 600; color: #1a3b6e">Busca Preço</span>
+                    <span style="font-size: 9.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #0e7c62; background: #e6f7f2; border: 1px solid #a9e3d4; border-radius: 20px; padding: 1px 8px">Principal</span>
+                  </span>
+                  <span style="display: block; font-size: 11.5px; color: #a4aebc; line-height: 1.4">{{ slot1.papel }}</span>
+                </span>
+                <span style="display: flex; flex-direction: column; gap: 6px; width: 190px; flex-shrink: 0">
+                  <input type="text" value="Mais usado" placeholder="Selo do destaque (opcional)" style="width: 100%; height: 32px; padding: 0 11px; border: 1px solid rgba(0,0,0,0.12); border-radius: 7px; font-size: 12.5px; color: #3d4a5c; outline: 0">
+                </span>
+                <button type="button" aria-label="Tirar dos destaques" style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; flex-shrink: 0; border-radius: 7px; border: 1px solid rgba(0,0,0,0.1); background: #fff; color: #7a8899; cursor: pointer">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+                </button>
+              </div>
+
+              <div style="display: flex; align-items: center; gap: 12px; min-height: 66px; padding: 10px 14px; border: 1px solid {{ slot2.borda }}; border-radius: 10px; background: {{ slot2.fundo }}; opacity: {{ slot2.opacidade }}">
+                <span style="display: flex; color: #c3cbd6; cursor: grab; flex-shrink: 0"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span>
+                <span style="display: flex; align-items: center; justify-content: center; width: 46px; height: 46px; flex-shrink: 0; border-radius: 8px; background: linear-gradient(135deg, #0f3460, #16213e)">
+                  <svg width="34" height="18" viewBox="0 0 220 100" fill="none" aria-hidden="true">
+                    <rect x="20" y="20" width="80" height="60" rx="6" fill="none" stroke="#4a7fd4" stroke-width="3"/>
+                    <rect x="115" y="15" width="28" height="28" rx="5" fill="#3b7dd8" opacity=".8"/>
+                    <rect x="149" y="15" width="28" height="28" rx="5" fill="#1abc9c" opacity=".6"/>
+                    <rect x="115" y="50" width="28" height="28" rx="5" fill="#f0a500" opacity=".6"/>
+                  </svg>
+                </span>
+                <span style="flex: 1; min-width: 0">
+                  <span style="display: block; font-size: 14px; font-weight: 600; color: #1a3b6e">Gerenciador de Tarefas</span>
+                  <span style="display: block; font-size: 11.5px; color: #a4aebc; line-height: 1.4">{{ slot2.papel }}</span>
+                </span>
+                <span style="display: flex; flex-direction: column; gap: 6px; width: 190px; flex-shrink: 0">
+                  <input type="text" value="" placeholder="Selo do destaque (opcional)" style="width: 100%; height: 32px; padding: 0 11px; border: 1px solid rgba(0,0,0,0.12); border-radius: 7px; font-size: 12.5px; color: #3d4a5c; outline: 0">
+                </span>
+                <button type="button" aria-label="Tirar dos destaques" style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; flex-shrink: 0; border-radius: 7px; border: 1px solid rgba(0,0,0,0.1); background: #fff; color: #7a8899; cursor: pointer">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+                </button>
+              </div>
+
+              <div style="display: flex; align-items: center; gap: 12px; min-height: 66px; padding: 10px 14px; border: 1px solid {{ slot3.borda }}; border-radius: 10px; background: {{ slot3.fundo }}; opacity: {{ slot3.opacidade }}">
+                <span style="display: flex; color: #c3cbd6; cursor: grab; flex-shrink: 0"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span>
+                <span style="display: flex; align-items: center; justify-content: center; width: 46px; height: 46px; flex-shrink: 0; border-radius: 8px; background: linear-gradient(160deg, #060d24, #0a1940)">
+                  <svg width="30" height="26" viewBox="0 0 160 130" fill="none" aria-hidden="true">
+                    <circle cx="80" cy="65" r="50" fill="none" stroke="#4a7fd4" stroke-width="3" opacity=".5"/>
+                    <circle cx="80" cy="65" r="28" fill="none" stroke="#4a7fd4" stroke-width="3" opacity=".7"/>
+                    <circle cx="80" cy="65" r="6" fill="#4a7fd4"/>
+                    <circle cx="52" cy="42" r="5" fill="#f0a500"/>
+                  </svg>
+                </span>
+                <span style="flex: 1; min-width: 0">
+                  <span style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+                    <span style="font-size: 14px; font-weight: 600; color: #1a3b6e">Radar Global de IA</span>
+                    <span style="font-size: 9.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #856404; background: #fff3cd; border: 1px solid #ffc107; border-radius: 20px; padding: 1px 8px">Acesso limitado</span>
+                  </span>
+                  <span style="display: block; font-size: 11.5px; color: #a4aebc; line-height: 1.4">{{ slot3.papel }}</span>
+                </span>
+                <span style="display: flex; flex-direction: column; gap: 6px; width: 190px; flex-shrink: 0">
+                  <input type="text" value="" placeholder="Selo do destaque (opcional)" style="width: 100%; height: 32px; padding: 0 11px; border: 1px solid rgba(0,0,0,0.12); border-radius: 7px; font-size: 12.5px; color: #3d4a5c; outline: 0">
+                </span>
+                <button type="button" aria-label="Tirar dos destaques" style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; flex-shrink: 0; border-radius: 7px; border: 1px solid rgba(0,0,0,0.1); background: #fff; color: #7a8899; cursor: pointer">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+                </button>
+              </div>
+
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 10px; margin-top: 14px; padding-top: 14px; border-top: 1px dashed rgba(0,0,0,0.12)">
+              <span style="font-size: 12px; color: #7a8899">Adicionar aos destaques:</span>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap">
+                <button type="button" style="display: flex; align-items: center; gap: 7px; height: 32px; padding: 0 12px; border-radius: 20px; border: 1px solid rgba(0,0,0,0.12); background: #fff; color: #3d4a5c; font-size: 12.5px; font-weight: 500; cursor: pointer">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7a8899" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                  Busca Frete
+                </button>
+                <button type="button" style="display: flex; align-items: center; gap: 7px; height: 32px; padding: 0 12px; border-radius: 20px; border: 1px solid rgba(0,0,0,0.12); background: #fff; color: #3d4a5c; font-size: 12.5px; font-weight: 500; cursor: pointer">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7a8899" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                  Tampermonkey
+                </button>
+                <button type="button" style="display: flex; align-items: center; gap: 7px; height: 32px; padding: 0 12px; border-radius: 20px; border: 1px solid rgba(0,0,0,0.12); background: #fff; color: #3d4a5c; font-size: 12.5px; font-weight: 500; cursor: pointer">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7a8899" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                  Professor IA
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <section style="background: #ffffff; border: 1px solid rgba(0,0,0,0.07); border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 20px 22px; position: sticky; top: 22px">
+          <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #a4aebc; margin-bottom: 14px">Como fica na página</div>
+
+          <div style="background: #f5f7fa; border: 1px solid rgba(0,0,0,0.07); border-radius: 10px; padding: 16px">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px">
+              <span style="font-size: 8.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #2a5298">Em destaque</span>
+              <span style="flex: 1; height: 1px; background: rgba(0,0,0,0.08)"></span>
+            </div>
+
+            <div style="display: grid; gap: 10px; grid-template-columns: {{ previa.colunas }}">
+              <div style="grid-row: {{ previa.linhaPrincipal }}; background: #ffffff; border: 1px solid rgba(0,0,0,0.08); border-left: 3px solid #2a5298; border-radius: 8px; padding: 12px; display: grid; grid-template-columns: {{ previa.colunasPrincipal }}; gap: 10px; align-items: center">
+                <span style="height: {{ previa.alturaMini }}; border-radius: 5px; background: linear-gradient(135deg, #1a1a2e, #16213e)"></span>
+                <span style="display: block">
+                  <span style="display: block; width: 40%; height: 5px; border-radius: 3px; background: #c3cbd6; margin-bottom: 7px"></span>
+                  <span style="display: block; width: 72%; height: 9px; border-radius: 3px; background: #2a5298; margin-bottom: 8px"></span>
+                  <span style="display: block; width: 100%; height: 5px; border-radius: 3px; background: #dde3ea; margin-bottom: 4px"></span>
+                  <span style="display: block; width: 86%; height: 5px; border-radius: 3px; background: #dde3ea; margin-bottom: 10px"></span>
+                  <span style="display: block; width: 84px; height: 20px; border-radius: 5px; background: #2a5298"></span>
+                </span>
+              </div>
+
+              <div style="display: {{ previa.d2 }}; background: #ffffff; border: 1px solid rgba(0,0,0,0.08); border-left: 3px solid #3b7dd8; border-radius: 8px; padding: 12px; align-items: center; gap: 10px">
+                <span style="width: 42px; height: 32px; flex-shrink: 0; border-radius: 5px; background: linear-gradient(135deg, #0f3460, #16213e)"></span>
+                <span style="flex: 1">
+                  <span style="display: block; width: 82%; height: 7px; border-radius: 3px; background: #1a3b6e; margin-bottom: 7px"></span>
+                  <span style="display: block; width: 60px; height: 16px; border-radius: 5px; background: #2a5298"></span>
+                </span>
+              </div>
+
+              <div style="display: {{ previa.d3 }}; background: #ffffff; border: 1px solid rgba(0,0,0,0.08); border-left: 3px solid #1abc9c; border-radius: 8px; padding: 12px; align-items: center; gap: 10px">
+                <span style="width: 42px; height: 32px; flex-shrink: 0; border-radius: 5px; background: linear-gradient(160deg, #060d24, #0a1940)"></span>
+                <span style="flex: 1">
+                  <span style="display: block; width: 76%; height: 7px; border-radius: 3px; background: #1a3b6e; margin-bottom: 7px"></span>
+                  <span style="display: block; width: 60px; height: 16px; border-radius: 5px; background: #e9ecef"></span>
+                </span>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 12px">
+              <span style="height: 56px; border-radius: 6px; background: #ffffff; border: 1px solid rgba(0,0,0,0.07)"></span>
+              <span style="height: 56px; border-radius: 6px; background: #ffffff; border: 1px solid rgba(0,0,0,0.07)"></span>
+              <span style="height: 56px; border-radius: 6px; background: #ffffff; border: 1px solid rgba(0,0,0,0.07)"></span>
+              <span style="height: 56px; border-radius: 6px; background: #ffffff; border: 1px solid rgba(0,0,0,0.07)"></span>
+            </div>
+            <p style="font-size: 10.5px; color: #a4aebc; margin-top: 8px; text-align: center">A grade abaixo recebe os agentes que não estão em destaque.</p>
+          </div>
+
+          <p style="display: flex; gap: 9px; font-size: 12px; line-height: 1.6; color: #7a8899; margin-top: 14px">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f0a500" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M12 11.5v4.5"/></svg>
+            <span>No celular os destaques sempre empilham, um embaixo do outro, na mesma ordem desta lista.</span>
+          </p>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"$preview":{"width":1440,"height":940}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { quantos: 3 };
+  }
+
+  renderVals() {
+    var self = this;
+    var q = this.state.quantos;
+
+    var botaoDe = function (n) {
+      var on = q === n;
+      return {
+        fundo: on ? '#0d1f3c' : '#ffffff',
+        cor: on ? '#ffffff' : '#7a8899',
+        borda: on ? '#0d1f3c' : 'rgba(0,0,0,0.12)',
+        peso: on ? '600' : '500'
+      };
+    };
+
+    // Um slot além da quantidade escolhida continua cadastrado, mas volta
+    // para a grade comum — some do bloco de destaques, não do site.
+    var slotDe = function (posicao, categoria) {
+      var ativo = posicao <= q;
+      var forma;
+      if (posicao === 1) {
+        forma = q === 1
+          ? 'card largo, miniatura ao lado do texto'
+          : 'card principal, miniatura acima do texto';
+      } else {
+        forma = q === 2 ? 'card lado a lado com o principal' : 'card compacto ao lado do principal';
+      }
+      return {
+        fundo: ativo ? '#ffffff' : '#f8fafc',
+        borda: ativo ? 'rgba(0,0,0,0.08)' : 'rgba(0,0,0,0.06)',
+        opacidade: ativo ? '1' : '0.5',
+        papel: ativo
+          ? categoria + ' · ' + forma
+          : 'Fora dos destaques agora — aparece na grade comum'
+      };
+    };
+
+    var explicacoes = {
+      1: 'Um destaque só: faixa larga no topo da lista, com a miniatura à esquerda e o texto ao lado. É o arranjo de hoje.',
+      2: 'Dois destaques do mesmo tamanho, lado a lado. Bom quando dois agentes competem pela mesma atenção.',
+      3: 'Um principal alto na coluna larga e dois compactos empilhados ao lado.'
+    };
+
+    return {
+      quantos: q,
+      q1: botaoDe(1),
+      q2: botaoDe(2),
+      q3: botaoDe(3),
+      explicacao: explicacoes[q],
+      slot1: slotDe(1, 'Operação'),
+      slot2: slotDe(2, 'Operação'),
+      slot3: slotDe(3, 'Assistentes IA'),
+      previa: {
+        colunas: q === 1 ? '1fr' : (q === 2 ? '1fr 1fr' : '1.45fr 1fr'),
+        colunasPrincipal: q === 1 ? '96px 1fr' : '1fr',
+        linhaPrincipal: q === 3 ? 'span 2' : 'auto',
+        alturaMini: q === 1 ? '58px' : '76px',
+        d2: q >= 2 ? 'flex' : 'none',
+        d3: q >= 3 ? 'flex' : 'none'
+      },
+      usarUm: function () { self.setState({ quantos: 1 }); },
+      usarDois: function () { self.setState({ quantos: 2 }); },
+      usarTres: function () { self.setState({ quantos: 3 }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

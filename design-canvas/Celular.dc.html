@@ -50,7 +50,7 @@
       </a>
       <a href="#" style="display: flex; align-items: center; gap: 11px; min-height: 48px; padding: 0 12px; border-radius: 10px; color: rgba(255,255,255,0.66); font-size: 14.5px; font-weight: 500">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5z"/></svg>
-        Guias e tutoriais
+        Guias e materiais
       </a>
       <a href="#" style="display: flex; align-items: center; gap: 11px; min-height: 48px; padding: 0 12px; border-radius: 10px; color: rgba(255,255,255,0.66); font-size: 14.5px; font-weight: 500">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5 14.6 9l6 .8-4.4 4.2 1.1 6-5.3-2.9L6.7 20l1.1-6L3.4 9.8 9.4 9z"/></svg>
@@ -303,7 +303,7 @@
 
     <p style="margin-top: 26px; font-size: 12.5px; line-height: 1.7; color: #7a8899; display: flex; align-items: flex-start; gap: 9px">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f0a500" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 3px"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M12 11.5v4.5"/></svg>
-      <span>Os agentes marcados como <b style="color: #856404; font-weight: 600">Acesso limitado</b> dependem de liberação da OpenAI. Avisamos por e-mail.</span>
+      <span>Os agentes marcados como <b style="color: #856404; font-weight: 600">Acesso limitado</b> dependem de restrições de compartilhamento definidas pela OpenAI. Avisamos por e-mail.</span>
     </p>
   </main>
 
@@ -318,7 +318,7 @@
 </div>
 </x-dc>
 
-<script data-dc-script data-props='{"$preview":{"width":390,"height":1980}}'>
+<script data-dc-script data-props='{"destaques":{"editor":"int","default":3,"min":1,"max":3,"section":"Destaques"},"$preview":{"width":390,"height":3400}}'>
 class Component extends DCLogic {
   constructor(props) {
     super(props);
@@ -337,30 +337,44 @@ class Component extends DCLogic {
     ];
   }
 
+  // O índice é gravado sem acento; quem digita "preço" tem que achar
+  // "preco" — por isso o termo perde os acentos antes da comparação.
+  semAcento(txt) {
+    return String(txt || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  }
+
+  cabeNaBusca(item) {
+    var termo = this.semAcento(this.state.q).trim();
+    return !termo || item.kw.indexOf(termo) !== -1;
+  }
+
   passa(item) {
-    var termo = String(this.state.q || '').trim().toLowerCase();
     if (this.state.cat !== 'todos' && item.cat !== this.state.cat) return false;
-    if (termo && item.kw.indexOf(termo) === -1) return false;
-    return true;
+    return this.cabeNaBusca(item);
   }
 
   renderVals() {
     var self = this;
+    // O celular obedece à mesma quantidade de destaques do desktop; o que
+    // muda é o arranjo: aqui eles sempre empilham, na ordem da lista.
+    var quantos = Math.max(1, Math.min(3, Number(this.props.destaques) || 3));
     var itens = this.itens();
     var vis = {};
     var visiveis = 0;
     itens.forEach(function (i) {
-      var ok = self.passa(i);
-      vis[i.chave] = (i.dest === 0 && ok) ? 'flex' : 'none';
+      var ok = self.passa(i) && (i.dest === 0 || i.dest <= quantos);
+      vis[i.chave] = (i.dest === 0 && self.passa(i)) ? 'flex' : 'none';
       if (ok) visiveis += 1;
     });
 
-    var d1 = this.passa(itens[0]) ? 'flex' : 'none';
-    var d2 = this.passa(itens[1]) ? 'flex' : 'none';
-    var d3 = this.passa(itens[2]) ? 'flex' : 'none';
+    var d1 = (itens[0].dest <= quantos && this.passa(itens[0])) ? 'flex' : 'none';
+    var d2 = (itens[1].dest <= quantos && this.passa(itens[1])) ? 'flex' : 'none';
+    var d3 = (itens[2].dest <= quantos && this.passa(itens[2])) ? 'flex' : 'none';
 
     var contar = function (slug) {
-      return itens.filter(function (i) { return slug === 'todos' || i.cat === slug; }).length;
+      return itens.filter(function (i) {
+        return (slug === 'todos' || i.cat === slug) && self.cabeNaBusca(i);
+      }).length;
     };
     var chipDe = function (slug) {
       var on = self.state.cat === slug;

@@ -1,0 +1,370 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <style>
+    body {
+      margin: 0;
+      background: #f7f5f0;
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      color: #514c42;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: #a04a22; text-decoration: none; }
+    a:hover { color: #7d3817; }
+    * { box-sizing: border-box; }
+    .wrap { max-width: 1140px; margin: 0 auto; padding: 0 40px; }
+    .serif { font-family: Newsreader, ui-serif, Georgia, serif; }
+    .mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace; }
+    .kicker {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.16em;
+      text-transform: uppercase; color: #8b8478;
+    }
+  </style>
+</helmet>
+
+<div style="min-height: 100%; background: #f7f5f0; padding-bottom: 0">
+
+  <!-- ─── TOPO ─── -->
+  <header style="border-bottom: 1px solid #d3ccbd; background: #f7f5f0">
+    <div class="wrap" style="height: 72px; display: flex; align-items: center; gap: 40px">
+
+      <div style="display: flex; align-items: baseline; gap: 10px">
+        <span class="serif" style="font-size: 23px; font-weight: 500; color: #1b1a17; letter-spacing: -0.01em">Agentes Pro</span>
+        <span class="mono" style="font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: #8b8478">Probel · Prodormir</span>
+      </div>
+
+      <nav style="display: flex; align-items: center; gap: 4px; flex: 1">
+        <a href="#" style="font-size: 14px; font-weight: 600; color: #1b1a17; padding: 7px 12px; border-bottom: 2px solid {{accent}}">Agentes</a>
+        <a href="#" style="font-size: 14px; font-weight: 400; color: #6f695d; padding: 7px 12px; border-bottom: 2px solid transparent">Universo IA</a>
+        <a href="#" style="font-size: 14px; font-weight: 400; color: #6f695d; padding: 7px 12px; border-bottom: 2px solid transparent">Artigos</a>
+      </nav>
+
+      <a href="#" style="display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: #6f695d">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="1.5"/><path d="M3 7l9 6 9-6"/></svg>
+        Dúvidas e sugestões
+      </a>
+    </div>
+  </header>
+
+  <!-- ─── MASTHEAD ─── -->
+  <section style="border-bottom: 1px solid #d3ccbd; background: #fffdf9">
+    <div class="wrap" style="padding-top: 54px; padding-bottom: 44px; display: grid; grid-template-columns: minmax(0, 1fr) 296px; gap: 64px; align-items: end">
+
+      <div>
+        <p class="kicker" style="margin: 0 0 18px">Central de agentes internos</p>
+        <h1 class="serif" style="margin: 0 0 16px; font-size: 62px; font-weight: 400; line-height: 1.02; letter-spacing: -0.02em; color: #1b1a17">
+          As automações da equipe,<br>
+          <span style="font-style: italic; color: {{accent}}">em um só lugar.</span>
+        </h1>
+        <p style="margin: 0 0 30px; font-size: 16px; line-height: 1.62; color: #6f695d; max-width: 30em; text-wrap: pretty">
+          Todas as automações e assistentes da equipe reunidos. Busque pelo nome ou filtre por tipo para chegar direto na ferramenta.
+        </p>
+
+        <div style="display: flex; align-items: center; gap: 12px; max-width: 480px; height: 50px; padding: 0 16px; background: #f7f5f0; border: 1px solid #d3ccbd; border-radius: 3px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b8478" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
+          <span style="font-size: 14.5px; color: #a49c8e">Buscar agente: frete, preço, tarefas...</span>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px">
+          <button style="font-family: inherit; cursor: pointer; display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 14px; border-radius: 3px; font-size: 13px; font-weight: 600; background: #1b1a17; color: #f7f5f0; border: 1px solid #1b1a17">Todos <span class="mono" style="font-size: 11px; opacity: 0.6">11</span></button>
+          <button style="font-family: inherit; cursor: pointer; display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 14px; border-radius: 3px; font-size: 13px; font-weight: 500; background: transparent; color: #514c42; border: 1px solid #d3ccbd"><span style="width: 6px; height: 6px; border-radius: 9px; background: #2f5d8a"></span>Operação <span class="mono" style="font-size: 11px; color: #8b8478">3</span></button>
+          <button style="font-family: inherit; cursor: pointer; display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 14px; border-radius: 3px; font-size: 13px; font-weight: 500; background: transparent; color: #514c42; border: 1px solid #d3ccbd"><span style="width: 6px; height: 6px; border-radius: 9px; background: #2b7a63"></span>Assistentes IA <span class="mono" style="font-size: 11px; color: #8b8478">4</span></button>
+          <button style="font-family: inherit; cursor: pointer; display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 14px; border-radius: 3px; font-size: 13px; font-weight: 500; background: transparent; color: #514c42; border: 1px solid #d3ccbd"><span style="width: 6px; height: 6px; border-radius: 9px; background: #9a6b12"></span>Ferramentas <span class="mono" style="font-size: 11px; color: #8b8478">4</span></button>
+        </div>
+      </div>
+
+      <!-- índice tipográfico, no lugar do gradiente azul de hoje -->
+      <div style="border-left: 1px solid #d3ccbd; padding-left: 28px; display: flex; flex-direction: column; gap: 18px">
+        <div>
+          <div class="serif" style="font-size: 44px; font-weight: 400; line-height: 1; color: #1b1a17">11</div>
+          <div class="kicker" style="margin-top: 5px">agentes no ar</div>
+        </div>
+        <div style="height: 1px; background: #e3ded2"></div>
+        <div>
+          <div class="serif" style="font-size: 44px; font-weight: 400; line-height: 1; color: #1b1a17">3</div>
+          <div class="kicker" style="margin-top: 5px">guias publicados</div>
+        </div>
+        <div style="height: 1px; background: #e3ded2"></div>
+        <div>
+          <div class="serif" style="font-size: 44px; font-weight: 400; line-height: 1; color: {{accent}}">4</div>
+          <div class="kicker" style="margin-top: 5px">em liberação</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── CONTEÚDO ─── -->
+  <main class="wrap" style="padding-top: 44px; padding-bottom: 56px">
+
+    <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 24px; padding-bottom: 14px; border-bottom: 1px solid #d3ccbd">
+      <p class="kicker" style="margin: 0"><span style="color: #1b1a17; font-weight: 500">11</span> agentes disponíveis</p>
+      <a href="#" style="display: flex; align-items: center; gap: 7px; font-size: 13.5px; font-weight: 500">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        Sugerir um agente
+      </a>
+    </div>
+
+    <!-- destaque -->
+    <article style="display: grid; grid-template-columns: 244px minmax(0, 1fr); gap: 36px; align-items: center; margin-top: 32px; padding: 28px; background: #fffdf9; border: 1px solid #d3ccbd; border-left: 3px solid {{accent}}; border-radius: 3px">
+      <div style="aspect-ratio: 4 / 3; background: #eef1f5; border: 1px solid #dfe3ea; border-radius: 2px; display: flex; align-items: center; justify-content: center">
+        <svg width="104" height="78" viewBox="0 0 120 90" fill="none" aria-hidden="true">
+          <rect x="10" y="14" width="44" height="62" rx="2" fill="none" stroke="#2f5d8a" stroke-width="1.6"/>
+          <rect x="18" y="24" width="28" height="6" rx="1" fill="#2f5d8a" opacity=".75"/>
+          <rect x="18" y="36" width="20" height="5" rx="1" fill="#2f5d8a" opacity=".38"/>
+          <rect x="18" y="46" width="24" height="5" rx="1" fill="#2f5d8a" opacity=".38"/>
+          <rect x="64" y="14" width="20" height="20" rx="2" fill="#2f5d8a" opacity=".8"/>
+          <rect x="90" y="14" width="20" height="20" rx="2" fill="#2b7a63" opacity=".7"/>
+          <rect x="64" y="40" width="20" height="20" rx="2" fill="#9a6b12" opacity=".65"/>
+          <rect x="90" y="40" width="20" height="20" rx="2" fill="#a04a22" opacity=".5"/>
+        </svg>
+      </div>
+      <div>
+        <div style="display: flex; align-items: center; gap: 9px; margin-bottom: 10px">
+          <span style="width: 6px; height: 6px; border-radius: 9px; background: #2f5d8a"></span>
+          <span class="kicker">Operação</span>
+          <span class="kicker" style="color: {{accent}}">· em destaque</span>
+        </div>
+        <h2 class="serif" style="margin: 0 0 10px; font-size: 34px; font-weight: 400; line-height: 1.14; letter-spacing: -0.015em; color: #1b1a17">Gerenciador de Tarefas</h2>
+        <p style="margin: 0 0 22px; font-size: 15.5px; line-height: 1.68; color: #6f695d; max-width: 42em; text-wrap: pretty">
+          Kanban personalizado para gestão de tarefas, no espírito do Jira e do Trello, adaptado à rotina e aos processos da empresa.
+        </p>
+        <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap">
+          <a href="#" style="display: flex; align-items: center; justify-content: center; gap: 9px; height: 44px; padding: 0 24px; background: {{accent}}; color: #fffdf9; border-radius: 3px; font-size: 14.5px; font-weight: 600">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4" width="5.5" height="16" rx="1.6"/><rect x="11" y="4" width="5.5" height="10" rx="1.6"/><rect x="18.5" y="4" width="2" height="7" rx="1"/></svg>
+            Acesso Direto
+          </a>
+          <span class="mono" style="font-size: 12.5px; color: #8b8478">tarefas.probel.local</span>
+          <a href="#" style="font-size: 13.5px; color: #6f695d; border-bottom: 1px solid #cfc7b8; padding-bottom: 1px">Ver tutorial e detalhes →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- grade -->
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 24px">
+
+      <article style="display: flex; flex-direction: column; background: #fffdf9; border: 1px solid #e3ded2; border-radius: 3px; padding: 22px">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 16px">
+          <div style="width: 46px; height: 46px; border-radius: 2px; background: #eef1f5; border: 1px solid #dfe3ea; display: flex; align-items: center; justify-content: center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2f5d8a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V7.5a1 1 0 0 1 1-1h4l1.6 2.4H19a1 1 0 0 1 1 1V20"/><path d="M8 14h8M8 17h5"/></svg>
+          </div>
+          <span class="mono" style="font-size: 12px; color: #c4bcac">01</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 7px"><span style="width: 6px; height: 6px; border-radius: 9px; background: #2f5d8a"></span><span class="kicker">Operação</span></div>
+        <h3 class="serif" style="margin: 0 0 8px; font-size: 21px; font-weight: 500; line-height: 1.2; color: #1b1a17">Busca Preço</h3>
+        <p style="margin: 0 0 20px; flex: 1; font-size: 13.5px; line-height: 1.62; color: #78715f; text-wrap: pretty">Coleta e compara preços de produtos automaticamente em diferentes fontes e entrega uma planilha pronta de resultados.</p>
+        <a href="#" style="display: flex; align-items: center; justify-content: center; gap: 8px; height: 42px; border: 1px solid #1b1a17; color: #1b1a17; border-radius: 3px; font-size: 13.5px; font-weight: 600">Acesso Direto</a>
+      </article>
+
+      <article style="display: flex; flex-direction: column; background: #fffdf9; border: 1px solid #e3ded2; border-radius: 3px; padding: 22px">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 16px">
+          <div style="width: 46px; height: 46px; border-radius: 2px; background: #eef1f5; border: 1px solid #dfe3ea; display: flex; align-items: center; justify-content: center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2f5d8a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 7.5h10v9h-10z"/><path d="M12.5 11h4l3 3v2.5h-7z"/><circle cx="6.5" cy="17.5" r="1.8"/><circle cx="16.5" cy="17.5" r="1.8"/></svg>
+          </div>
+          <span class="mono" style="font-size: 12px; color: #c4bcac">02</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 7px"><span style="width: 6px; height: 6px; border-radius: 9px; background: #2f5d8a"></span><span class="kicker">Operação</span></div>
+        <h3 class="serif" style="margin: 0 0 8px; font-size: 21px; font-weight: 500; line-height: 1.2; color: #1b1a17">Busca Frete</h3>
+        <p style="margin: 0 0 20px; flex: 1; font-size: 13.5px; line-height: 1.62; color: #78715f; text-wrap: pretty">Automatiza testes de frete no site, simulando produtos e CEPs, e gera uma planilha com valores e prazos para análise.</p>
+        <a href="#" style="display: flex; align-items: center; justify-content: center; gap: 8px; height: 42px; border: 1px solid #1b1a17; color: #1b1a17; border-radius: 3px; font-size: 13.5px; font-weight: 600">Acesso Direto</a>
+      </article>
+
+      <article style="display: flex; flex-direction: column; background: #fffdf9; border: 1px solid #e3ded2; border-radius: 3px; padding: 22px">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 16px">
+          <div style="width: 46px; height: 46px; border-radius: 2px; background: #eaf3f0; border: 1px solid #d8e7e1; display: flex; align-items: center; justify-content: center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2b7a63" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 12.5c0 4-3.8 7-8.5 7-1 0-2-.15-2.9-.42L4 20.5l1.5-3.6C4.2 15.7 3.5 14.2 3.5 12.5c0-4 3.8-7 8.5-7s8.5 3 8.5 7z"/></svg>
+          </div>
+          <span class="mono" style="font-size: 12px; color: #c4bcac">03</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 7px"><span style="width: 6px; height: 6px; border-radius: 9px; background: #2b7a63"></span><span class="kicker">Assistentes IA</span></div>
+        <h3 class="serif" style="margin: 0 0 8px; font-size: 21px; font-weight: 500; line-height: 1.2; color: #1b1a17">Meetily</h3>
+        <p style="margin: 0 0 20px; flex: 1; font-size: 13.5px; line-height: 1.62; color: #78715f; text-wrap: pretty">Ferramenta open source de assistência a reuniões com IA, com foco em privacidade e controle das informações.</p>
+        <a href="#" style="display: flex; align-items: center; justify-content: center; gap: 8px; height: 42px; border: 1px solid #1b1a17; color: #1b1a17; border-radius: 3px; font-size: 13.5px; font-weight: 600">Acesso Direto</a>
+      </article>
+
+      <article style="display: flex; flex-direction: column; background: #fffdf9; border: 1px solid #e3ded2; border-radius: 3px; padding: 22px">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 16px">
+          <div style="width: 46px; height: 46px; border-radius: 2px; background: #f6f0e2; border: 1px solid #e9dfc6; display: flex; align-items: center; justify-content: center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9a6b12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6.5 3.5 12 8 17.5M16 6.5 20.5 12 16 17.5M13.5 5l-3 14"/></svg>
+          </div>
+          <span class="mono" style="font-size: 12px; color: #c4bcac">04</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 7px"><span style="width: 6px; height: 6px; border-radius: 9px; background: #9a6b12"></span><span class="kicker">Ferramentas</span></div>
+        <h3 class="serif" style="margin: 0 0 8px; font-size: 21px; font-weight: 500; line-height: 1.2; color: #1b1a17">Tampermonkey</h3>
+        <p style="margin: 0 0 20px; flex: 1; font-size: 13.5px; line-height: 1.62; color: #78715f; text-wrap: pretty">Extensão de navegador para adicionar e executar scripts personalizados que modificam o funcionamento de sites.</p>
+        <a href="#" style="display: flex; align-items: center; justify-content: center; gap: 8px; height: 42px; border: 1px solid #1b1a17; color: #1b1a17; border-radius: 3px; font-size: 13.5px; font-weight: 600">Acesso ao Instalador</a>
+      </article>
+
+      <article style="display: flex; flex-direction: column; background: #fffdf9; border: 1px solid #e3ded2; border-radius: 3px; padding: 22px">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 16px">
+          <div style="width: 46px; height: 46px; border-radius: 2px; background: #eaf3f0; border: 1px solid #d8e7e1; display: flex; align-items: center; justify-content: center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2b7a63" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/><path d="M12 3.5v3M12 17.5v3M3.5 12h3M17.5 12h3"/></svg>
+          </div>
+          <span style="display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 9px; border-radius: 2px; background: #f6f0e2; border: 1px solid #e9dfc6; font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; color: #8a5f10; text-transform: uppercase">Acesso limitado</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 7px"><span style="width: 6px; height: 6px; border-radius: 9px; background: #2b7a63"></span><span class="kicker">Assistentes IA</span></div>
+        <h3 class="serif" style="margin: 0 0 8px; font-size: 21px; font-weight: 500; line-height: 1.2; color: #1b1a17">Radar Global de IA</h3>
+        <p style="margin: 0 0 20px; flex: 1; font-size: 13.5px; line-height: 1.62; color: #78715f; text-wrap: pretty">Resumo objetivo dos principais acontecimentos e tendências em IA, com lançamentos e impactos no mercado.</p>
+        <a href="#" style="display: flex; align-items: center; justify-content: center; gap: 8px; height: 42px; border: 1px solid #1b1a17; color: #1b1a17; border-radius: 3px; font-size: 13.5px; font-weight: 600">Acesso Direto</a>
+      </article>
+
+      <article style="display: flex; flex-direction: column; background: #fffdf9; border: 1px solid #e3ded2; border-radius: 3px; padding: 22px">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 16px">
+          <div style="width: 46px; height: 46px; border-radius: 2px; background: #eaf3f0; border: 1px solid #d8e7e1; display: flex; align-items: center; justify-content: center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2b7a63" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 7.5 12 4l8.5 3.5L12 11z"/><path d="M6.5 9.6V15c0 1.6 2.5 2.8 5.5 2.8s5.5-1.2 5.5-2.8V9.6"/><path d="M20.5 7.8v5"/></svg>
+          </div>
+          <span style="display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 9px; border-radius: 2px; background: #f6f0e2; border: 1px solid #e9dfc6; font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; color: #8a5f10; text-transform: uppercase">Acesso limitado</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 7px"><span style="width: 6px; height: 6px; border-radius: 9px; background: #2b7a63"></span><span class="kicker">Assistentes IA</span></div>
+        <h3 class="serif" style="margin: 0 0 8px; font-size: 21px; font-weight: 500; line-height: 1.2; color: #1b1a17">Professor IA</h3>
+        <p style="margin: 0 0 20px; flex: 1; font-size: 13.5px; line-height: 1.62; color: #78715f; text-wrap: pretty">Ensina Inteligência Artificial de forma progressiva, com linguagem acessível e exemplos do dia a dia.</p>
+        <a href="#" style="display: flex; align-items: center; justify-content: center; gap: 8px; height: 42px; border: 1px solid #1b1a17; color: #1b1a17; border-radius: 3px; font-size: 13.5px; font-weight: 600">Acesso Direto</a>
+      </article>
+
+      <article style="display: flex; flex-direction: column; background: #fffdf9; border: 1px solid #e3ded2; border-radius: 3px; padding: 22px">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 16px">
+          <div style="width: 46px; height: 46px; border-radius: 2px; background: #eaf3f0; border: 1px solid #d8e7e1; display: flex; align-items: center; justify-content: center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2b7a63" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5a8.5 8.5 0 1 0 0 17c1.4 0 2-.9 2-1.8 0-1.6-1.6-1.7-1.6-3 0-.8.7-1.4 1.8-1.4h1.3a4.7 4.7 0 0 0 4.9-4.7c0-3.4-3.6-6.1-8.4-6.1z"/><circle cx="8" cy="10" r="1.1" fill="currentColor" stroke="none"/><circle cx="12" cy="7.6" r="1.1" fill="currentColor" stroke="none"/><circle cx="16" cy="10" r="1.1" fill="currentColor" stroke="none"/></svg>
+          </div>
+          <span style="display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 9px; border-radius: 2px; background: #f6f0e2; border: 1px solid #e9dfc6; font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; color: #8a5f10; text-transform: uppercase">Acesso limitado</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 7px"><span style="width: 6px; height: 6px; border-radius: 9px; background: #2b7a63"></span><span class="kicker">Assistentes IA</span></div>
+        <h3 class="serif" style="margin: 0 0 8px; font-size: 21px; font-weight: 500; line-height: 1.2; color: #1b1a17">Designer Visual Profissional</h3>
+        <p style="margin: 0 0 20px; flex: 1; font-size: 13.5px; line-height: 1.62; color: #78715f; text-wrap: pretty">Criação e edição de imagens com integração ao Photoshop e ao Canva, para materiais com qualidade profissional.</p>
+        <a href="#" style="display: flex; align-items: center; justify-content: center; gap: 8px; height: 42px; border: 1px solid #1b1a17; color: #1b1a17; border-radius: 3px; font-size: 13.5px; font-weight: 600">Acesso Direto</a>
+      </article>
+
+      <article style="display: flex; flex-direction: column; background: #fbf9f4; border: 1px dashed #d3ccbd; border-radius: 3px; padding: 22px">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 16px">
+          <div style="width: 46px; height: 46px; border-radius: 2px; background: #f2efe7; border: 1px solid #e3ded2; display: flex; align-items: center; justify-content: center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a49c8e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="8" width="16" height="12" rx="2.5"/><path d="M12 4.6V8M8.6 13.4h.01M15.4 13.4h.01M9.5 16.8h5"/></svg>
+          </div>
+          <span class="kicker" style="color: #a49c8e">Em breve</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 7px"><span style="width: 6px; height: 6px; border-radius: 9px; background: #d5cfc0"></span><span class="kicker" style="color: #a49c8e">Ferramentas</span></div>
+        <h3 class="serif" style="margin: 0 0 8px; font-size: 21px; font-weight: 500; line-height: 1.2; color: #6f695d">B Bot</h3>
+        <p style="margin: 0 0 20px; flex: 1; font-size: 13.5px; line-height: 1.62; color: #97907f; text-wrap: pretty">Atendimento automatizado via WhatsApp e e-mail com IA, para reduzir demandas repetitivas no Marketing.</p>
+        <span style="display: flex; align-items: center; justify-content: center; gap: 8px; height: 42px; border: 1px solid #e3ded2; background: #f2efe7; color: #a49c8e; border-radius: 3px; font-size: 13.5px; font-weight: 600">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2.2"/><path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7"/></svg>
+          Em breve
+        </span>
+      </article>
+
+      <article style="display: flex; flex-direction: column; background: #fbf9f4; border: 1px dashed #d3ccbd; border-radius: 3px; padding: 22px">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 16px">
+          <div style="width: 46px; height: 46px; border-radius: 2px; background: #f2efe7; border: 1px solid #e3ded2; display: flex; align-items: center; justify-content: center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a49c8e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5 9.5 17 19 7.5"/><circle cx="12" cy="12" r="9"/></svg>
+          </div>
+          <span class="kicker" style="color: #a49c8e">Em breve</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 7px"><span style="width: 6px; height: 6px; border-radius: 9px; background: #d5cfc0"></span><span class="kicker" style="color: #a49c8e">Ferramentas</span></div>
+        <h3 class="serif" style="margin: 0 0 8px; font-size: 21px; font-weight: 500; line-height: 1.2; color: #6f695d">Cypress</h3>
+        <p style="margin: 0 0 20px; flex: 1; font-size: 13.5px; line-height: 1.62; color: #97907f; text-wrap: pretty">Automação de testes para aplicações web: valida páginas, formulários e fluxos completos de navegação.</p>
+        <span style="display: flex; align-items: center; justify-content: center; gap: 8px; height: 42px; border: 1px solid #e3ded2; background: #f2efe7; color: #a49c8e; border-radius: 3px; font-size: 13.5px; font-weight: 600">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2.2"/><path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7"/></svg>
+          Em breve
+        </span>
+      </article>
+
+      <article style="display: flex; flex-direction: column; background: #fbf9f4; border: 1px dashed #d3ccbd; border-radius: 3px; padding: 22px">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 16px">
+          <div style="width: 46px; height: 46px; border-radius: 2px; background: #f2efe7; border: 1px solid #e3ded2; display: flex; align-items: center; justify-content: center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a49c8e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="12" r="2.2"/><circle cx="18.5" cy="6.5" r="2.2"/><circle cx="18.5" cy="17.5" r="2.2"/><path d="M7.7 11.2 16.3 7.3M7.7 12.8l8.6 3.9"/></svg>
+          </div>
+          <span class="kicker" style="color: #a49c8e">Em breve</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 7px"><span style="width: 6px; height: 6px; border-radius: 9px; background: #d5cfc0"></span><span class="kicker" style="color: #a49c8e">Ferramentas</span></div>
+        <h3 class="serif" style="margin: 0 0 8px; font-size: 21px; font-weight: 500; line-height: 1.2; color: #6f695d">N8N</h3>
+        <p style="margin: 0 0 20px; flex: 1; font-size: 13.5px; line-height: 1.62; color: #97907f; text-wrap: pretty">Automação de fluxos low-code que conecta aplicativos, APIs e bancos de dados por arrastar e soltar.</p>
+        <span style="display: flex; align-items: center; justify-content: center; gap: 8px; height: 42px; border: 1px solid #e3ded2; background: #f2efe7; color: #a49c8e; border-radius: 3px; font-size: 13.5px; font-weight: 600">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2.2"/><path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7"/></svg>
+          Em breve
+        </span>
+      </article>
+
+    </div>
+
+    <!-- aviso -->
+    <div style="display: flex; align-items: flex-start; gap: 12px; margin-top: 28px; padding: 16px 18px; background: #faf6ec; border: 1px solid #ebe0c7; border-left: 3px solid #c9941f; border-radius: 3px">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#c9941f" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M12 11.5v4.5"/></svg>
+      <p style="margin: 0; font-size: 13.5px; line-height: 1.65; color: #6f695d">
+        Os agentes marcados como <strong style="color: #8a5f10; font-weight: 600">Acesso limitado</strong> ainda dependem de restrições de compartilhamento definidas pela OpenAI. A liberação será avisada por e-mail.
+      </p>
+    </div>
+
+    <!-- guias -->
+    <section style="margin-top: 52px; padding-top: 34px; border-top: 1px solid #d3ccbd">
+      <h2 class="serif" style="margin: 0 0 6px; font-size: 28px; font-weight: 400; letter-spacing: -0.01em; color: #1b1a17">Guias e materiais</h2>
+      <p style="margin: 0 0 24px; font-size: 14.5px; line-height: 1.6; color: #78715f">Passo a passo, tutoriais e materiais de apoio dos agentes.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px">
+
+        <a href="#" style="display: flex; flex-direction: column; gap: 12px; padding: 20px; background: #fffdf9; border: 1px solid #e3ded2; border-radius: 3px">
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2b7a63" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 12.5c0 4-3.8 7-8.5 7-1 0-2-.15-2.9-.42L4 20.5l1.5-3.6C4.2 15.7 3.5 14.2 3.5 12.5c0-4 3.8-7 8.5-7s8.5 3 8.5 7z"/></svg>
+            <span class="mono" style="font-size: 11px; color: #c4bcac">01</span>
+          </div>
+          <div>
+            <div class="serif" style="font-size: 18px; font-weight: 500; color: #1b1a17; line-height: 1.3">Meetily</div>
+            <p style="margin: 5px 0 0; font-size: 13px; line-height: 1.55; color: #8b8478">Como instalar e usar o assistente de reuniões no seu computador.</p>
+          </div>
+        </a>
+
+        <a href="#" style="display: flex; flex-direction: column; gap: 12px; padding: 20px; background: #fffdf9; border: 1px solid #e3ded2; border-radius: 3px">
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2f5d8a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="8" width="16" height="12" rx="2.5"/><path d="M12 4.6V8M8.6 13.4h.01M15.4 13.4h.01M9.5 16.8h5"/></svg>
+            <span class="kicker" style="color: {{accent}}">Ferramentas</span>
+          </div>
+          <div>
+            <div class="serif" style="font-size: 18px; font-weight: 500; color: #1b1a17; line-height: 1.3">Universo IA</div>
+            <p style="margin: 5px 0 0; font-size: 13px; line-height: 1.55; color: #8b8478">As ferramentas de IA em uso hoje na Probel e o que cada uma resolve.</p>
+          </div>
+        </a>
+
+        <a href="#" style="display: flex; flex-direction: column; gap: 12px; padding: 20px; background: #fffdf9; border: 1px solid #e3ded2; border-radius: 3px">
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9a6b12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h8L19 8v11.5a1 1 0 0 1-1 1H6.5a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1z"/><path d="M14 3.5V8h4.5M8.5 12.5h7M8.5 16h4.5"/></svg>
+            <span class="kicker" style="color: {{accent}}">Materiais</span>
+          </div>
+          <div>
+            <div class="serif" style="font-size: 18px; font-weight: 500; color: #1b1a17; line-height: 1.3">Artigos e Reportagens</div>
+            <p style="margin: 5px 0 0; font-size: 13px; line-height: 1.55; color: #8b8478">Portais de referência para acompanhar o mundo da Inteligência Artificial.</p>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ─── RODAPÉ ─── -->
+  <footer style="border-top: 1px solid #d3ccbd; background: #fffdf9">
+    <div class="wrap" style="padding-top: 30px; padding-bottom: 30px; display: flex; align-items: center; justify-content: space-between; gap: 32px">
+      <p style="margin: 0; font-size: 13.5px; color: #78715f">Dúvidas ou sugestões: <a href="#">daniel.avila@colchoes.ind.br</a></p>
+      <div style="display: flex; align-items: baseline; gap: 24px">
+        <span class="serif" style="font-size: 24px; font-weight: 500; color: #1b1a17; letter-spacing: -0.01em">Probel</span>
+        <span class="serif" style="font-size: 20px; font-weight: 400; color: #b3aa99; letter-spacing: -0.01em">Prodormir</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"accent":{"editor":"color","default":"#a04a22","options":["#a04a22","#1b1a17","#2f5d8a","#2b7a63"],"section":"Cor"}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#a04a22' };
+  }
+}
+</script>
+</body>
+</html>
